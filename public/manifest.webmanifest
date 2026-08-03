@@ -1,0 +1,17 @@
+{
+  "name": "个人信息晚报",
+  "short_name": "信息晚报",
+  "description": "由 Codex 分类和筛选的每日信息简报",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f5f2e9",
+  "theme_color": "#f5f2e9",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

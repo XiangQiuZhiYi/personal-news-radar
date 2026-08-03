@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>测试日报</title>
+    <item>
+      <title>新型低成本电池完成首条中试线验证</title>
+      <link>https://example.com/battery-pilot</link>
+      <pubDate>Sun, 03 Aug 2026 10:00:00 +0800</pubDate>
+      <description><![CDATA[研究团队公布中试数据，循环寿命提升，并计划在制造企业进行下一阶段验证。]]></description>
+    </item>
+    <item>
+      <title>某人工智能公司发布新的推理工具</title>
+      <link>https://example.com/ai-tool</link>
+      <pubDate>Sun, 03 Aug 2026 12:00:00 +0800</pubDate>
+      <description>新工具面向开发者，提供结构化输出与批量处理能力。</description>
+    </item>
+    <item>
+      <title>明星参加品牌活动引发热议</title>
+      <link>https://example.com/celebrity</link>
+      <pubDate>Sun, 03 Aug 2026 13:00:00 +0800</pubDate>
+      <description>活动照片在社交平台传播。</description>
+    </item>
+  </channel>
+</rss>

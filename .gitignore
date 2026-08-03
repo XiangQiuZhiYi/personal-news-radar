@@ -1,0 +1,5 @@
+/data/
+logs/
+.DS_Store
+public/data/archive/*.json
+!public/data/archive/.gitkeep

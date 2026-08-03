@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f5f2e9" />
+    <meta name="description" content="由 Codex 筛选的个人每日信息晚报" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>信息晚报</title>
+  </head>
+  <body>
+    <header class="hero">
+      <p class="eyebrow">PERSONAL NEWS RADAR</p>
+      <h1>信息晚报</h1>
+      <p id="brief" class="brief">正在读取今天的精选信息……</p>
+      <div id="stats" class="stats"></div>
+    </header>
+
+    <main>
+      <nav id="filters" class="filters" aria-label="主题筛选"></nav>
+      <section id="feed" class="feed" aria-live="polite"></section>
+      <section id="errors" class="errors" hidden></section>
+    </main>
+
+    <footer>
+      <span id="updated-at"></span>
+      <span>摘要由 Codex 辅助生成，请以原文为准。</span>
+    </footer>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

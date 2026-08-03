@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "brief": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "candidateId": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": ["人工智能", "科技", "商业", "经济", "政策", "科学", "国际", "社会", "其他"]
+          },
+          "score": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "importance": {
+            "type": "string",
+            "enum": ["必读", "值得读", "可选"]
+          },
+          "summary": { "type": "string" },
+          "whyItMatters": { "type": "string" },
+          "confidence": {
+            "type": "string",
+            "enum": ["高", "中", "低"]
+          },
+          "topics": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": [
+          "candidateId",
+          "category",
+          "score",
+          "importance",
+          "summary",
+          "whyItMatters",
+          "confidence",
+          "topics"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "discardedReasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["brief", "items", "discardedReasons"],
+  "additionalProperties": false
+}
