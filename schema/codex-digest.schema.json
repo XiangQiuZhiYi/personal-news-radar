@@ -26,6 +26,7 @@
           },
           "summary": { "type": "string" },
           "whyItMatters": { "type": "string" },
+          "impactForPeople": { "type": "string" },
           "confidence": {
             "type": "string",
             "enum": ["高", "中", "低"]
@@ -42,6 +43,7 @@
           "importance",
           "summary",
           "whyItMatters",
+          "impactForPeople",
           "confidence",
           "topics"
         ],

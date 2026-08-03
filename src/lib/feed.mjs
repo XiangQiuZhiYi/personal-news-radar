@@ -109,7 +109,7 @@ export function parseFeed(xml, source = {}) {
     .filter(Boolean);
 }
 
-function canonicalUrl(value) {
+export function canonicalUrl(value) {
   try {
     const url = new URL(value);
     for (const key of [...url.searchParams.keys()]) {
@@ -122,7 +122,7 @@ function canonicalUrl(value) {
   }
 }
 
-function normalizedTitle(value) {
+export function normalizedTitle(value) {
   return value
     .toLocaleLowerCase()
     .replace(/[\p{P}\p{S}\s]+/gu, "")

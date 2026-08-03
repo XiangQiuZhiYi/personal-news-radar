@@ -20,6 +20,7 @@ test("只接受真实 candidateId，并保留原始链接", () => {
         importance: "必读",
         summary: "不存在",
         whyItMatters: "不存在",
+        impactForPeople: "不存在",
         confidence: "低",
         topics: []
       },
@@ -30,6 +31,7 @@ test("只接受真实 candidateId，并保留原始链接", () => {
         importance: "值得读",
         summary: "有效摘要",
         whyItMatters: "有效原因",
+        impactForPeople: "普通人影响",
         confidence: "高",
         topics: ["测试"]
       }
@@ -38,6 +40,7 @@ test("只接受真实 candidateId，并保留原始链接", () => {
   assert.equal(result.items.length, 1);
   assert.equal(result.items[0].url, "https://example.com/real");
   assert.equal(result.items[0].summary, "有效摘要");
+  assert.equal(result.items[0].impactForPeople, "普通人影响");
 });
 
 test("限制单一来源和分类占据整份简报", () => {
@@ -53,6 +56,7 @@ test("限制单一来源和分类占据整份简报", () => {
     importance: "值得读",
     summary: "摘要",
     whyItMatters: "原因",
+    impactForPeople: "普通人影响",
     confidence: "高",
     topics: []
   });
@@ -89,6 +93,7 @@ test("国际信息数量受硬上限约束", () => {
     importance: "值得读",
     summary: "摘要",
     whyItMatters: "原因",
+    impactForPeople: "普通人影响",
     confidence: "高",
     topics: []
   });

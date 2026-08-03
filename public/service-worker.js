@@ -1,5 +1,5 @@
-const CACHE = "news-radar-v1";
-const SHELL = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./icon.svg"];
+const CACHE = "news-radar-v5";
+const SHELL = ["./", "./index.html", "./styles.css", "./app.js", "./speech.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));
@@ -13,19 +13,35 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
+function normalizedDataRequest(request) {
+  const url = new URL(request.url);
+  url.search = "";
+  return new Request(url.toString(), { method: "GET" });
+}
+
+async function networkFirst(request) {
+  const cache = await caches.open(CACHE);
+  const cacheKey = normalizedDataRequest(request);
+  try {
+    const response = await fetch(request);
+    if (response.ok) await cache.put(cacheKey, response.clone());
+    return response;
+  } catch (error) {
+    const cached = await cache.match(cacheKey);
+    if (cached) return cached;
+    throw error;
+  }
+}
+
 self.addEventListener("fetch", (event) => {
+  if (event.request.method !== "GET") return;
   const url = new URL(event.request.url);
-  if (url.pathname.endsWith("/data/latest.json")) {
-    event.respondWith(
-      fetch(event.request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE).then((cache) => cache.put(event.request, copy));
-          return response;
-        })
-        .catch(() => caches.match(event.request))
-    );
+  const isLatest = url.pathname.endsWith("/data/latest.json");
+  const isHistory = url.pathname === "/api/history" || url.pathname.startsWith("/api/history/");
+  if (isLatest || isHistory) {
+    event.respondWith(networkFirst(event.request));
     return;
   }
+  if (url.pathname.startsWith("/api/")) return;
   event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));
 });
