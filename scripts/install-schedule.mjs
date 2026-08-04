@@ -3,6 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolveCodexExecutable } from "../src/lib/codex.mjs";
 
 const label = "com.personal-news-radar.daily";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -29,11 +30,6 @@ function xml(value) {
   })[character]);
 }
 
-function findCodex() {
-  if (process.env.CODEX_BIN) return process.env.CODEX_BIN;
-  return execFileSync("which", ["codex"], { encoding: "utf8" }).trim();
-}
-
 const hour = optionNumber("--hour", 22, 0, 23);
 const minute = optionNumber("--minute", 0, 0, 59);
 const home = os.homedir();
@@ -41,7 +37,7 @@ const plistPath = path.join(home, "Library/LaunchAgents", `${label}.plist`);
 const logDirectory = path.join(root, "logs");
 const environment = {
   HOME: home,
-  CODEX_BIN: findCodex()
+  CODEX_BIN: await resolveCodexExecutable()
 };
 for (const key of ["HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "NO_PROXY"]) {
   if (process.env[key]) environment[key] = process.env[key];

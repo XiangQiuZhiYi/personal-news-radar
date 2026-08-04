@@ -116,6 +116,36 @@ function renderFilters() {
   `).join("");
 }
 
+function stringList(value) {
+  return Array.isArray(value) ? value.map((entry) => String(entry ?? "").trim()).filter(Boolean) : [];
+}
+
+function renderImpact(item) {
+  const overview = String(item.impactForPeople ?? "").trim();
+  const analysis = item.impactAnalysis && typeof item.impactAnalysis === "object"
+    ? item.impactAnalysis
+    : null;
+  if (!overview && !analysis) return "";
+
+  const groups = stringList(analysis?.affectedGroups);
+  const actions = stringList(analysis?.actions);
+  const detailRows = analysis ? [
+    ["影响程度", analysis.impactLevel],
+    ["影响路径", analysis.impactPath],
+    ["短期变化", analysis.shortTerm],
+    ["中长期变化", analysis.mediumLongTerm],
+    ["仍需确认", analysis.uncertainties]
+  ].filter(([, value]) => String(value ?? "").trim()) : [];
+
+  return `<section class="impact">
+    <strong class="impact-title">对普通人的影响</strong>
+    ${overview ? `<p class="impact-overview">${escapeHtml(overview)}</p>` : ""}
+    ${groups.length ? `<div class="impact-section"><span>更可能受影响的人</span><div class="impact-groups">${groups.map((group) => `<em>${escapeHtml(group)}</em>`).join("")}</div></div>` : ""}
+    ${detailRows.length ? `<dl class="impact-details">${detailRows.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}</dl>` : ""}
+    ${actions.length ? `<div class="impact-section impact-actions"><span>现在可以做什么</span><ul>${actions.map((action) => `<li>${escapeHtml(action)}</li>`).join("")}</ul></div>` : ""}
+  </section>`;
+}
+
 function renderFeed() {
   const items = visibleItems();
   if (items.length === 0) {
@@ -138,7 +168,7 @@ function renderFeed() {
       <h2><a href="${safeUrl(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a></h2>
       <p class="summary">${escapeHtml(item.summary)}</p>
       <div class="why"><strong>为什么值得看</strong>${escapeHtml(item.whyItMatters)}</div>
-      ${item.impactForPeople ? `<div class="impact"><strong>对普通人的影响</strong>${escapeHtml(item.impactForPeople)}</div>` : ""}
+      ${renderImpact(item)}
       <div class="topics">${(item.topics ?? []).map((topic) => `<span class="topic">#${escapeHtml(topic)}</span>`).join("")}</div>
     </article>
   `).join("");

@@ -25,6 +25,15 @@ function item(overrides = {}) {
     summary: "首次摘要",
     whyItMatters: "首次价值",
     impactForPeople: "首次普通人影响",
+    impactAnalysis: {
+      impactLevel: "间接",
+      affectedGroups: ["测试人群"],
+      impactPath: "首次影响路径",
+      shortTerm: "首次短期影响",
+      mediumLongTerm: "首次长期影响",
+      actions: ["首次行动"],
+      uncertainties: "首次不确定性"
+    },
     confidence: "高",
     topics: ["测试"],
     ...overrides
@@ -65,7 +74,11 @@ test("同日累计采用最新分析并保留首次发现时间", () => {
     title: "测试文章（更新）",
     score: 92,
     summary: "最新摘要",
-    impactForPeople: "最新普通人影响"
+    impactForPeople: "最新普通人影响",
+    impactAnalysis: {
+      ...item().impactAnalysis,
+      impactPath: "最新影响路径"
+    }
   })]), run("run-2", "2026-08-03T11:00:00.000Z"));
 
   assert.equal(second.items.length, 1);
@@ -73,6 +86,7 @@ test("同日累计采用最新分析并保留首次发现时间", () => {
   assert.equal(second.items[0].summary, "最新摘要");
   assert.equal(second.items[0].score, 92);
   assert.equal(second.items[0].impactForPeople, "最新普通人影响");
+  assert.equal(second.items[0].impactAnalysis.impactPath, "最新影响路径");
   assert.equal(second.items[0].firstSeenAt, "2026-08-03T10:00:00.000Z");
   assert.equal(second.items[0].lastSeenAt, "2026-08-03T11:00:00.000Z");
   assert.equal(second.items[0].seenCount, 2);

@@ -16,7 +16,19 @@ function itemSegments(item, index, total, mode) {
   };
   const title = cleanSpeechText(item.title);
   const summary = cleanSpeechText(item.summary);
-  const impact = cleanSpeechText(item.impactForPeople);
+  const analysis = item.impactAnalysis && typeof item.impactAnalysis === "object" ? item.impactAnalysis : {};
+  const affectedGroups = Array.isArray(analysis.affectedGroups) ? analysis.affectedGroups.filter(Boolean).join("、") : "";
+  const actions = Array.isArray(analysis.actions) ? analysis.actions.filter(Boolean).join("；") : "";
+  const impact = cleanSpeechText([
+    item.impactForPeople,
+    analysis.impactLevel && `影响程度。${analysis.impactLevel}`,
+    affectedGroups && `更可能受影响的人。${affectedGroups}`,
+    analysis.impactPath && `影响路径。${analysis.impactPath}`,
+    analysis.shortTerm && `短期变化。${analysis.shortTerm}`,
+    analysis.mediumLongTerm && `中长期变化。${analysis.mediumLongTerm}`,
+    actions && `现在可以做什么。${actions}`,
+    analysis.uncertainties && `仍需确认。${analysis.uncertainties}`
+  ].filter(Boolean).join("。"));
   return [
     title && { ...shared, kind: "title", text: mode === "continuous" ? `第${index + 1}条。${title}` : title },
     summary && { ...shared, kind: "summary", text: `摘要。${summary}` },

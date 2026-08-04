@@ -13,6 +13,15 @@ const article = {
   title: "有用标题",
   summary: "有用摘要",
   impactForPeople: "普通人可能减少通勤时间。",
+  impactAnalysis: {
+    impactLevel: "直接",
+    affectedGroups: ["每天通勤的上班族", "公共交通乘客"],
+    impactPath: "线路调整先改变班次，再影响等候和通勤时间。",
+    shortTerm: "部分线路会率先调整时刻表。",
+    mediumLongTerm: "居住和就业地点的可达性可能变化。",
+    actions: ["出发前检查最新时刻表", "保留一条备用路线"],
+    uncertainties: "具体效果取决于线路和实施时间。"
+  },
   whyItMatters: "这段为什么值得看不应被朗读",
   source: "不应朗读的来源",
   category: "不应朗读的分类",
@@ -27,6 +36,9 @@ test("连续朗读只包含概览、标题、摘要和普通人影响", () => {
   assert.match(spoken, /有用标题/);
   assert.match(spoken, /有用摘要/);
   assert.match(spoken, /普通人可能减少通勤时间/);
+  assert.match(spoken, /每天通勤的上班族/);
+  assert.match(spoken, /出发前检查最新时刻表/);
+  assert.match(spoken, /具体效果取决于线路和实施时间/);
   assert.doesNotMatch(spoken, /为什么值得看不应被朗读/);
   assert.doesNotMatch(spoken, /不应朗读的来源|不应朗读的分类|不应朗读的话题|99/);
 });
@@ -126,9 +138,19 @@ test("停止或开始新播放后旧发话事件不会继续队列", () => {
   assert.equal(controller.status, "stopped");
 });
 
-test("Codex Schema 要求普通人影响字段", async () => {
+test("Codex Schema 要求结构化的普通人影响分析", async () => {
   const schema = JSON.parse(await readFile(new URL("../schema/codex-digest.schema.json", import.meta.url), "utf8"));
   const itemSchema = schema.properties.items.items;
   assert.ok(itemSchema.required.includes("impactForPeople"));
+  assert.ok(itemSchema.required.includes("impactAnalysis"));
   assert.equal(itemSchema.properties.impactForPeople.type, "string");
+  assert.deepEqual(itemSchema.properties.impactAnalysis.required, [
+    "impactLevel",
+    "affectedGroups",
+    "impactPath",
+    "shortTerm",
+    "mediumLongTerm",
+    "actions",
+    "uncertainties"
+  ]);
 });

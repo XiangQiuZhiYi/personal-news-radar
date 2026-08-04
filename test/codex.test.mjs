@@ -28,6 +28,20 @@ test("Windows 可自动发现 Codex Desktop 附带的 CLI", async () => {
   }), executable);
 });
 
+test("macOS 可在 PATH 缺失时发现桌面应用附带的 CLI", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "news-radar-codex-mac-"));
+  const executable = path.join(root, "ChatGPT.app", "Contents", "Resources", "codex");
+  await mkdir(path.dirname(executable), { recursive: true });
+  await writeFile(executable, "test");
+
+  assert.equal(await resolveCodexExecutable({
+    env: { PATH: "", HOME: root },
+    platform: "darwin",
+    localBinRoot: null,
+    macBundleCandidates: [executable]
+  }), executable);
+});
+
 test("Codex CLI 不存在时返回可操作的错误", async () => {
   const previous = process.env.CODEX_BIN;
   process.env.CODEX_BIN = path.join(os.tmpdir(), "missing-codex-cli.exe");

@@ -32,6 +32,15 @@ test("只接受真实 candidateId，并保留原始链接", () => {
         summary: "有效摘要",
         whyItMatters: "有效原因",
         impactForPeople: "普通人影响",
+        impactAnalysis: {
+          impactLevel: "间接",
+          affectedGroups: ["测试人群"],
+          impactPath: "测试路径",
+          shortTerm: "短期测试",
+          mediumLongTerm: "长期测试",
+          actions: ["测试行动"],
+          uncertainties: "测试不确定性"
+        },
         confidence: "高",
         topics: ["测试"]
       }
@@ -41,6 +50,7 @@ test("只接受真实 candidateId，并保留原始链接", () => {
   assert.equal(result.items[0].url, "https://example.com/real");
   assert.equal(result.items[0].summary, "有效摘要");
   assert.equal(result.items[0].impactForPeople, "普通人影响");
+  assert.equal(result.items[0].impactAnalysis.impactPath, "测试路径");
 });
 
 test("限制单一来源和分类占据整份简报", () => {

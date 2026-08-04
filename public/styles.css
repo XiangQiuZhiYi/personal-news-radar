@@ -308,7 +308,7 @@ h1 {
 
 .impact {
   margin-top: 10px;
-  padding: 13px 15px;
+  padding: 15px;
   border-left: 3px solid var(--impact);
   background: color-mix(in srgb, var(--impact-soft) 72%, transparent);
 }
@@ -320,12 +320,72 @@ h1 {
   font: 700 12px/1.2 ui-sans-serif, system-ui, sans-serif;
 }
 
-.impact strong {
+.impact-title {
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   color: var(--impact);
   font: 700 12px/1.2 ui-sans-serif, system-ui, sans-serif;
 }
+
+.impact-overview {
+  margin: 0;
+  color: #263d49;
+  font-weight: 650;
+}
+
+.impact-section,
+.impact-details {
+  margin-top: 13px;
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, var(--impact) 18%, transparent);
+}
+
+.impact-section > span,
+.impact-details dt {
+  color: var(--impact);
+  font: 700 12px/1.35 ui-sans-serif, system-ui, sans-serif;
+}
+
+.impact-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.impact-groups em {
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--impact) 18%, transparent);
+  border-radius: 999px;
+  color: #385564;
+  background: rgba(255, 255, 255, 0.55);
+  font: 500 12px/1.35 ui-sans-serif, system-ui, sans-serif;
+  font-style: normal;
+}
+
+.impact-details {
+  display: grid;
+  gap: 10px;
+}
+
+.impact-details div {
+  display: grid;
+  grid-template-columns: minmax(72px, 0.2fr) 1fr;
+  gap: 12px;
+}
+
+.impact-details dd {
+  margin: 0;
+  color: #354b56;
+}
+
+.impact-actions ul {
+  margin: 7px 0 0;
+  padding-left: 20px;
+  color: #354b56;
+}
+
+.impact-actions li + li { margin-top: 4px; }
 
 .topics {
   display: flex;
@@ -380,5 +440,6 @@ footer {
   .speech-actions { align-items: stretch; }
   .speech-rate { width: 100%; margin-top: 2px; }
   .speak-item { margin-left: 0; }
+  .impact-details div { grid-template-columns: 1fr; gap: 3px; }
   footer { flex-direction: column; }
 }

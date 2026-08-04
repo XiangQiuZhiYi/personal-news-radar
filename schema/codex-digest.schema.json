@@ -26,7 +26,41 @@
           },
           "summary": { "type": "string" },
           "whyItMatters": { "type": "string" },
-          "impactForPeople": { "type": "string" },
+          "impactForPeople": {
+            "type": "string",
+            "description": "面向普通个人或家庭的影响总览，概括最重要的实际变化"
+          },
+          "impactAnalysis": {
+            "type": "object",
+            "properties": {
+              "impactLevel": {
+                "type": "string",
+                "enum": ["直接", "间接", "当前有限"]
+              },
+              "affectedGroups": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "impactPath": { "type": "string" },
+              "shortTerm": { "type": "string" },
+              "mediumLongTerm": { "type": "string" },
+              "actions": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "uncertainties": { "type": "string" }
+            },
+            "required": [
+              "impactLevel",
+              "affectedGroups",
+              "impactPath",
+              "shortTerm",
+              "mediumLongTerm",
+              "actions",
+              "uncertainties"
+            ],
+            "additionalProperties": false
+          },
           "confidence": {
             "type": "string",
             "enum": ["高", "中", "低"]
@@ -44,6 +78,7 @@
           "summary",
           "whyItMatters",
           "impactForPeople",
+          "impactAnalysis",
           "confidence",
           "topics"
         ],

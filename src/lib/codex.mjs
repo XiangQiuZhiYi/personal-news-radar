@@ -45,7 +45,15 @@ async function newestBundledCodex(localBinRoot) {
 export async function resolveCodexExecutable({
   env = process.env,
   platform = process.platform,
-  localBinRoot = env.LOCALAPPDATA ? path.join(env.LOCALAPPDATA, "OpenAI", "Codex", "bin") : null
+  localBinRoot = env.LOCALAPPDATA ? path.join(env.LOCALAPPDATA, "OpenAI", "Codex", "bin") : null,
+  macBundleCandidates = [
+    "/Applications/Codex.app/Contents/Resources/codex",
+    "/Applications/ChatGPT.app/Contents/Resources/codex",
+    ...(env.HOME ? [
+      path.join(env.HOME, "Applications/Codex.app/Contents/Resources/codex"),
+      path.join(env.HOME, "Applications/ChatGPT.app/Contents/Resources/codex")
+    ] : [])
+  ]
 } = {}) {
   if (env.CODEX_BIN?.trim()) return env.CODEX_BIN.trim();
 
@@ -63,7 +71,29 @@ export async function resolveCodexExecutable({
     const bundled = await newestBundledCodex(localBinRoot);
     if (bundled) return bundled;
   }
+
+  if (platform === "darwin") {
+    for (const candidate of macBundleCandidates) {
+      if (await isAccessible(candidate)) return candidate;
+    }
+  }
   return platform === "win32" ? "codex.exe" : "codex";
+}
+
+function missingCodexDetail(executable) {
+  if (process.env.CODEX_BIN) {
+    const migrationHint = process.platform !== "win32" && /(?:^[A-Za-z]:\\|\.exe$)/i.test(process.env.CODEX_BIN)
+      ? "这看起来是 Windows 路径；请在当前终端取消 CODEX_BIN 后重启服务。"
+      : "请确认该路径在当前电脑上存在，然后重启服务。";
+    return `CODEX_BIN 当前设置为：${process.env.CODEX_BIN}。${migrationHint}`;
+  }
+  if (process.platform === "darwin") {
+    return `已尝试 ${executable}、Codex.app 和 ChatGPT.app 的内置 CLI。请确认任一桌面应用已安装并登录，然后重启服务。`;
+  }
+  if (process.platform === "win32") {
+    return "请确认 Codex Desktop 或 Codex CLI 已安装；也可以通过 CODEX_BIN 指定当前电脑上 codex.exe 的完整路径。";
+  }
+  return "请确认 Codex CLI 已安装并位于 PATH 中；也可以通过 CODEX_BIN 指定当前电脑上的完整路径。";
 }
 
 export function buildPrompt(preferences) {
@@ -79,11 +109,20 @@ export function buildPrompt(preferences) {
 5. 评分综合考虑影响范围、新颖性、可信度、行动价值和长期意义。
 6. 摘要使用 ${preferences.language}，说明具体新增事实，不复述空洞标题。
 7. whyItMatters 必须解释这条信息可能改变什么判断或行动；无法说明价值的内容应丢弃。
-8. impactForPeople 必须从普通个人或家庭视角说明影响，明确可能受影响的人群，优先考虑收入、就业、消费、住房、教育、医疗、安全、隐私、出行或时间成本，并区分直接与间接影响；若短期直接影响有限，应明确说明，不得强行制造焦虑，也不要重复 summary 或 whyItMatters。
-9. 至少约 ${Math.round(preferences.explorationRatio * 100)}% 的名额可用于高价值的陌生或相邻领域，避免只迎合既有兴趣；没有合格内容时不强行补足。
-10. 不得编造候选信息中不存在的事实、来源或链接。
-11. items 中只能引用输入里真实存在的 candidateId。
-12. brief 只概括今天的重点主题和整体可信度，不要写候选数或入选数；数量由程序单独展示。
+8. “对普通人的影响”必须提供两层内容：impactForPeople 用 60-120 个汉字给出清晰总览；impactAnalysis 给出结构化的详细分析，不得只把总览换一种说法重复。
+9. impactAnalysis 必须逐项完成：
+   - impactLevel：依据候选信息判断是“直接”“间接”还是“当前有限”；
+   - affectedGroups：列出 1-4 类最可能受影响的具体人群，不要笼统写“所有人”；
+   - impactPath：说明“事件变化 → 通过什么价格、就业、服务、规则或风险渠道 → 如何落到个人”的因果路径；
+   - shortTerm：分析未来数周至数月内可感知的变化；
+   - mediumLongTerm：分析未来半年及更长时间可能形成的二阶影响；
+   - actions：给出 1-3 条普通人现在可以执行的低风险行动；没有必要行动时，应明确写继续观察什么信号，而非勉强给建议；
+   - uncertainties：区分已知事实与合理推断，指出结论成立依赖的条件、尚缺信息或可能不受影响的情况。
+10. 影响分析优先考虑收入、就业、消费、住房、教育、医疗、安全、隐私、出行和时间成本。不得把行业利好直接等同于个人受益，不得编造候选内容没有支撑的数字、政策细节或确定性结论，不制造焦虑，也不提供武断的医疗、法律或投资指令。
+11. 至少约 ${Math.round(preferences.explorationRatio * 100)}% 的名额可用于高价值的陌生或相邻领域，避免只迎合既有兴趣；没有合格内容时不强行补足。
+12. 不得编造候选信息中不存在的事实、来源或链接。
+13. items 中只能引用输入里真实存在的 candidateId。
+14. brief 只概括今天的重点主题和整体可信度，不要写候选数或入选数；数量由程序单独展示。
 
 用户偏好与规则：
 ${JSON.stringify(preferences, null, 2)}
@@ -129,10 +168,7 @@ export async function runCodexFilter({ candidates, preferences, schemaPath, time
     child.on("error", (error) => {
       clearTimeout(timer);
       if (error.code === "ENOENT") {
-        const detail = process.env.CODEX_BIN
-          ? `CODEX_BIN 当前设置为：${process.env.CODEX_BIN}`
-          : "请确认 Codex Desktop 或 Codex CLI 已安装；也可以通过 CODEX_BIN 指定 codex.exe 的完整路径。";
-        const friendlyError = new Error(`找不到 Codex CLI，无法整理消息。${detail}`);
+        const friendlyError = new Error(`找不到 Codex CLI，无法整理消息。${missingCodexDetail(executable)}`);
         friendlyError.code = "CODEX_NOT_FOUND";
         friendlyError.cause = error;
         reject(friendlyError);

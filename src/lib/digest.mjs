@@ -35,6 +35,7 @@ export function mergeCodexResult(candidates, codexResult, metadata = {}) {
       summary: selected.summary,
       whyItMatters: selected.whyItMatters,
       impactForPeople: selected.impactForPeople,
+      impactAnalysis: selected.impactAnalysis,
       confidence: selected.confidence,
       topics: selected.topics
     });
