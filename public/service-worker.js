@@ -1,4 +1,4 @@
-const CACHE = "news-radar-v6";
+const CACHE = "news-radar-v7";
 const SHELL = ["./", "./index.html", "./styles.css", "./app.js", "./speech.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (event) => {

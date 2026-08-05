@@ -20,6 +20,8 @@ function itemSegments(item, index, total, mode) {
   const affectedGroups = Array.isArray(analysis.affectedGroups) ? analysis.affectedGroups.filter(Boolean).join("、") : "";
   const actions = Array.isArray(analysis.actions) ? analysis.actions.filter(Boolean).join("；") : "";
   const impact = cleanSpeechText([
+    analysis.direction && `变化方向。${analysis.direction}`,
+    analysis.changeStatement && `变化结论。${analysis.changeStatement}`,
     item.impactForPeople,
     analysis.impactLevel && `影响程度。${analysis.impactLevel}`,
     affectedGroups && `更可能受影响的人。${affectedGroups}`,

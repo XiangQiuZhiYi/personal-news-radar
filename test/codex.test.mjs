@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtemp, mkdir, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { resolveCodexExecutable, runCodexFilter } from "../src/lib/codex.mjs";
+import { buildPrompt, resolveCodexExecutable, runCodexFilter } from "../src/lib/codex.mjs";
 
 test("CODEX_BIN 显式配置具有最高优先级", async () => {
   const configured = path.join("custom", "codex.exe");
@@ -40,6 +40,23 @@ test("macOS 可在 PATH 缺失时发现桌面应用附带的 CLI", async () => {
     localBinRoot: null,
     macBundleCandidates: [executable]
   }), executable);
+});
+
+test("影响分析要求明确方向而不是模糊措辞", () => {
+  const prompt = buildPrompt({
+    maxSelectedItems: 10,
+    maxSelectedPerSource: 3,
+    maxSelectedPerCategory: 4,
+    maxInternationalItems: 2,
+    explorationRatio: 0.1,
+    language: "简体中文"
+  });
+  assert.match(prompt, /有利.*不利.*分化.*当前不变/s);
+  assert.match(prompt, /具体人群 \+ 具体指标 \+ 方向/);
+  assert.match(prompt, /当前不变；当\/若/);
+  assert.match(prompt, /不得以“可能、或将、有望、预计、存在变化/);
+  assert.match(prompt, /除 uncertainties 专门说明证据边界外/);
+  assert.match(prompt, /条件 → 对象 → 上升\/下降等明确方向/);
 });
 
 test("Codex CLI 不存在时返回可操作的错误", async () => {

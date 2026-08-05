@@ -34,6 +34,8 @@ test("只接受真实 candidateId，并保留原始链接", () => {
         impactForPeople: "普通人影响",
         impactAnalysis: {
           impactLevel: "间接",
+          direction: "有利",
+          changeStatement: "测试人群的办理时间下降。",
           affectedGroups: ["测试人群"],
           impactPath: "测试路径",
           shortTerm: "短期测试",
@@ -51,6 +53,7 @@ test("只接受真实 candidateId，并保留原始链接", () => {
   assert.equal(result.items[0].summary, "有效摘要");
   assert.equal(result.items[0].impactForPeople, "普通人影响");
   assert.equal(result.items[0].impactAnalysis.impactPath, "测试路径");
+  assert.equal(result.items[0].impactAnalysis.direction, "有利");
 });
 
 test("限制单一来源和分类占据整份简报", () => {

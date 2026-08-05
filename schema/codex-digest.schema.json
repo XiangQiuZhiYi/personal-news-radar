@@ -37,6 +37,14 @@
                 "type": "string",
                 "enum": ["直接", "间接", "当前有限"]
               },
+              "direction": {
+                "type": "string",
+                "enum": ["有利", "不利", "分化", "当前不变"]
+              },
+              "changeStatement": {
+                "type": "string",
+                "description": "直接说明谁的什么指标上升、下降、增加、减少、收紧、放宽、变快或变慢"
+              },
               "affectedGroups": {
                 "type": "array",
                 "items": { "type": "string" }
@@ -52,6 +60,8 @@
             },
             "required": [
               "impactLevel",
+              "direction",
+              "changeStatement",
               "affectedGroups",
               "impactPath",
               "shortTerm",

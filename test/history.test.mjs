@@ -27,6 +27,8 @@ function item(overrides = {}) {
     impactForPeople: "首次普通人影响",
     impactAnalysis: {
       impactLevel: "间接",
+      direction: "当前不变",
+      changeStatement: "测试人群当前支出不变；规则生效后办理时间下降。",
       affectedGroups: ["测试人群"],
       impactPath: "首次影响路径",
       shortTerm: "首次短期影响",

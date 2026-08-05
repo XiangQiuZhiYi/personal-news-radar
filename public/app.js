@@ -129,6 +129,15 @@ function renderImpact(item) {
 
   const groups = stringList(analysis?.affectedGroups);
   const actions = stringList(analysis?.actions);
+  const directionClasses = {
+    "有利": "positive",
+    "不利": "negative",
+    "分化": "split",
+    "当前不变": "neutral"
+  };
+  const direction = String(analysis?.direction ?? "").trim();
+  const directionClass = directionClasses[direction] ?? "neutral";
+  const changeStatement = String(analysis?.changeStatement ?? "").trim();
   const detailRows = analysis ? [
     ["影响程度", analysis.impactLevel],
     ["影响路径", analysis.impactPath],
@@ -138,7 +147,11 @@ function renderImpact(item) {
   ].filter(([, value]) => String(value ?? "").trim()) : [];
 
   return `<section class="impact">
-    <strong class="impact-title">对普通人的影响</strong>
+    <div class="impact-heading">
+      <strong class="impact-title">对普通人的影响</strong>
+      ${direction ? `<span class="impact-direction ${directionClass}">${escapeHtml(direction)}</span>` : ""}
+    </div>
+    ${changeStatement ? `<div class="impact-change"><span>变化结论</span><p>${escapeHtml(changeStatement)}</p></div>` : ""}
     ${overview ? `<p class="impact-overview">${escapeHtml(overview)}</p>` : ""}
     ${groups.length ? `<div class="impact-section"><span>更可能受影响的人</span><div class="impact-groups">${groups.map((group) => `<em>${escapeHtml(group)}</em>`).join("")}</div></div>` : ""}
     ${detailRows.length ? `<dl class="impact-details">${detailRows.map(([label, value]) => `<div><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}</dl>` : ""}

@@ -15,6 +15,8 @@ const article = {
   impactForPeople: "普通人可能减少通勤时间。",
   impactAnalysis: {
     impactLevel: "直接",
+    direction: "有利",
+    changeStatement: "通勤者的平均等候时间下降，备用路线选择增加。",
     affectedGroups: ["每天通勤的上班族", "公共交通乘客"],
     impactPath: "线路调整先改变班次，再影响等候和通勤时间。",
     shortTerm: "部分线路会率先调整时刻表。",
@@ -36,6 +38,8 @@ test("连续朗读只包含概览、标题、摘要和普通人影响", () => {
   assert.match(spoken, /有用标题/);
   assert.match(spoken, /有用摘要/);
   assert.match(spoken, /普通人可能减少通勤时间/);
+  assert.match(spoken, /变化方向。有利/);
+  assert.match(spoken, /通勤者的平均等候时间下降/);
   assert.match(spoken, /每天通勤的上班族/);
   assert.match(spoken, /出发前检查最新时刻表/);
   assert.match(spoken, /具体效果取决于线路和实施时间/);
@@ -146,6 +150,8 @@ test("Codex Schema 要求结构化的普通人影响分析", async () => {
   assert.equal(itemSchema.properties.impactForPeople.type, "string");
   assert.deepEqual(itemSchema.properties.impactAnalysis.required, [
     "impactLevel",
+    "direction",
+    "changeStatement",
     "affectedGroups",
     "impactPath",
     "shortTerm",
