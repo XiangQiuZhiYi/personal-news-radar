@@ -1,790 +1,951 @@
 {
-  "version": 2,
-  "date": "2026-08-06",
-  "createdAt": "2026-08-06T01:58:26.833Z",
-  "updatedAt": "2026-08-06T02:07:28.180Z",
-  "generatedAt": "2026-08-06T02:07:28.180Z",
-  "brief": "今日主线集中在极端天气安全、数据产权与职业标准政策、AI服务成本和科技制造投资。官方部门数据与明确公告可信度较高；产业链消息、二手科技报道和预印本仍需等待正式方案或独立验证。",
+  "version": 1,
+  "generatedAt": "2026-08-20T08:29:40.807Z",
+  "date": "2026-08-20",
+  "brief": "今天的重点集中在住房支持、平台劳动者权益、城市安全、民生交通、数据与智能产业。政策和公共服务信息多来自政府或主流媒体，事实可信度较高；企业合作、产品能力及前沿论文仍需等待实施效果、监管许可或更多实证。",
   "stats": {
-    "refreshCount": 1,
-    "totalItems": 16,
-    "domesticItems": 13,
-    "internationalItems": 3,
-    "lastRun": {
-      "sources": 12,
-      "candidates": 120,
-      "selected": 16,
-      "failedSources": 0
-    }
+    "sources": 17,
+    "candidates": 160,
+    "selected": 20,
+    "domesticSelected": 16,
+    "internationalSelected": 4,
+    "citySelected": 7,
+    "cities": {
+      "杭州": 2,
+      "伊春": 3,
+      "衢州": 2
+    },
+    "failedSources": 0
   },
-  "runs": [
-    {
-      "id": "2026-08-06T01-58-26-833Z",
-      "startedAt": "2026-08-06T01:58:26.833Z",
-      "completedAt": "2026-08-06T02:07:28.180Z",
-      "candidates": 120,
-      "selected": 16,
-      "failedSources": 0
-    }
-  ],
   "sourceErrors": [],
   "discardedReasons": [
-    "剔除大量2020至2022年的新华网旧稿：与今日阅读需求不符，部分无发布时间且明显为失效RSS内容。",
-    "剔除微视频、宣传性调研稿、景观报道和空泛评论：缺少可验证的新增事实或无法说明行动价值。",
-    "剔除手机配色、耳机变体、游戏成就和娱乐产品回归等营销或消费电子琐事。",
-    "对乌克兰防空、克什米尔局势等重复报道进行语义去重；因与中国普通人的直接关联有限，未占用国际名额。",
-    "剔除Nature更正、关注声明及摘要信息不足的专业论文，避免把学术标题扩写成未经候选材料支持的结论。",
-    "剔除多数arXiv预印本：应用范围窄、尚无独立验证，或对普通读者缺少足够行动价值。",
-    "剔除人民币中间价微调、10亿元逆回购等单日常规数据：变化幅度或信息量不足以单独改变个人判断。",
-    "剔除AI客服回应、地方约谈和官员调查等描述过少的条目：候选材料不足以完成严谨的因果和个人影响分析。"
+    "剔除2020至2022年的陈旧内容及缺少有效发布时间的历史RSS条目。",
+    "剔除人事任免、例行会议、领导表态、庆典、赛事和一般宣传活动。",
+    "剔除消费电子促销、产品上新、游戏与娱乐内容。",
+    "剔除只有观点或标题、缺少新增事实和行动价值的候选。",
+    "同一事件只保留信息更完整的一条，如享界G9相关报道仅保留含道路测试牌照的版本。",
+    "部分国际事件与中国个人决策关联有限，未占用有限的国际名额。"
   ],
   "items": [
     {
-      "id": "2d40b1c73c73dc8c",
-      "source": "中新网社会",
-      "sourceUrl": "https://www.chinanews.com.cn/rss/society.xml",
-      "categoryHint": "国内社会与民生",
+      "id": "c4c274f57fc3e432",
+      "source": "中新网财经",
+      "sourceUrl": "https://www.chinanews.com.cn/rss/finance.xml",
+      "categoryHint": "国内财经与民生经济",
       "region": "domestic",
-      "title": "黑龙江陕西云南广西等地仍多降雨 台风“白海豚”趋向华东沿海",
-      "url": "https://www.chinanews.com.cn/sh/2026/08-06/10672708.shtml",
-      "description": "中新网8月6日电 据中央气象台网站消息，昨日，海南岛、广西中部、云南南部、贵州北部、重庆东南部、湖南中北部、湖北西部、陕西中南部、河南西南部、黑龙江南部等地出现分散性暴雨或大暴雨。预计今天，上述大部地区降雨强度明显减弱，仅在黑龙江中东部、吉林北部、陕西中南部、湖南西部、贵州中部、云南南部、广西西部和南部沿海、海南岛等地有分散性大雨，局地暴雨，海南岛西部局地大暴雨(100~180毫米)。黑龙江、吉林、湖北等地有雷暴大风或冰雹等强对流天气。",
-      "publishedAt": "2026-08-06T01:03:07.000Z",
+      "city": "",
+      "cityKind": "",
+      "title": "上海出台楼市“沪八条” 单套住房最高可补贴8万元",
+      "url": "https://www.chinanews.com.cn/cj/2026/08-20/10681094.shtml",
+      "description": "中新社上海8月20日电 (记者 缪璐)上海市20日印发《关于优化本市房地产政策措施的通知》(以下简称“通知”)，自2026年8月21日起施行。通知主要包括优化住房公积金提取、优化个人住房信贷、实施“以旧换新”购房补贴、推行房票安置以及推进收购二手住房5个方面8项政策措施，被称为“沪八条”。",
+      "publishedAt": "2026-08-20T08:07:24.000Z",
+      "category": "政策",
+      "score": 97,
+      "importance": "必读",
+      "summary": "上海发布八项房地产优化措施，8月21日起实施，涉及公积金提取、个人住房信贷、以旧换新购房补贴、房票安置和收购二手住房；单套住房最高补贴8万元。",
+      "whyItMatters": "政策同时触及购房资金、信贷和存量房流通，符合条件的上海家庭应据此重新计算换房成本和交易时点。",
+      "impactForPeople": "上海符合条件的购房、换房家庭住房交易成本下降。8月21日起多项工具同步调整，实际节省金额取决于补贴资格、公积金余额、信贷条件和所选房源。",
+      "impactAnalysis": {
+        "impactLevel": "直接",
+        "direction": "分化",
+        "changeStatement": "符合条件的上海购房、换房家庭交易成本下降，不符合资格的家庭购房成本当前不变。",
+        "affectedGroups": [
+          "上海首次购房家庭",
+          "上海改善型换房家庭",
+          "二手房业主",
+          "被安置居民"
+        ],
+        "impactPath": "政策调整 → 补贴、公积金、信贷和房票渠道改变购房资金安排 → 符合条件家庭首付或综合交易支出减少。",
+        "shortTerm": "政策生效后，符合条件家庭的咨询、资格核验和换房交易增加，部分二手房源流通速度加快。",
+        "mediumLongTerm": "若补贴申请和二手房收购持续落地，上海存量住房周转速度加快；不符合资格地区和人群的成本不变。",
+        "actions": [
+          "在签约前核验补贴、公积金和信贷资格",
+          "比较享受政策后的总成本，不只比较挂牌价",
+          "保留资格证明、旧房交易和付款材料"
+        ],
+        "uncertainties": "已知八项措施自8月21日起实施且单套最高补贴8万元；候选信息未提供各项资格、额度计算和适用区域，个人受益须以正式细则为准。"
+      },
+      "confidence": "高",
+      "topics": [
+        "上海楼市",
+        "购房补贴",
+        "住房公积金",
+        "二手房"
+      ]
+    },
+    {
+      "id": "f7e1cc55cb38c69b",
+      "source": "中新网时政",
+      "sourceUrl": "https://www.chinanews.com.cn/rss/china.xml",
+      "categoryHint": "国内政策与时政",
+      "region": "domestic",
+      "city": "",
+      "cityKind": "",
+      "title": "全总持续推进平台算法协商 今年内预计覆盖新就业形态劳动者2500万人",
+      "url": "https://www.chinanews.com.cn/gn/2026/08-20/10681023.shtml",
+      "description": "中新网北京8月20日电 (记者 余湛奕)中华全国总工会新闻中心20日在北京召开2026年第三季度新闻发布会。全国总工会权益保障部副部长王海龙会上介绍，今年年内拟推动18家重点平台(企业)召开全平台协商会议并签订协商协议或合同，预计覆盖新就业形态劳动者2500万人。",
+      "publishedAt": "2026-08-20T07:21:23.000Z",
+      "category": "政策",
+      "score": 95,
+      "importance": "必读",
+      "summary": "全国总工会计划年内推动18家重点平台召开全平台协商会议并签订协议或合同，覆盖约2500万名新就业形态劳动者。",
+      "whyItMatters": "平台算法协商把计价、派单等劳动规则纳入集体议价视野，外卖骑手、网约车司机等应关注所在平台的协议内容和申诉渠道。",
+      "impactForPeople": "纳入协议的平台劳动者规则知情权和协商能力增强，未纳入平台的劳动者当前不变。实际改善取决于协议是否明确计价、派单、考核和申诉规则并得到执行。",
+      "impactAnalysis": {
+        "impactLevel": "直接",
+        "direction": "分化",
+        "changeStatement": "纳入协商协议的平台劳动者规则透明度增加，未纳入平台劳动者的议价能力当前不变。",
+        "affectedGroups": [
+          "外卖骑手",
+          "网约车司机",
+          "快递员",
+          "平台灵活就业人员"
+        ],
+        "impactPath": "工会推动平台协商 → 算法与劳动规则进入协议或合同 → 劳动者获得更明确的计价、考核和申诉依据。",
+        "shortTerm": "重点平台的协商会议和协议签订增加，劳动者可查询的正式规则与反馈入口增加。",
+        "mediumLongTerm": "当协议形成持续执行和监督机制后，平台劳动者的规则稳定性提高，单方面调整算法的空间收紧。",
+        "actions": [
+          "查询所在平台是否进入重点协商名单",
+          "保存计价、派单、处罚和申诉记录",
+          "通过工会或平台正式渠道反馈高频规则问题"
+        ],
+        "uncertainties": "已知目标涉及18家平台、约2500万人；候选信息未列明平台名单、协议条款、完成时间和执行监督方式，收入改善不能据此直接确认。"
+      },
+      "confidence": "高",
+      "topics": [
+        "平台经济",
+        "算法协商",
+        "新就业形态",
+        "劳动权益"
+      ]
+    },
+    {
+      "id": "ef164e063f2ca059",
+      "source": "杭州网城市新闻",
+      "sourceUrl": "https://hznews.hangzhou.com.cn/chengshi/index.htm",
+      "categoryHint": "杭州本地新闻与民生变化",
+      "region": "domestic",
+      "city": "杭州",
+      "cityKind": "新闻",
+      "title": "好响的雷 好突然的雨！杭州11个预警生效中",
+      "url": "https://hznews.hangzhou.com.cn/chengshi/content/2026-08/20/content_9285262.htm",
+      "description": "",
+      "publishedAt": "2026-08-20T04:00:00.000Z",
       "category": "社会",
+      "score": 93,
+      "importance": "必读",
+      "summary": "杭州突发雷雨，候选发布时已有11个气象预警生效，提示当地正面临雷电、短时强降雨等复合天气风险。",
+      "whyItMatters": "这是当天直接关系通勤、户外活动和积水避险的信息，杭州居民应立即按实时预警调整行程。",
+      "impactForPeople": "杭州通勤者和户外人员的出行安全变差、行程时间增加。雷电和短时强降雨会降低道路能见度并抬高积水、树木倒伏及临时停运风险。",
+      "impactAnalysis": {
+        "impactLevel": "直接",
+        "direction": "不利",
+        "changeStatement": "杭州通勤者的出行时间增加，户外人员的雷电和短时暴雨风险上升。",
+        "affectedGroups": [
+          "杭州通勤者",
+          "骑行和步行人员",
+          "户外作业人员",
+          "接送学生家庭"
+        ],
+        "impactPath": "多项天气预警生效 → 雷电、强降雨和大风干扰道路及户外环境 → 出行时间增加且人身安全风险上升。",
+        "shortTerm": "当天道路拥堵、积水和公共交通延误风险上升，户外活动安全性下降。",
+        "mediumLongTerm": "本轮天气结束后出行指标恢复；若后续继续发布同级预警，通勤和户外安排再次收紧。",
+        "actions": [
+          "出门前查看杭州实时预警和公交地铁状态",
+          "避开积水路段、高架空旷处和临时搭建物",
+          "为接送、赶车和航班预留更多时间"
+        ],
+        "uncertainties": "已知有11个预警生效；候选未列出各预警类型、覆盖区县和持续时间，应以当地气象部门实时信息为准。"
+      },
+      "confidence": "高",
+      "topics": [
+        "杭州",
+        "雷雨预警",
+        "出行安全",
+        "极端天气"
+      ]
+    },
+    {
+      "id": "acbaba230cdd9a03",
+      "source": "NPR World",
+      "sourceUrl": "https://feeds.npr.org/1004/rss.xml",
+      "categoryHint": "国际重大事件",
+      "region": "international",
+      "city": "",
+      "cityKind": "",
+      "title": "Chinese court sentences founder of property developer Evergrande to life in prison",
+      "url": "https://www.npr.org/2026/08/20/nx-s1-5939335/chinese-sentence-founder-evergrande",
+      "description": "Chinese property developer Hui Ka Yan has been sentenced to life in prison. The decision marks a milestone in Evergrande's saga after it collapsed with more than $300 billion in liabilities. (Image credit: Mahesh Kumar A.)",
+      "publishedAt": "2026-08-20T07:31:55.000Z",
+      "category": "经济",
       "score": 91,
       "importance": "必读",
-      "summary": "中央气象台称，多地强降雨整体减弱，但黑龙江、吉林、陕西、湖南、贵州、云南、广西及海南仍有分散性大雨，海南岛西部局地雨量达100至180毫米，部分地区伴有雷暴大风或冰雹；台风“白海豚”趋向华东沿海。",
-      "whyItMatters": "这直接决定相关地区居民当天是否调整通勤、旅游和户外作业安排，也为华东沿海后续防台准备提供时间窗口。",
-      "impactForPeople": "相关地区居民的出行安全变差，临时避险和行程调整需求增加。强降雨、强对流及台风趋近会抬高道路中断、航班延误和户外事故风险。",
+      "summary": "恒大创办人许家印被判无期徒刑；报道将其视为恒大在超过3000亿美元负债下倒塌之后的重要司法节点。",
+      "whyItMatters": "判决强化了房地产高杠杆经营违法责任的信号，但它不等同于项目交付、债务重组或个人回款已经改善。",
+      "impactForPeople": "恒大购房者、员工和债权人的交付及回款当前不变。刑事判决确认重要司法进展，但个人损失处置仍取决于项目复工、资产处置和债务程序。",
+      "impactAnalysis": {
+        "impactLevel": "当前有限",
+        "direction": "当前不变",
+        "changeStatement": "恒大购房者和债权人的住房交付率与回款金额当前不变。",
+        "affectedGroups": [
+          "恒大项目购房者",
+          "恒大员工",
+          "供应商",
+          "金融债权人"
+        ],
+        "impactPath": "创办人获刑 → 违法责任进入重大司法节点 → 个人交付和回款仍须通过项目处置及债务程序落实。",
+        "shortTerm": "判决提高案件确定性，但不直接增加项目交付数量或债权人回款金额。",
+        "mediumLongTerm": "当资产处置、项目复工或偿债方案公布并执行后，相关购房者和债权人的交付率或回款金额才会改变。",
+        "actions": [
+          "只依据项目公司、法院或管理人的正式通知办理事项",
+          "整理合同、付款凭证和债权申报材料",
+          "不要把刑事判决等同于即时回款或交房"
+        ],
+        "uncertainties": "候选只说明判刑和恒大负债规模，未提供判决细节、资产追缴、债务重组或保交房安排，个人权益处理进度无法据此确认。"
+      },
+      "confidence": "高",
+      "topics": [
+        "恒大",
+        "房地产风险",
+        "司法进展",
+        "债务处置"
+      ]
+    },
+    {
+      "id": "e556e3a5177b339e",
+      "source": "伊春市人民政府要闻",
+      "sourceUrl": "https://www.yc.gov.cn/ycsrmzf/c101986/list.shtml",
+      "categoryHint": "伊春本地政务与民生新闻",
+      "region": "domestic",
+      "city": "伊春",
+      "cityKind": "新闻",
+      "title": "苑芳江出席市安委会2026年第三次全体（扩大）会议暨全市秋季森林防灭火视频会议并讲话",
+      "url": "https://www.yc.gov.cn/ycsrmzf/c101986/202608/432322.shtml",
+      "description": "",
+      "publishedAt": "2026-08-20T04:00:00.000Z",
+      "category": "社会",
+      "score": 90,
+      "importance": "必读",
+      "summary": "伊春召开安全生产委员会扩大会议和秋季森林防灭火会议，把秋季森林火险纳入全市安全部署。",
+      "whyItMatters": "伊春林区生产、旅游和居民生活高度受森林火险约束，会议释放了进入秋季重点防火阶段的明确信号。",
+      "impactForPeople": "伊春林区居民、游客和户外作业人员的用火管理收紧。当前风险水平仍以实时火险等级为准；当巡查和火源管控落实后，失火风险下降。",
       "impactAnalysis": {
         "impactLevel": "直接",
-        "direction": "不利",
-        "changeStatement": "黑龙江、吉林及南方部分地区居民的出行风险上升，户外活动时间减少。",
+        "direction": "有利",
+        "changeStatement": "伊春林区居民和游客的野外用火限制增加，森林火灾暴露风险下降。",
         "affectedGroups": [
-          "预警地区居民",
-          "户外作业人员",
-          "自驾和公共交通乘客",
-          "华东沿海游客"
+          "林场居民",
+          "进山游客",
+          "林业作业人员",
+          "户外经营者"
         ],
-        "impactPath": "强降雨、雷暴大风和台风趋近 → 道路、航班及户外作业安全风险上升 → 个人行程中断和避险时间成本增加。",
-        "shortTerm": "未来数日，预警地区道路积水、交通延误和户外活动取消增加，华东沿海防台准备收紧。",
-        "mediumLongTerm": "若台风登陆或强降雨持续，受灾地区房屋修复、农业损失和保险理赔需求增加；若路径远离，华东沿海实际损失下降。",
+        "impactPath": "秋季防灭火部署 → 巡查、火源管理和应急准备加强 → 林区个人失火及被困风险下降。",
+        "shortTerm": "进山活动、野外用火和林区作业的检查增加，违反防火要求的活动空间收紧。",
+        "mediumLongTerm": "当防火部署持续执行后，秋季森林火灾暴露风险下降；火险等级回落后临时限制再逐步放宽。",
         "actions": [
-          "查看所在地气象、应急和交通部门最新预警，避开山区河谷、临水道路及临时搭建物。",
-          "提前调整非必要户外行程，为手机、照明和常用药品做好短时断电准备。",
-          "沿海居民继续观察台风路径、停航停课和人员转移通知。"
+          "进山前查询当地火险等级和区域管制",
+          "不携带火种进入禁火区域",
+          "发现烟点或违规用火时立即通过当地应急渠道报告"
         ],
-        "uncertainties": "已知的是当前降雨分布和台风趋向；台风具体路径、强度及登陆地点仍会调整，不在预警区域的人群未必受到直接影响。"
-      },
-      "confidence": "高",
-      "topics": [
-        "强降雨",
-        "台风白海豚",
-        "出行安全",
-        "防灾减灾"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "338e9d63cf8730d1",
-      "source": "IT之家",
-      "sourceUrl": "https://www.ithome.com/rss/",
-      "categoryHint": "国内科技、互联网与消费电子",
-      "region": "domestic",
-      "title": "DeepSeek：计划近期整体上调 API 服务的定价，预计涨幅较大",
-      "url": "https://www.ithome.com/0/986/339.htm",
-      "description": "<p data-vmark=\"d3e2\">IT之家 8 月 6 日消息，DeepSeek 今日公告：“计划近期整体上调 DeepSeek API 服务的定价，预计涨幅较大，请合理安排您的使用。具体方案以正式通知为准。”</p><p data-vmark=\"9be7\" style=\"text-align: center;\"><img src=\"https://img.ithome.com/newsuploadfiles/2026/8/c8240cca-03e2-4e7c-a0a0-71812a5a1666.png\" w=\"1440\" h=\"480\" data-weibo=\"0\" data-vmark=\"0e2b\" class=\"no-alt-img\"></p><p data-vmark=\"7e1c\">IT之家注意到，当前，DeepSeek 的 API 价格按“输入 Token”和“输出 Token”分别计费，且根据“缓存命中”与“缓存未命中”情况，价格有所差异。主要模型价格如下：</p><p data-vmark=\"da0e\" style=\"text-align: start;\"><strong>1. DeepSeek-V4-Flash（高性价比 / 高并发场景优选）</strong></p><ul class=\" list-paddingleft-2\"><li><p data-vmark=\"2843\"><span class=\"selectable-text\">输入（缓存命中）：0.02 元 / 百万 Token</span></p></li><li><p data-vmark=\"ae19\"><span class=\"selectable-text\">输入（缓存未命中）：1 元 / 百万 Token</span></p></li><li><p data-vmark=\"61d3\"><span class=\"selectable-text\">输出：2 元 / 百万 Token</span></p></li></ul><p data-vmark=\"5aa5\" style=\"text-align: start;\"><strong>2. DeepSeek-V4-Pro（高性能 / 复杂推理场景优选）</strong></p><ul class=\" list-paddingleft-2\"><li><p data-vmark=\"544a\"><span class=\"selectable-text\">输入（缓存命中）：0.025 元 / 百万 Token</span></p></li><li><p data-vmark=\"cb32\"><span class=\"selectable-text\">输入（缓存未命中）：3 元 / 百万 Token</span></p></li><li><p data-vmark=\"f8c4\"><span class=\"selectable-text\">输出：6 元 / 百万 Token</span></p></li></ul><p data-vmark=\"f344\" style=\"text-align: center;\"><img src=\"https://img.ithome.com/newsuploadfiles/2026/8/18f0cfcf-ac19-4ac7-a3c6-e790e71bb4ce.png\" w=\"671\" h=\"867\" data-weibo=\"1\" data-vmark=\"bc74\" class=\"no-alt-img\"></p>",
-      "publishedAt": "2026-08-06T01:49:50.000Z",
-      "category": "人工智能",
-      "score": 88,
-      "importance": "必读",
-      "summary": "DeepSeek公告称近期将整体上调API服务定价且涨幅较大，正式方案尚未公布。当前V4-Flash和V4-Pro按输入缓存状态及输出Token分别计费。",
-      "whyItMatters": "正式调价将直接改变使用DeepSeek构建应用的成本模型，开发者和企业需要重新核算调用量、缓存策略及替代模型。",
-      "impactForPeople": "DeepSeek开发者的API成本当前不变；当正式涨价方案生效后，模型调用费用上升，依赖高并发或长输出的产品成本增加，部分费用将传导至订阅价格。",
-      "impactAnalysis": {
-        "impactLevel": "当前有限",
-        "direction": "当前不变",
-        "changeStatement": "DeepSeek API用户的调用成本当前不变；当正式调价生效后，单位Token费用上升。",
-        "affectedGroups": [
-          "AI应用开发者",
-          "使用DeepSeek API的企业",
-          "高频调用模型的创业团队",
-          "AI工具付费用户"
-        ],
-        "impactPath": "官方发布涨价预告 → 正式价格生效后单位调用成本上升 → 企业毛利下降或终端订阅价格上升。",
-        "shortTerm": "正式方案公布前账单不变，企业预算评估和替代模型测试增加。",
-        "mediumLongTerm": "当涨价幅度和生效时间明确后，高调用量产品的推理成本上升，缓存效率高和具备多模型切换能力的团队成本增幅下降。",
-        "actions": [
-          "导出近一个月输入、输出及缓存命中量，按业务场景建立成本基线。",
-          "在不迁移生产流量的前提下测试备用模型，并核对输出质量和延迟。",
-          "等待正式价格、计费口径和生效日期，不依据“涨幅较大”自行假定数字。"
-        ],
-        "uncertainties": "已知事实仅为整体涨价预告；涨幅、各模型差异、生效时间和优惠安排均未公布，终端订阅价格是否调整取决于服务商是否自行消化成本。"
-      },
-      "confidence": "高",
-      "topics": [
-        "DeepSeek",
-        "API定价",
-        "AI成本",
-        "开发者"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "f14a7b7675819608",
-      "source": "中新网时政",
-      "sourceUrl": "https://www.chinanews.com.cn/rss/china.xml",
-      "categoryHint": "国内政策与时政",
-      "region": "domestic",
-      "title": "数据有了“身份证” 我国正稳步推进数据产权登记",
-      "url": "https://www.chinanews.com.cn/gn/2026/08-06/10672740.shtml",
-      "description": "央视新闻客户端消息：记者今天从国家数据局了解到，目前，国家数据局正稳步推进数据产权登记工作，加快全国一体化数据市场建设。",
-      "publishedAt": "2026-08-06T01:32:52.000Z",
-      "category": "政策",
-      "score": 86,
-      "importance": "必读",
-      "summary": "国家数据局表示正推进数据产权登记，并加快建设全国一体化数据市场，为数据确权、登记和流通建立基础制度设施。候选信息未披露具体登记规则和生效时间。",
-      "whyItMatters": "登记制度将影响企业证明数据权益、授权使用和参与交易的方式，是判断数据资产化及合规成本的重要政策信号。",
-      "impactForPeople": "企业和个人的数据权利与交易成本当前不变；当统一登记规则落地后，数据权益证明效率上升，数据交易中的权属争议成本下降，合规留痕要求增加。",
-      "impactAnalysis": {
-        "impactLevel": "当前有限",
-        "direction": "当前不变",
-        "changeStatement": "数据持有者的权属证明成本当前不变；当统一登记规则实施后，权属证明效率上升、登记合规事项增加。",
-        "affectedGroups": [
-          "持有经营数据的企业",
-          "数据交易机构",
-          "平台从业者",
-          "提供个人数据的用户"
-        ],
-        "impactPath": "推进产权登记 → 统一规则落地后形成权属凭证和登记记录 → 企业交易效率上升、合规工作增加，个人维权证据更清晰。",
-        "shortTerm": "在登记范围、效力和程序公布前，现有数据授权及交易流程不变，企业政策研究和数据盘点工作增加。",
-        "mediumLongTerm": "当跨地区登记互认和争议处理机制建立后，数据流通效率上升；若登记凭证效力有限，实际交易成本下降幅度受限。",
-        "actions": [
-          "企业梳理重要数据的来源、授权依据和加工记录，暂不把登记等同于所有权确认。",
-          "个人继续使用现有隐私授权和投诉渠道，关注登记是否覆盖个人数据权益。",
-          "观察登记凭证法律效力、跨区域互认和争议解决规则。"
-        ],
-        "uncertainties": "已知的是国家数据局正在推进相关工作；登记对象、权利类型、法律效力、费用及与个人信息保护规则的关系尚未说明。"
-      },
-      "confidence": "高",
-      "topics": [
-        "数据产权",
-        "数据要素",
-        "全国数据市场",
-        "数字治理"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "e0f2d852a4d0c38a",
-      "source": "中新网时政",
-      "sourceUrl": "https://www.chinanews.com.cn/rss/china.xml",
-      "categoryHint": "国内政策与时政",
-      "region": "domestic",
-      "title": "人社部面向社会公开征求123个职业标准意见",
-      "url": "https://www.chinanews.com.cn/gn/2026/08-06/10672707.shtml",
-      "description": "中新网8月6日电 据人力资源社会保障部网站消息，为贯彻落实中共中央办公厅、国务院办公厅《关于加强新时代高技能人才队伍建设的意见》提出的“完善由国家职业标准、行业企业评价规范、专项职业能力考核规范等构成的多层次、相互衔接的职业标准体系”要求，近期，我部组织开发了“消防员”等123个职业标准。为进一步听取社会各界意见建议，现在技能人才评价工作网(http://www.osta.org.cn/zcwj/20260805.html)公示征求意见，公示截止日期为8月17日。如有意见或建议，请按公示要求及时反馈。",
-      "publishedAt": "2026-08-06T01:07:35.000Z",
-      "category": "政策",
-      "score": 83,
-      "importance": "值得读",
-      "summary": "人社部组织开发消防员等123个职业标准并公开征求意见，反馈截止8月17日。标准旨在完善技能人才评价体系，但候选信息未列出各职业的具体变化。",
-      "whyItMatters": "从业者、培训机构和用人单位可在定稿前核对考核要求并反馈，正式标准将成为技能评价和人才培养的重要依据。",
-      "impactForPeople": "涉及职业从业者的考核要求当前不变；当标准发布实施后，技能评价的统一程度上升，培训内容和岗位能力要求更加明确，部分人员补充培训的时间成本增加。",
-      "impactAnalysis": {
-        "impactLevel": "当前有限",
-        "direction": "当前不变",
-        "changeStatement": "123个相关职业从业者的考核要求当前不变；当标准实施后，技能评价统一程度上升。",
-        "affectedGroups": [
-          "相关职业从业者",
-          "职业院校学生",
-          "职业培训机构",
-          "用人单位人力资源部门"
-        ],
-        "impactPath": "公开征求职业标准意见 → 定稿实施后调整评价和培训依据 → 从业者考证、学习及求职匹配方式更加统一。",
-        "shortTerm": "8月17日前，相关群体反馈规则问题的渠道增加，现行证书和考核要求不变。",
-        "mediumLongTerm": "当标准被培训、评价和招聘采用后，岗位技能可比性上升；需要新增能力的从业者培训时间增加。",
-        "actions": [
-          "在技能人才评价工作网核对本人职业是否列入公示，并在8月17日前提交具体意见。",
-          "培训机构和企业对照草案盘点课程、考核及岗位说明，正式实施前不提前承诺证书效力。",
-          "从业者继续按现行规则准备考试，同时保存新版草案与正式稿的差异。"
-        ],
-        "uncertainties": "已知的是征求意见范围和截止日期；标准何时定稿、是否修改以及如何衔接现有证书尚不明确，不涉及名单内职业的人群当前不受直接影响。"
-      },
-      "confidence": "高",
-      "topics": [
-        "职业标准",
-        "技能人才",
-        "职业教育",
-        "公开征求意见"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "bee610b86ba6f36f",
-      "source": "中新网财经",
-      "sourceUrl": "https://www.chinanews.com.cn/rss/finance.xml",
-      "categoryHint": "国内财经与民生经济",
-      "region": "domestic",
-      "title": "上半年产业创新活力进一步激发",
-      "url": "https://www.chinanews.com.cn/cj/2026/08-06/10672742.shtml",
-      "description": "央视网消息(新闻联播)：国家税务总局发布的税收数据显示，今年上半年，全国支持科技创新和制造业发展政策减税降费及退税超1.9万亿元，政策红利持续释放，传统产业转型提速，新兴产业增势强劲，创新发展活力进一步激发。",
-      "publishedAt": "2026-08-06T01:41:13.000Z",
-      "category": "经济",
-      "score": 82,
-      "importance": "值得读",
-      "summary": "国家税务总局数据显示，上半年支持科技创新和制造业发展的减税降费及退税超过1.9万亿元，显示产业扶持政策已形成较大规模的资金回流。",
-      "whyItMatters": "这一数据可用于判断财政支持重点和科技制造企业现金流环境，但不能直接推导为居民收入或所有企业利润同步增长。",
-      "impactForPeople": "科技和制造企业的税费负担下降，未被政策覆盖的行业当前不变。政策资金先改善企业现金流，再通过研发、设备和用工传导到员工与供应商，个人受益呈现分化。",
-      "impactAnalysis": {
-        "impactLevel": "间接",
-        "direction": "分化",
-        "changeStatement": "享受政策的科技和制造企业税费负担下降，未覆盖企业的税费负担当前不变。",
-        "affectedGroups": [
-          "科技企业员工",
-          "制造业员工",
-          "产业链供应商",
-          "未被政策覆盖的企业经营者"
-        ],
-        "impactPath": "减税降费和退税超过1.9万亿元 → 受益企业现金流增加 → 研发、设备采购和用工承受力上升 → 员工与供应商订单稳定性提高。",
-        "shortTerm": "受益企业可支配现金增加，欠税抵扣、退税到账及政策适用核查工作增加；居民收入不会因此自动上升。",
-        "mediumLongTerm": "当企业把税费节省投入研发和扩产后，相关岗位和供应链订单增加；若资金用于偿债或留存，就业传导减弱。",
-        "actions": [
-          "相关企业核对自身是否符合现行优惠条件，按官方口径留存研发和制造活动凭证。",
-          "求职者结合企业真实招聘、订单和资本开支判断岗位需求，不把行业减税直接当作加薪信号。",
-          "继续观察制造业投资、企业利润和新增就业是否同步上升。"
-        ],
-        "uncertainties": "1.9万亿元为政策总量，候选信息没有拆分新增优惠、行业分布及实际到账节奏；企业如何使用资金决定个人端传导强弱。"
-      },
-      "confidence": "高",
-      "topics": [
-        "减税降费",
-        "制造业",
-        "科技创新",
-        "企业现金流"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "6d5ed930e4ad899a",
-      "source": "中新网财经",
-      "sourceUrl": "https://www.chinanews.com.cn/rss/finance.xml",
-      "categoryHint": "国内财经与民生经济",
-      "region": "domestic",
-      "title": "韩国股市熔断",
-      "url": "https://www.chinanews.com.cn/cj/2026/08-06/10672757.shtml",
-      "description": "北京时间6日，韩国股市低开，韩国综合股价指数(KOSPI)一度跌超4%，截至9时20分，跌超3.7%。个股方面，SK海力士一度跌超8.8%，截至9时20分，跌超8.3%。三星电子一度跌超5.2%，截至9时20分，跌超4.5%。韩国交易所启动SIDECAR机制，暂停KOSPI程序化卖出。",
-      "publishedAt": "2026-08-06T01:52:29.000Z",
-      "category": "国际",
-      "score": 81,
-      "importance": "值得读",
-      "summary": "韩国综合股价指数早盘一度下跌超过4%，SK海力士和三星电子分别一度跌超8.8%和5.2%；韩国交易所启动SIDECAR机制，暂停KOSPI程序化卖出。",
-      "whyItMatters": "熔断式干预表明区域市场短期避险情绪显著升温，持有韩国市场基金或亚洲科技资产的人需要重新核对实际敞口。",
-      "impactForPeople": "持有韩国股票及相关基金的投资者资产价格下跌，交易限制增加。未配置相关资产的中国家庭当前不变，事件暂不能单独证明国内消费、就业或汇率已经改变。",
-      "impactAnalysis": {
-        "impactLevel": "直接",
-        "direction": "不利",
-        "changeStatement": "持有韩国股票和相关基金的投资者账面资产下降，程序化卖出交易限制增加。",
-        "affectedGroups": [
-          "韩国股票投资者",
-          "持有韩国市场基金的居民",
-          "亚洲科技产业投资者",
-          "跨境交易从业者"
-        ],
-        "impactPath": "KOSPI及大型科技股急跌 → 交易所暂停程序化卖出 → 相关资产净值下降、交易执行受限 → 投资者账面损失和流动性成本增加。",
-        "shortTerm": "韩国市场波动和交易限制增加，相关基金净值承压；无相关持仓家庭的日常收支不变。",
-        "mediumLongTerm": "若急跌延续并扩散至亚洲科技资产，相关基金回撤和企业融资成本上升；若市场恢复，个人端影响收窄。",
-        "actions": [
-          "核对基金和理财产品是否持有韩国股票，不依据产品名称猜测敞口。",
-          "避免在交易受限和价格剧烈波动时使用高杠杆。",
-          "观察韩国交易所后续措施及跌势是否扩散至亚洲主要市场。"
-        ],
-        "uncertainties": "已知的是早盘价格和SIDECAR启动；候选信息未说明下跌原因、收盘表现及跨市场传导，不能据此判断长期趋势。"
-      },
-      "confidence": "高",
-      "topics": [
-        "韩国股市",
-        "KOSPI",
-        "熔断机制",
-        "亚洲市场"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "959aa6930146a3bd",
-      "source": "中新网时政",
-      "sourceUrl": "https://www.chinanews.com.cn/rss/china.xml",
-      "categoryHint": "国内政策与时政",
-      "region": "domestic",
-      "title": "北京谱仪完整证据链认证胶球存在 证实纯“力”构成全新物质形态",
-      "url": "https://www.chinanews.com.cn/gn/2026/08-06/10672689.shtml",
-      "description": "中新网北京8月6日电 (记者 孙自法)在粒子物理世界，作为理论预言由胶子相互吸引形成的一种全新粒子，胶球究竟存不存在？这一谜题已困扰学术界近半个世纪，备受关注。",
-      "publishedAt": "2026-08-06T00:02:47.000Z",
-      "category": "科学",
-      "score": 80,
-      "importance": "值得读",
-      "summary": "北京谱仪团队称已建立完整证据链确认胶球存在，即发现由胶子相互作用构成的新物质形态，回应了粒子物理领域延续近半个世纪的问题。",
-      "whyItMatters": "若结论经同行和独立实验检验，将增强对强相互作用及物质组成的理解，是中国大型科学装置产出基础性成果的重要信号。",
-      "impactForPeople": "普通人的收入、医疗和日常消费当前不变；当独立实验复现并形成后续技术成果后，基础粒子物理研究能力和科研资源配置强度上升，现实应用仍需更长周期。",
-      "impactAnalysis": {
-        "impactLevel": "当前有限",
-        "direction": "当前不变",
-        "changeStatement": "普通居民的生活指标当前不变；当独立实验复现胶球证据后，相关基础研究证据强度上升。",
-        "affectedGroups": [
-          "粒子物理研究人员",
-          "高校理工科学生",
-          "大型科学装置从业者",
-          "科研资助管理机构"
-        ],
-        "impactPath": "北京谱仪确认胶球证据 → 独立验证后强化强相互作用研究 → 科研项目和人才需求增加 → 普通人仅通过长期技术积累间接受益。",
-        "shortTerm": "学术复核、数据再分析和后续实验设计增加，居民日常生活不变。",
-        "mediumLongTerm": "当多个实验复现并完善理论解释后，中国粒子物理研究的国际竞争力上升；在形成工程应用前，个人端指标不变。",
-        "actions": [
-          "非专业读者继续观察论文、同行评议及独立实验复现结果。",
-          "学生和研究人员可关注实验方法、数据开放及后续招生项目，不把基础发现直接解释为商业技术。"
-        ],
-        "uncertainties": "候选描述只提供媒体概述，没有论文细节、统计显著性和独立复现情况；“完整证据链”的学术接受度仍需同行检验。"
+        "uncertainties": "已知会议聚焦秋季森林防灭火；候选未提供禁火期、封山范围、处罚和具体措施，出行限制须以当地公告为准。"
       },
       "confidence": "中",
       "topics": [
-        "胶球",
-        "北京谱仪",
-        "粒子物理",
-        "基础研究"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
+        "伊春",
+        "森林防火",
+        "公共安全",
+        "林区管理"
+      ]
     },
     {
-      "id": "65af15a56318cdcc",
+      "id": "4b485a7bc589a497",
+      "source": "衢州市人民政府",
+      "sourceUrl": "https://www.qz.gov.cn/",
+      "categoryHint": "衢州本地政策、政务与民生新闻",
+      "region": "domestic",
+      "city": "衢州",
+      "cityKind": "政策与新闻",
+      "title": "高屹在全市防汛工作视频调度会上强调：保持高度警醒 进入临战状态 确保防汛救灾工作万无一失",
+      "url": "https://www.qz.gov.cn/col/col1229707050/art/2026/art_c92186ad78014642b895b7bf82cbe1f4.html",
+      "description": "",
+      "publishedAt": "2026-08-17T04:00:00.000Z",
+      "category": "社会",
+      "score": 89,
+      "importance": "必读",
+      "summary": "衢州召开全市防汛视频调度会，要求进入临战状态并强化防汛救灾准备，表明当地防汛风险已经提升到集中调度阶段。",
+      "whyItMatters": "这直接关系山区、沿河和低洼区域居民的出行、财产与撤离准备，安全价值高于一般政务会议。",
+      "impactForPeople": "衢州沿河、山区和低洼地居民的汛情警戒提高，出行便利度下降。进入临战状态意味着巡查、值守和风险区域管控增加，家庭应提前核对避险路线。",
+      "impactAnalysis": {
+        "impactLevel": "直接",
+        "direction": "不利",
+        "changeStatement": "衢州风险区域居民的出行限制增加，洪涝和地质灾害暴露风险上升。",
+        "affectedGroups": [
+          "沿河居民",
+          "山区居民",
+          "低洼地段商户",
+          "户外作业人员"
+        ],
+        "impactPath": "防汛进入临战调度 → 值守、巡查和风险区域管控加强 → 个人出行受限并需提高转移准备。",
+        "shortTerm": "风险地区道路、涉水活动和户外施工管控增加，居民接收预警与转移通知的频率上升。",
+        "mediumLongTerm": "汛情解除后临时管控减少；当降雨和水位再次达到警戒条件时，风险区域出行限制重新增加。",
+        "actions": [
+          "检查手机预警和社区通知是否畅通",
+          "避开河道、山沟、临崖道路和积水点",
+          "提前准备证件、药品和必要应急物品"
+        ],
+        "uncertainties": "候选仅说明进入临战状态，未提供降雨量、水位、风险区和管控期限；具体风险须结合衢州气象、水利及应急公告判断。"
+      },
+      "confidence": "中",
+      "topics": [
+        "衢州",
+        "防汛",
+        "地质灾害",
+        "应急准备"
+      ]
+    },
+    {
+      "id": "4b20e1f6772462b6",
       "source": "中新网财经",
       "sourceUrl": "https://www.chinanews.com.cn/rss/finance.xml",
       "categoryHint": "国内财经与民生经济",
       "region": "domestic",
-      "title": "佛山发布系列电力装备应用场景 将释放投资超千亿元",
-      "url": "https://www.chinanews.com.cn/cj/2026/08-06/10672704.shtml",
-      "description": "中新网佛山8月6日电 (记者 程景伟)2026佛山新型电力系统装备产业招商大会5日在广东省佛山市举行。大会发布佛山系列电力装备应用场景，围绕“源、网、荷、储、算、碳”六大维度，合计将释放总投资超过1000亿元，直接带动电力装备采购需求超过600亿元。",
-      "publishedAt": "2026-08-06T00:57:38.000Z",
+      "city": "",
+      "cityKind": "",
+      "title": "工业和信息化部再次批复民营卫星物联网业务商用试验",
+      "url": "https://www.chinanews.com.cn/cj/2026/08-20/10681102.shtml",
+      "description": "工业和信息化部近日再次批复民营卫星物联网业务商用试验。本次批复的浙江时空道宇科技有限公司将开展为期两年的商用试验，这是卫星物联网业务进一步扩大向民营开放的重要举措。",
+      "publishedAt": "2026-08-20T08:11:34.000Z",
       "category": "商业",
-      "score": 79,
+      "score": 88,
       "importance": "值得读",
-      "summary": "佛山发布覆盖源、网、荷、储、算、碳的新型电力系统应用场景，披露总投资规模超过1000亿元，直接带动电力装备采购需求超过600亿元。",
-      "whyItMatters": "这给电力装备企业提供了明确的区域项目线索和潜在采购规模，但发布应用场景不等于项目、订单和资金已经落实。",
-      "impactForPeople": "佛山电力装备从业者的订单和就业当前不变；当项目完成审批并进入招采后，设备订单增加、相关岗位需求上升，财政与建设资金是否到位决定传导强度。",
+      "summary": "工信部再次批准民营企业开展卫星物联网商用试验，浙江时空道宇将进行为期两年的试验，卫星物联网向民营资本开放范围进一步扩大。",
+      "whyItMatters": "这是卫星通信商业化和民营准入的具体推进，利好远洋、物流、农业和偏远地区设备连接，但并不代表大众服务已经全面商用。",
+      "impactForPeople": "普通手机用户的通信服务当前不变；当两年试验形成可用终端和套餐后，偏远地区从业者的设备联网覆盖增加，相关服务选择增多。",
       "impactAnalysis": {
-        "impactLevel": "当前有限",
-        "direction": "当前不变",
-        "changeStatement": "佛山电力装备企业订单当前不变；当项目进入正式招采后，设备采购需求增加。",
+        "impactLevel": "间接",
+        "direction": "分化",
+        "changeStatement": "试验覆盖地区的偏远作业人员设备联网覆盖增加，普通手机用户的通信资费当前不变。",
         "affectedGroups": [
-          "电力装备企业员工",
-          "设备供应商",
-          "工程技术人员",
-          "佛山产业投资者"
+          "远洋和野外作业人员",
+          "物流运输企业员工",
+          "农业物联网使用者",
+          "卫星通信产业从业者"
         ],
-        "impactPath": "发布千亿元级应用场景 → 项目审批和招采落地 → 电力装备订单增加 → 企业用工、供应商收入和工程岗位需求上升。",
-        "shortTerm": "企业获取项目信息和参与招商对接的机会增加，未中标企业收入及员工薪酬不变。",
-        "mediumLongTerm": "当项目持续开工并形成回款后，佛山电力装备产业集聚和技术岗位数量上升；若资金或审批延后，订单兑现变慢。",
+        "impactPath": "民营商用试验获批 → 卫星连接设备和服务进入试验运营 → 地面网络薄弱地区的联网覆盖增加。",
+        "shortTerm": "企业测试、终端适配和产业合作增加，普通消费者可直接购买的成熟服务仍有限。",
+        "mediumLongTerm": "当试验通过并形成规模化终端与套餐后，偏远地区联网覆盖增加，卫星通信产业岗位和供应链需求增加。",
         "actions": [
-          "相关企业核对官方项目清单、采购主体、资质要求和招标时间。",
-          "求职者关注实际招聘和开工信息，不以发布总投资额替代已落地岗位数量。",
-          "供应商在合同、付款条件明确前控制备货和扩产节奏。"
+          "偏远地区企业可跟踪试验覆盖、终端兼容和资费",
+          "普通消费者无需提前更换设备",
+          "从业者关注工信部后续商用许可和技术标准"
         ],
-        "uncertainties": "已知的是发布方披露的规划投资及采购需求；具体项目、资金来源、实施周期、招标条件和实际采购额尚未给出。"
+        "uncertainties": "已知试验期为两年；候选未说明覆盖区域、频段、终端、资费和正式商用条件，不能据此确认个人何时获得服务。"
       },
-      "confidence": "中",
+      "confidence": "高",
       "topics": [
-        "新型电力系统",
-        "佛山制造",
-        "电力装备",
-        "产业投资"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
+        "卫星物联网",
+        "民营准入",
+        "商业航天",
+        "远程通信"
+      ]
     },
     {
-      "id": "2b194f6ed6da443f",
-      "source": "IT之家",
-      "sourceUrl": "https://www.ithome.com/rss/",
-      "categoryHint": "国内科技、互联网与消费电子",
-      "region": "domestic",
-      "title": "网友反馈初代联想 Legion Go 游戏掌机升级 BIOS 后变砖，过保维修需付 237 欧元",
-      "url": "https://www.ithome.com/0/986/303.htm",
-      "description": "<p data-vmark=\"6c31\">IT之家 8 月 6 日消息，科技媒体 Neowin 昨日（8 月 5 日）发布博文，<strong>报道称多名初代联想 Legion Go 游戏掌机用户反馈安装 N3CN42WW 更新后，屏幕会变黑，系统无法正常启动。</strong></p><p data-vmark=\"cead\">目前尚不清楚影响范围，不过根据 Reddit 社区的用户反馈，多为初代联想 Legion Go，覆盖 Z1 与 Z1 Extreme 两个版本。</p><p data-vmark=\"03cd\">在问题表现上，根据受影响用户反馈，在安装 2026 年 6 月 17 日发布的 N3CN42WW BIOS 更新后变砖。</p><p style=\"text-align: center;\" data-vmark=\"d71e\"><img src=\"https://img.ithome.com/newsuploadfiles/2026/8/9b1a1665-5f3d-4f2d-840b-9a2446bfec51.jpg?x-bce-process=image/format,f_auto\" w=\"900\" h=\"675\" data-weibo=\"0\" data-vmark=\"4b0c\" class=\"no-alt-img\"></p><p data-vmark=\"a0ad\">维修费用方面，Reddit 用户 mherold11 称，其联系联想支持寻求维修，被告知设备已过保，维修需额外付费，报价为 237.16 欧元<span class=\"exch-money-value \">（IT之家注：现汇率约合 1,851 元人民币）</span>。也有受影响用户称，仍在保修期内的 Legion Go 已获免费维修。</p><p style=\"text-align: center;\" data-vmark=\"51fe\"><img src=\"https://img.ithome.com/newsuploadfiles/2026/8/3324cda4-e0f7-4195-a3ab-283917189813.jpg?x-bce-process=image/format,f_auto\" w=\"760\" h=\"454\" data-weibo=\"1\" data-vmark=\"9e4d\" class=\"no-alt-img\"></p>",
-      "publishedAt": "2026-08-06T01:23:58.000Z",
-      "category": "科技",
-      "score": 77,
-      "importance": "值得读",
-      "summary": "多名初代联想Legion Go用户反馈，安装N3CN42WW BIOS后设备黑屏且无法启动，覆盖Z1和Z1 Extreme版本；一名过保用户获报237.16欧元维修价，在保设备有用户获得免费维修。",
-      "whyItMatters": "这是具有明确版本号和规避动作的设备故障信息，相关用户暂停升级即可降低设备停用和维修支出风险。",
-      "impactForPeople": "初代Legion Go用户的设备故障风险上升，过保用户维修成本增加。尚未安装N3CN42WW版本的用户可通过暂停更新，减少黑屏和无法启动的风险。",
-      "impactAnalysis": {
-        "impactLevel": "直接",
-        "direction": "不利",
-        "changeStatement": "安装N3CN42WW BIOS的初代Legion Go用户设备不可用风险上升，部分过保用户维修支出增加。",
-        "affectedGroups": [
-          "初代Legion Go用户",
-          "Z1与Z1 Extreme机型用户",
-          "已过保设备持有者",
-          "掌机维修服务人员"
-        ],
-        "impactPath": "安装特定BIOS → 部分设备黑屏并无法启动 → 用户停机时间增加 → 过保维修支出增加。",
-        "shortTerm": "继续安装该版本的用户故障暴露增加，受影响者联系售后和送修的时间成本上升。",
-        "mediumLongTerm": "当联想发布修复版、回滚方案或扩大保修后，故障和维修成本下降；在此之前过保用户成本维持高位。",
-        "actions": [
-          "尚未更新的初代Legion Go用户暂停安装N3CN42WW BIOS。",
-          "已出现黑屏的用户保留更新记录、序列号和购机凭证并联系官方售后，避免自行拆机扩大损坏。",
-          "关注联想是否发布撤回、修复、回滚或延保公告。"
-        ],
-        "uncertainties": "信息来自媒体转述和社区用户反馈，影响范围、故障率及联想统一处理政策尚未确认；未安装该版本的设备不受该更新直接影响。"
-      },
-      "confidence": "中",
-      "topics": [
-        "联想Legion Go",
-        "BIOS故障",
-        "消费电子",
-        "售后维修"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "af8601e401f9a90b",
+      "id": "5ee389f0bf6d1d81",
       "source": "中新网财经",
       "sourceUrl": "https://www.chinanews.com.cn/rss/finance.xml",
       "categoryHint": "国内财经与民生经济",
       "region": "domestic",
-      "title": "今年前7个月海南离岛免税购物额216亿元 同比增长17.9%",
-      "url": "https://www.chinanews.com.cn/cj/2026/08-05/10672648.shtml",
-      "description": "中新网海口8月5日电 (王纯豪 谢东良)海口海关5日披露，2026年1-7月海南离岛免税购物金额216亿元，购物人数311.1万人次，购物件数1765.3万件，同比分别增长17.9%、11.9%、6.9%，离岛免税产业延续强劲增长态势。",
-      "publishedAt": "2026-08-05T14:38:09.000Z",
-      "category": "经济",
-      "score": 76,
+      "city": "",
+      "cityKind": "",
+      "title": "海南产经新观察：海南自贸港探路数据领域国际合作",
+      "url": "https://www.chinanews.com.cn/cj/2026/08-20/10681047.shtml",
+      "description": "中新网海口8月20日电 (记者 王晓斌)据中国国家数据局透露，中国已有十地启动数据领域国际合作试点，初步形成错位发展、优势互补的试点布局。其中，海南自贸港侧重数据跨境流动、国际数据服务等试点探索。",
+      "publishedAt": "2026-08-20T07:32:28.000Z",
+      "category": "政策",
+      "score": 87,
       "importance": "值得读",
-      "summary": "海口海关披露，前7个月海南离岛免税购物额216亿元、购物人数311.1万人次、购物件数1765.3万件，同比分别增长17.9%、11.9%和6.9%，人均购买件数增幅弱于金额增幅。",
-      "whyItMatters": "数据表明海南免税消费额和客流同步恢复，可用于判断旅游零售景气度；但销售增长本身不代表商品价格下降或游客获得更多优惠。",
-      "impactForPeople": "海南免税从业者的客流和销售活动增加，普通游客的商品价格当前没有可确认的下降。购物额增速高于人数和件数，消费热度上升但性价比没有得到直接证明。",
+      "summary": "国家数据局披露国内已有十地启动数据领域国际合作试点，海南自贸港重点探索数据跨境流动和国际数据服务。",
+      "whyItMatters": "试点关系跨境电商、云服务、科研和跨国企业的数据合规成本，也是海南数字服务产业形成新业务的政策信号。",
+      "impactForPeople": "跨境业务从业者的合规路径当前不变；当海南试点发布并执行具体规则后，合规数据跨境办理速度加快，违规处理和隐私保护要求收紧。",
       "impactAnalysis": {
         "impactLevel": "间接",
         "direction": "分化",
-        "changeStatement": "海南免税商户客流和销售额上升，游客可购买商品的价格当前没有可确认的下降。",
+        "changeStatement": "符合试点规则的跨境企业数据办理速度加快，不符合规则的企业合规成本增加。",
         "affectedGroups": [
-          "海南免税零售从业者",
-          "赴琼游客",
-          "旅游服务商",
-          "消费品牌供应商"
+          "跨境电商从业者",
+          "跨国企业员工",
+          "云与数据服务人员",
+          "海南数字产业求职者"
         ],
-        "impactPath": "购物人数和金额同比增长 → 门店客流与品牌销售增加 → 零售和旅游服务经营活动增强 → 从业者排班及供应链需求增加。",
-        "shortTerm": "暑期免税门店客流和服务需求增加，热门时段的排队时间上升；游客实际折扣需逐品比较。",
-        "mediumLongTerm": "若客流与销售增速持续，海南旅游零售岗位和品牌投放增加；若增长仅来自旺季，淡季就业和收入改善受限。",
+        "impactPath": "数据国际合作试点 → 跨境流动流程和合规边界细化 → 合规企业办理时间减少，违规业务受限。",
+        "shortTerm": "海南相关规则研究、企业申报和数据服务合作增加，个人日常互联网服务当前不变。",
+        "mediumLongTerm": "当试点规则稳定并扩围后，跨境数据服务岗位增加，企业合规流程标准化，个人数据出境约束进一步明确。",
         "actions": [
-          "游客按到手价、保修和退换规则比较免税渠道与常规电商渠道。",
-          "求职者和商户继续观察淡季客流、客单价及招聘数量，不把销售总额直接当作收入增长。"
+          "跨境企业盘点数据类别、用途和出境链路",
+          "等待正式规则后再调整合规流程",
+          "个人继续检查跨境应用的授权范围和隐私说明"
         ],
-        "uncertainties": "数据来自海关且口径明确，但没有提供客单价、品类、折扣、利润和就业数据，无法确认增长由价格、结构还是购买强度驱动。"
+        "uncertainties": "已知海南侧重跨境数据流动与国际数据服务；候选未提供试点规则、企业名单、审批流程和个人信息保护细则。"
       },
       "confidence": "高",
       "topics": [
-        "海南免税",
-        "消费",
-        "旅游零售",
-        "客流"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
+        "海南自贸港",
+        "数据跨境",
+        "数字贸易",
+        "隐私合规"
+      ]
     },
     {
-      "id": "bf071a10f4b2aec0",
-      "source": "IT之家",
-      "sourceUrl": "https://www.ithome.com/rss/",
-      "categoryHint": "国内科技、互联网与消费电子",
-      "region": "domestic",
-      "title": "上线仅 1 周，微软撤回 M365 Copilot 的“AI 引用黑名单”功能",
-      "url": "https://www.ithome.com/0/986/342.htm",
-      "description": "<p data-vmark=\"5ed7\">IT之家 8 月 6 日消息，科技媒体 NeoWin 昨日（8 月 5 日）发布博文，报道称仅上线 1 周时间（7 月 29 日上线），<strong>微软撤回适用于 Microsoft 365 Copilot 的“域名排除”（Domain Exclusion）功能。</strong></p><p data-vmark=\"006a\">IT之家援引博文介绍，“域名排除”是面向 IT 管理员的控制功能，用于把特定域名加入排除列表，限制 Microsoft 365 Copilot 在网络信息中引用这些外部来源，可以通过 PowerShell 脚本配置最多 1000 个要排除的域名。</p><p style=\"text-align: center;\" data-vmark=\"8525\"><img src=\"https://img.ithome.com/newsuploadfiles/2026/8/8416f9f7-8ff0-4a31-829f-544bf5952d5e.png?x-bce-process=image/format,f_auto\" w=\"898\" h=\"1111\" data-mpos=\"2,0\" data-weibo=\"0\" data-snap-from=\"%7B%22from%22%3A%22x%22%2C%22url%22%3A%22https%3A%2F%2Fx.com%2FMSTCommunity%2Fstatus%2F2082157957718872175%22%2C%22link%22%3A%22https%3A%2F%2Fx.com%2FMSTCommunity%2Fstatus%2F2082157957718872175%22%7D\" data-vmark=\"8547\" class=\"no-alt-img\"></p><p data-vmark=\"5baf\">微软在最新公告中宣布回滚该功能，不再向用户推送“域名排除”功能外，已经获得该功能的 IT 管理员失去相关权限。微软未说明撤回原因，仅表示正在“积极评估下一步”，并将在适当时候分享更多信息。</p><p data-vmark=\"3666\">该媒体在调查后指出，微软撤回该功能的原因，可能是部分 IT 管理员不满微软采用“排除列表”方式。这些管理员认为手动维护“黑名单”属于反向做法，允许列表可能更容易管理。</p><p style=\"text-align: center;\" data-vmark=\"f539\"><img src=\"https://img.ithome.com/newsuploadfiles/2026/8/2131bab8-ee36-4520-9bca-6fdfb029db69.png?x-bce-process=image/format,f_auto\" w=\"864\" h=\"458\" data-weibo=\"1\" data-vmark=\"8e70\" class=\"no-alt-img\"></p><p data-vmark=\"be25\">IT 管理员需要持续追踪“不良”网站，且 1,000 个域名上限可能很快耗尽。报道提到，微软员工在 LinkedIn（领英）发布功能公告后，用户反馈中也出现类似意见。</p>",
-      "publishedAt": "2026-08-06T01:51:03.000Z",
-      "category": "人工智能",
-      "score": 75,
-      "importance": "值得读",
-      "summary": "微软上线一周后撤回Microsoft 365 Copilot“域名排除”功能，已获得权限的管理员也无法继续使用。该功能原可通过PowerShell排除最多1000个外部域名，微软未说明撤回原因。",
-      "whyItMatters": "企业失去了一项控制Copilot外部引用来源的工具，需要重新评估内容治理、错误来源和合规审核流程。",
-      "impactForPeople": "企业IT管理员的AI来源控制能力变差，维护可信引用的人工时间增加。普通M365用户仍可使用Copilot，但组织暂时无法依靠该功能统一屏蔽不可信域名。",
-      "impactAnalysis": {
-        "impactLevel": "直接",
-        "direction": "不利",
-        "changeStatement": "M365管理员在该功能下可配置的排除域名数量从最多1000个下降为不可配置。",
-        "affectedGroups": [
-          "Microsoft 365管理员",
-          "企业合规团队",
-          "使用Copilot的员工",
-          "知识管理人员"
-        ],
-        "impactPath": "微软撤回域名排除功能 → 集中屏蔽外部来源的规则不可用 → 人工复核和替代控制增加 → 员工获取可信答案的时间成本上升。",
-        "shortTerm": "已配置该功能的组织失去权限，管理员需要核对现有来源治理措施并增加人工审查。",
-        "mediumLongTerm": "当微软推出允许列表或新版控制能力后，治理效率上升；若替代功能长期缺位，企业审查成本维持高位。",
-        "actions": [
-          "管理员确认租户是否曾启用域名排除，并记录失效后的业务流程。",
-          "对高风险业务保留人工核验、权威来源清单和输出留痕。",
-          "等待微软正式说明撤回原因及替代方案，不依赖未公开的恢复时间。"
-        ],
-        "uncertainties": "微软确认撤回但未说明原因、恢复时间和替代设计；不同租户现有安全产品能否覆盖该缺口需逐一核验。"
-      },
-      "confidence": "中",
-      "topics": [
-        "Microsoft 365 Copilot",
-        "AI治理",
-        "来源控制",
-        "企业合规"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "9996df6f7607dea7",
-      "source": "Nature",
-      "sourceUrl": "https://www.nature.com/nature.rss",
-      "categoryHint": "国际科学研究",
-      "region": "international",
-      "title": "Thermally evaporated perovskite/silicon tandems via formamidinium eutectic",
-      "url": "https://www.nature.com/articles/s41586-026-10970-1",
-      "description": "Nature, Published online: 05 August 2026; doi:10.1038/s41586-026-10970-1 Thermally evaporated perovskite/silicon tandems via formamidinium eutectic",
-      "publishedAt": "2026-08-05T00:00:00.000Z",
-      "category": "科学",
-      "score": 74,
-      "importance": "值得读",
-      "summary": "Nature发表利用甲脒共晶实现热蒸发制备钙钛矿/硅叠层器件的研究，重点指向更适配工业制造的叠层光伏制备路线；候选摘要未提供效率、稳定性或量产成本数据。",
-      "whyItMatters": "热蒸发路线若兼顾效率和稳定性，将改变叠层光伏从实验室走向规模制造的判断，但当前不能据标题推断电价或组件价格下降。",
-      "impactForPeople": "家庭电费和光伏组件价格当前不变；当该工艺通过长期稳定性验证并进入量产后，叠层组件制造效率上升，单位制造成本下降，终端价格仍取决于产能和安装环节。",
-      "impactAnalysis": {
-        "impactLevel": "当前有限",
-        "direction": "当前不变",
-        "changeStatement": "光伏用户的购置成本当前不变；当热蒸发叠层工艺实现量产后，组件单位制造成本下降。",
-        "affectedGroups": [
-          "光伏制造企业员工",
-          "材料研究人员",
-          "分布式光伏业主",
-          "能源产业投资者"
-        ],
-        "impactPath": "热蒸发叠层工艺研究 → 稳定性验证和产线放大 → 制造效率上升、单位成本下降 → 组件售价和发电成本下降。",
-        "shortTerm": "科研复现和产业评估增加，现有组件售价、家庭电费及安装成本不变。",
-        "mediumLongTerm": "当效率、寿命和良率同时达到量产要求后，高效叠层组件供给增加；若稳定性或良率不足，商业化进度变慢。",
-        "actions": [
-          "普通消费者按当前成熟产品的发电量、质保和回收期决策，不为实验室路线提前支付溢价。",
-          "行业从业者继续观察认证效率、耐久测试、良率和量产线数据。"
-        ],
-        "uncertainties": "候选摘要只有论文题目，缺少器件效率、面积、稳定性、良率和成本信息；量产结论属于依赖后续验证的推断。"
-      },
-      "confidence": "中",
-      "topics": [
-        "钙钛矿硅叠层",
-        "光伏",
-        "热蒸发",
-        "先进制造"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "dd0d590ad4062b85",
-      "source": "IT之家",
-      "sourceUrl": "https://www.ithome.com/rss/",
-      "categoryHint": "国内科技、互联网与消费电子",
-      "region": "domestic",
-      "title": "消息称英伟达急寻中国 AI 基站供应商，与“下一个中际旭创”合作开发 6G 基站",
-      "url": "https://www.ithome.com/0/986/317.htm",
-      "description": "<p data-vmark=\"1034\">IT之家 8 月 6 日消息，据界面《硬科技头条》今日报道，通信产业链核心人士透露，英伟达正在加速进入电信运营商市场，<strong>并在中国寻找基站厂商合作方</strong>，开发符合海外市场要求的 6G 基站。</p><p data-vmark=\"07b5\">该人士形容，英伟达在找端侧算力的“下一个中际旭创”，因为英伟达认为，算力接下来要从数据中心传输到海量的 AI 终端和用户，最终需要依赖基站的无线传输。</p><p data-vmark=\"0592\">上述人士称，英伟达推动这一项目的节奏“比较紧迫”，<strong>希望在 2027 或 2028 年进入试验网</strong>。</p><p data-vmark=\"b4b8\">报道还称，深圳佳贤通信是英伟达正在建立的基站合作方之一，其内部人士确认，英伟达从 2025 年就与公司接触，目前双方正基于英伟达 CUDA 生态合作开发 6G AI-RAN 基站，双方合作已持续半年多。</p><p data-vmark=\"998d\">值得一提的是，英伟达此前已在通信领域进行过投资，比如 2025 年 10 月，英伟达宣布以 10 亿美元<span class=\"exch-money-value\">（IT之家注：现汇率约合 67.62 亿元人民币）</span>认购诺基亚新股，持股约 2.9%。<a href=\"https://www.ithome.com/0/893/110.htm\" target=\"_blank\">两家公司还建立了一项战略合作关系</a>，<strong>旨在共同开发下一代 6G 移动通信技术</strong>。诺基亚表示，将调整其 5G 和 6G 软件以适配英伟达的芯片平台，并将在面向人工智能的网络技术方面展开合作。</p><p data-vmark=\"be14\" style=\"text-align: center;\"><img src=\"https://img.ithome.com/newsuploadfiles/2025/10/e3d145c4-2b1f-4f93-bf6b-db377e2355e4.jpg?x-bce-process=image/format,f_auto/auto-orient,o_1\" w=\"1440\" h=\"810\" data-weibo=\"0\" data-vmark=\"5bfb\" class=\"no-alt-img\"></p><p data-vmark=\"a90e\">今年 2 月，英伟达联合诺基亚、爱立信、T-Mobile、德国电信、软银等企业，提出以开放、软件定义和 AI 原生的平台建设 6G。</p>",
-      "publishedAt": "2026-08-06T01:37:47.000Z",
-      "category": "科技",
-      "score": 72,
-      "importance": "可选",
-      "summary": "据产业链人士透露，英伟达正在中国寻找基站厂商合作开发面向海外市场的6G AI-RAN设备，并计划在2027或2028年进入试验网；深圳佳贤通信称双方合作已持续半年多。",
-      "whyItMatters": "这提供了AI算力向无线网络延伸及中国通信供应链参与海外6G试验的线索，但消息尚非英伟达正式项目公告。",
-      "impactForPeople": "中国通信从业者的订单和岗位当前不变；当英伟达正式确认合作且设备进入试验网后，AI基站研发订单增加，射频、网络软件和系统集成岗位需求上升。",
-      "impactAnalysis": {
-        "impactLevel": "当前有限",
-        "direction": "当前不变",
-        "changeStatement": "中国AI基站供应商订单当前不变；当合作正式确认并进入试验网后，相关研发订单增加。",
-        "affectedGroups": [
-          "通信设备工程师",
-          "AI-RAN研发人员",
-          "基站零部件供应商",
-          "通信专业学生"
-        ],
-        "impactPath": "英伟达寻找中国合作方 → 正式签约并完成试验网验证 → 研发及设备订单增加 → 供应商收入和技术岗位需求上升。",
-        "shortTerm": "产业链询价、技术对接和人才关注度增加，未签署订单的企业收入不变。",
-        "mediumLongTerm": "当设备通过海外试验网验证后，中国供应商进入6G生态的订单机会增加；若合作未获正式确认，产业传导停止。",
-        "actions": [
-          "从业者关注英伟达及合作企业的正式公告、招聘和试验网名单。",
-          "供应商在合同和技术标准明确前控制扩产与备货。",
-          "求职者优先补充无线通信、CUDA生态和网络软件能力，不依据单一传闻跳槽。"
-        ],
-        "uncertainties": "核心信息来自产业链人士和一家合作方，英伟达未在候选材料中正式确认；合作范围、采购规模、标准路线及试验网时间均未确定。"
-      },
-      "confidence": "低",
-      "topics": [
-        "英伟达",
-        "6G",
-        "AI-RAN",
-        "中国供应链"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "435ecf1acf7dcf5d",
-      "source": "Nature",
-      "sourceUrl": "https://www.nature.com/nature.rss",
-      "categoryHint": "国际科学研究",
-      "region": "international",
-      "title": "Junk plastic turns into high-value commodity with chemistry trick",
-      "url": "https://www.nature.com/articles/d41586-026-02445-0",
-      "description": "Nature, Published online: 05 August 2026; doi:10.1038/d41586-026-02445-0 Researchers untangle the chemistry behind turning PVC into high-grade motor lubricant — plus, how engineered yeast can help make a cancer drug.",
-      "publishedAt": "2026-08-05T00:00:00.000Z",
-      "category": "科学",
-      "score": 71,
-      "importance": "可选",
-      "summary": "Nature报道一项化学方法可将废弃PVC转化为高等级发动机润滑剂，并同时提到工程酵母辅助制造抗癌药物的研究方向；候选摘要未给出转化率、成本和产业规模。",
-      "whyItMatters": "若废PVC能稳定转为高价值材料，将改善难处理塑料的循环经济账，但实验室成果与商业回收体系之间仍有成本和规模化门槛。",
-      "impactForPeople": "居民垃圾处理费用和润滑油价格当前不变；当PVC转化工艺实现规模化并被回收体系采用后，废PVC高值利用率上升，填埋和低值处置需求下降。",
-      "impactAnalysis": {
-        "impactLevel": "当前有限",
-        "direction": "当前不变",
-        "changeStatement": "居民相关消费价格当前不变；当PVC高值转化实现规模化后，废PVC资源利用率上升、低值处置量下降。",
-        "affectedGroups": [
-          "塑料回收从业者",
-          "化工企业员工",
-          "汽车润滑材料供应商",
-          "城市垃圾管理部门"
-        ],
-        "impactPath": "PVC转化化学方法 → 完成成本、安全和规模验证 → 高值回收渠道增加 → 废物处置压力下降、再生材料供给增加。",
-        "shortTerm": "研究复核和工艺评估增加，现有垃圾分类、回收价格及润滑油价格不变。",
-        "mediumLongTerm": "当工艺成本低于现有处置与原料路线后，PVC回收收入和高值产品供给增加；若能耗或杂质处理成本过高，应用速度变慢。",
-        "actions": [
-          "居民继续按所在地规则分类处理PVC，不把研究成果当作所有塑料均可高值回收。",
-          "行业从业者观察转化率、能耗、杂质容忍度和中试规模数据。"
-        ],
-        "uncertainties": "候选摘要没有提供实验条件、经济性、环境全生命周期评估及抗癌药物研究细节，现实价格变化无法确认。"
-      },
-      "confidence": "中",
-      "topics": [
-        "PVC回收",
-        "循环经济",
-        "化学转化",
-        "材料科学"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
-    },
-    {
-      "id": "7f0922e0941bf7ca",
+      "id": "4d150037bb184bdc",
       "source": "中新网社会",
       "sourceUrl": "https://www.chinanews.com.cn/rss/society.xml",
       "categoryHint": "国内社会与民生",
       "region": "domestic",
-      "title": "网红直播“荒岛改造”被查处 擅自“爆改”无人岛违法",
-      "url": "https://www.chinanews.com.cn/sh/2026/08-06/10672736.shtml",
-      "description": "网红全程直播“荒岛改造”被查处",
-      "publishedAt": "2026-08-06T01:28:36.000Z",
-      "category": "社会",
-      "score": 70,
-      "importance": "可选",
-      "summary": "一名网红直播改造无人岛被查处，报道明确指出未经许可擅自改造无人岛违法，为户外内容创作和海岛开发划出合规边界。",
-      "whyItMatters": "该案例会改变博主、旅游经营者和施工参与者对“无人岛即可自由改造”的错误判断，能直接避免行政处罚、工程损失和生态破坏。",
-      "impactForPeople": "擅自改造无人岛的内容创作者执法风险上升，公众生态安全保障增强。直播展示、短期使用或无人居住均不等于取得施工和开发许可。",
+      "city": "",
+      "cityKind": "",
+      "title": "国产腔镜手术机器人力反馈技术临床试验成功",
+      "url": "https://www.chinanews.com.cn/sh/2026/08-20/10681068.shtml",
+      "description": "中新网南京8月20日电(吴涵玉 徐珊珊)近日，由东南大学宋爱国教授牵头的国家重点研发计划项目取得重大临床突破。学校联合企业共同研发的力交互腔镜手术机器人，在郑州大学第一附属医院与新疆医科大学第一附属医院泌尿外科团队的密切协同下，成功完成两例肾部分切除术与1例前列腺癌根治术。",
+      "publishedAt": "2026-08-20T07:49:40.000Z",
+      "category": "科技",
+      "score": 86,
+      "importance": "值得读",
+      "summary": "国产力交互腔镜手术机器人完成临床试验中的三台泌尿外科手术，包括两例肾部分切除术和一例前列腺癌根治术。",
+      "whyItMatters": "力反馈是手术机器人提升操作感知的重要能力，这次试验提供了人体临床进展，但不能据此认定已经获批普及或优于现有治疗。",
+      "impactForPeople": "普通患者当前可获得的手术选择不变；当设备通过后续试验、审批并进入医院后，适用患者的国产机器人手术选择增加，医院采购选择也增加。",
+      "impactAnalysis": {
+        "impactLevel": "当前有限",
+        "direction": "当前不变",
+        "changeStatement": "泌尿外科患者当前可获得的获批机器人手术数量不变；当设备获批并进院后，治疗设备选择增加。",
+        "affectedGroups": [
+          "泌尿外科患者",
+          "外科医生",
+          "医院设备采购人员",
+          "医疗机器人研发人员"
+        ],
+        "impactPath": "三例临床试验完成 → 设备安全性和操作性能积累人体数据 → 通过审批和医院采购后进入患者治疗选择。",
+        "shortTerm": "研发团队继续积累临床数据，普通患者现阶段仍按医院既有获批设备和标准方案就诊。",
+        "mediumLongTerm": "当后续试验和审批完成后，国产设备供应增加；手术费用、适应证和疗效仍由正式数据及医院定价决定。",
+        "actions": [
+          "患者按医生基于适应证提出的方案决策",
+          "不把三例成功试验视为普遍疗效证明",
+          "关注监管批准、试验规模和医院正式引进信息"
+        ],
+        "uncertainties": "已知完成三例手术；候选未说明试验终点、不良事件、对照结果、注册审批和商业化时间，临床优势尚不能确认。"
+      },
+      "confidence": "中",
+      "topics": [
+        "医疗机器人",
+        "临床试验",
+        "国产医疗器械",
+        "泌尿外科"
+      ]
+    },
+    {
+      "id": "f326b5aad9c112e8",
+      "source": "伊春市人民政府政策",
+      "sourceUrl": "https://www.yc.gov.cn/ycsrmzf/c102111/xxgk_zcwj.shtml",
+      "categoryHint": "伊春市政府政策文件与民生政策",
+      "region": "domestic",
+      "city": "伊春",
+      "cityKind": "政策",
+      "title": "伊春市人民政府办公室关于印发伊春市集中式地表水饮用水水源地突发环境事件专项应急预案的通知",
+      "url": "https://www.yc.gov.cn/ycsrmzf/c102111/202608/431975.shtml",
+      "description": "",
+      "publishedAt": "2026-08-14T04:00:00.000Z",
+      "category": "政策",
+      "score": 85,
+      "importance": "值得读",
+      "summary": "伊春印发集中式地表水饮用水水源地突发环境事件专项应急预案，为水源地污染事故建立专项处置依据。",
+      "whyItMatters": "饮用水污染属于低频但后果严重的公共安全事件，专项预案关系预警、供水处置和居民通知效率。",
+      "impactForPeople": "伊春集中式地表水水源覆盖居民的应急保障增强。发生水源污染事件时，部门响应速度加快、临时供水和风险通知的组织依据增加。",
       "impactAnalysis": {
         "impactLevel": "直接",
-        "direction": "分化",
-        "changeStatement": "擅自改造者的执法风险上升，公众获得的海岛生态安全保障上升。",
+        "direction": "有利",
+        "changeStatement": "伊春相关供水区域居民在水源突发污染时的应急响应速度加快。",
         "affectedGroups": [
-          "户外内容创作者",
-          "海岛旅游经营者",
-          "施工参与者",
-          "沿海社区居民"
+          "集中式供水居民",
+          "学校和医院",
+          "餐饮经营者",
+          "供水单位员工"
         ],
-        "impactPath": "违法改造案例被查处 → 执法边界公开 → 创作者和经营者合规审查收紧 → 违法施工成本上升、生态破坏风险下降。",
-        "shortTerm": "类似直播项目的审批核验和平台内容审查增加，未经许可的施工活动减少。",
-        "mediumLongTerm": "当执法持续并公开许可标准后，海岛商业开发合规成本上升，生态破坏和安全事故下降。",
+        "impactPath": "专项预案印发 → 水源污染处置职责和流程建立 → 风险通知、供水调整与应急处置速度加快。",
+        "shortTerm": "相关部门和供水单位的预案衔接、值守及演练要求增加，日常供水当前不变。",
+        "mediumLongTerm": "当预案通过演练和事件检验后，跨部门响应时间减少，突发污染期间的供水中断风险下降。",
         "actions": [
-          "计划登岛拍摄或建设前，向自然资源、海洋及属地管理部门核实进入和施工权限。",
-          "不参与无许可的挖掘、搭建、砍伐或长期占用，并保留审批文件。",
-          "平台创作者在发布改造内容前核验项目合法性，避免引导模仿。"
+          "确认家庭所在区域的供水和应急通知渠道",
+          "接到水质异常通知后只按供水及卫健部门指引用水",
+          "家庭保留少量轮换饮用水，不囤积"
         ],
-        "uncertainties": "候选描述未提供涉事地点、处罚种类和适用条款，具体活动是否需要许可须按地点、行为和权属判断。"
+        "uncertainties": "已知专项预案已经印发；候选未提供预警分级、备用水源、通知方式和启动条件，具体执行效果仍取决于配套和演练。"
       },
       "confidence": "高",
       "topics": [
-        "无人岛保护",
-        "网络直播",
-        "行政执法",
-        "生态安全"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
+        "伊春",
+        "饮用水安全",
+        "环境应急",
+        "公共卫生"
+      ]
     },
     {
-      "id": "19543270cb02fead",
+      "id": "db3a2e0384d9db07",
+      "source": "中新网社会",
+      "sourceUrl": "https://www.chinanews.com.cn/rss/society.xml",
+      "categoryHint": "国内社会与民生",
+      "region": "domestic",
+      "city": "",
+      "cityKind": "",
+      "title": "平台出现“优惠券游戏”，“大数据杀熟”玩起新套路",
+      "url": "https://www.chinanews.com.cn/sh/2026/08-20/10681049.shtml",
+      "description": "有人被砸中“大额优惠券” 有人看不见一分钱折扣",
+      "publishedAt": "2026-08-20T07:31:59.000Z",
+      "category": "商业",
+      "score": 85,
+      "importance": "值得读",
+      "summary": "部分平台以优惠券游戏向不同用户展示不同折扣：有人获得大额券，也有人完全看不到优惠，价格差异被包装成游戏机制。",
+      "whyItMatters": "个性化优惠会改变消费者实际支付价格，用户应比较最终到手价并保存同商品、同时段的差异证据。",
+      "impactForPeople": "平台消费者的优惠公平性变差，不同账号的实际支付价格分化。同一商品或服务下，获得大额券者成本下降，看不到优惠者成本增加。",
+      "impactAnalysis": {
+        "impactLevel": "直接",
+        "direction": "分化",
+        "changeStatement": "获得优惠券用户的支付价格下降，看不到优惠用户的支付价格增加。",
+        "affectedGroups": [
+          "外卖平台用户",
+          "网约车用户",
+          "电商消费者",
+          "高频平台用户"
+        ],
+        "impactPath": "平台差异化发券 → 不同账号看到不同优惠 → 同一交易的个人实际支付价格分化。",
+        "shortTerm": "消费者比价时间增加，优惠入口和游戏任务使真实成交价更难直接比较。",
+        "mediumLongTerm": "当差异化发券持续且缺少透明说明时，消费者信任下降；当监管或平台提高透明度后，隐性价格差异减少。",
+        "actions": [
+          "下单前比较最终支付价而非券面金额",
+          "对异常差价保留时间、商品和账号页面截图",
+          "通过平台或消费者投诉渠道提交可复核证据"
+        ],
+        "uncertainties": "候选描述了用户遭遇，但未给出平台名单、样本规模和算法证据；个别差价也可能来自地区、会员、库存或活动条件。"
+      },
+      "confidence": "中",
+      "topics": [
+        "大数据杀熟",
+        "优惠券",
+        "平台消费",
+        "价格公平"
+      ]
+    },
+    {
+      "id": "5df3155761a4be3f",
       "source": "arXiv AI",
       "sourceUrl": "https://export.arxiv.org/rss/cs.AI",
       "categoryHint": "国际人工智能研究",
       "region": "international",
-      "title": "HyperAgent: Planning and Acting over Tool-Schema Hypergraphs for Tool-Use LLM Agents",
-      "url": "https://arxiv.org/abs/2608.02650",
-      "description": "arXiv:2608.02650v1 Announce Type: new Abstract: Large language model (LLM) agents increasingly rely on external tools to complete complex real-world tasks. However, reliable tool-use planning remains challenging due to the limitations of implicit reasoning and the evolving nature of real-world execution environments. Existing tool-use agents typically rely on LLMs to infer tool compositions from textual descriptions, which can lead to inefficient exploration and unreliable execution in complex tasks. To address these challenges, we model tool relations at the schema level and construct a directed Tool--Schema Hypergraph, in which tools are represented as hyperedges from their required input-schema nodes to their output-schema nodes. Furthermore, we propose HyperAgent, a Tool--Schema Hypergraph-guided framework for dynamic planning and execution. Given a task, HyperAgent first extracts a task-relevant tool context graph and uses it to guide the construction of a schema-aware Task DAG. During execution, HyperAgent dynamically realizes each subtask by constructing a state-conditioned tool support graph through deficit-oriented expansion, which identifies unresolved requirements and retrieves supporting producer tools according to the current agent state. Experiments on AppWorld demonstrate that HyperAgent improves task completion performance while reducing redundant API calls, LLM interactions, and token consumption compared with existing agent baselines.",
-      "publishedAt": "2026-08-05T04:00:00.000Z",
+      "city": "",
+      "cityKind": "",
+      "title": "Position: Collusion Risks Among AI Reasoning Agents Justify Certification Requirements for Making Market Decisions",
+      "url": "https://arxiv.org/abs/2608.18078",
+      "description": "arXiv:2608.18078v1 Announce Type: new Abstract: This position paper argues that AI agents with chain-of-thought reasoning capabilities are predisposed to exhibit collusive behavior and should be required to obtain behavioral certification before making decisions that affect economic markets. This is because integrating these agents into society could collapse the legal evidentiary distinction between competition and collusion among independent firms without eroding the economic harm distinction. Experiments with DeepSeek-R1 agents in the Bertrand oligopoly pricing domain reveal a tendency towards tacit collusion that persists even when humans prompt the agents not to collude. We further show that the chain-of-thought of these agents can be steered toward either extremely collusive or highly competitive behavior in a way that is not semantically detectable by another LLM analyzing the reasoning traces. As a result, deploying reasoning agents for market decisions leads to collusive economic outcomes without any evidence of conspiracy or intent. Thus, certification based on observed behavior in representative situations is necessary to prevent collusion. We provide preliminary evidence that such agents can be steered in a generalizable way toward efficient competitive equilibria. However, developing a comprehensive behavioral certification will be required before these models can be deployed in real-world markets while ensuring their stability and efficiency.",
+      "publishedAt": "2026-08-20T04:00:00.000Z",
       "category": "人工智能",
-      "score": 68,
-      "importance": "可选",
-      "summary": "HyperAgent预印本把工具的输入输出关系建模为超图，并据此动态规划任务。论文称其在AppWorld上提高完成率，同时减少冗余API调用、模型交互和Token消耗，但摘要未给出完整数值。",
-      "whyItMatters": "它提供了提升工具型AI可靠性的新工程思路，重点从单纯增加模型推理转向显式管理工具依赖，值得代理系统开发者验证。",
-      "impactForPeople": "普通AI用户的服务价格和成功率当前不变；当该方法被独立复现并进入实际产品后，工具型AI的无效调用减少、任务完成速度上升，服务成本下降。",
+      "score": 84,
+      "importance": "值得读",
+      "summary": "一篇立场论文在伯特兰定价实验中发现，DeepSeek-R1代理表现出持续的默契合谋倾向，且另一模型难以从推理文本识别这种行为；作者主张市场决策代理接受行为认证。",
+      "whyItMatters": "如果企业让多个推理代理自主定价，只检查提示词和推理记录不足以排除合谋结果，监管和采购应转向行为测试。",
+      "impactForPeople": "消费者当前支付价格不变；当多个推理代理被用于市场定价且缺少行为约束时，商品成交价格上升、竞争优惠减少。",
       "impactAnalysis": {
         "impactLevel": "当前有限",
         "direction": "当前不变",
-        "changeStatement": "普通AI用户的任务完成速度当前不变；当HyperAgent被产品采用后，冗余工具调用减少、任务完成速度上升。",
+        "changeStatement": "消费者当前支付价格不变；当未经行为认证的代理独立定价时，市场成交价格上升。",
         "affectedGroups": [
-          "AI代理开发者",
-          "企业自动化团队",
-          "API平台运营者",
-          "使用复杂AI工作流的用户"
+          "平台消费者",
+          "企业定价人员",
+          "竞争监管人员",
+          "AI代理开发者"
         ],
-        "impactPath": "工具关系显式建图 → 产品验证后减少错误规划和重复调用 → Token与API成本下降 → 用户等待时间和服务费用下降。",
-        "shortTerm": "研究团队和开发者的复现实验增加，现有商业AI服务指标不变。",
-        "mediumLongTerm": "当不同模型和真实工具环境验证有效后，复杂代理任务的完成率上升、运行成本下降；若优势只适用于AppWorld，现实收益受限。",
+        "impactPath": "推理代理进入企业定价 → 多代理在实验中形成默契合谋 → 竞争强度下降并使消费者成交价上升。",
+        "shortTerm": "研究会提高企业和监管机构对代理定价测试的要求，现实市场价格当前不变。",
+        "mediumLongTerm": "当代理定价大规模部署后，行为认证和持续审计增加；缺少约束的市场中价格竞争减少。",
         "actions": [
-          "开发团队在非生产环境复现基准，并记录成功率、API调用数、Token和延迟。",
-          "普通用户继续按现有产品表现选择服务，观察是否出现独立复现和真实部署案例。"
+          "消费者继续跨平台比较最终价格",
+          "企业在代理定价上线前开展多主体压力测试",
+          "关注真实市场复现实验和正式监管要求"
         ],
-        "uncertainties": "论文为新发布预印本，候选摘要未提供完整对照数据、统计显著性和真实生产测试；结论目前限于作者报告的实验设置。"
+        "uncertainties": "这是立场论文和特定实验环境的初步证据，不等同于现实市场已经发生合谋；结论依赖模型、提示、市场结构和部署权限。"
       },
-      "confidence": "低",
+      "confidence": "中",
       "topics": [
         "AI代理",
-        "工具调用",
-        "任务规划",
-        "预印本"
-      ],
-      "firstSeenAt": "2026-08-06T02:07:28.180Z",
-      "lastSeenAt": "2026-08-06T02:07:28.180Z",
-      "seenCount": 1
+        "算法合谋",
+        "竞争监管",
+        "行为认证"
+      ]
+    },
+    {
+      "id": "8e914b32890c11e5",
+      "source": "IT之家",
+      "sourceUrl": "https://www.ithome.com/rss/",
+      "categoryHint": "国内科技、互联网与消费电子",
+      "region": "domestic",
+      "city": "",
+      "cityKind": "",
+      "title": "华为余承东：鸿蒙智行享界 G9 是首款 L3 级自动驾驶架构的豪华硬派 SUV",
+      "url": "https://www.ithome.com/0/992/167.htm",
+      "description": "<p data-vmark=\"6fcf\">IT之家 8 月 20 日消息，在今天的享界 G9 及鸿蒙智行新品发布会上，华为常务董事、产品投资评审委员会主任、终端 BG 董事长余承东宣布，<strong>享界 G9 是首款 L3 级自动驾驶架构的豪华硬派 SUV</strong>。</p><p style=\"text-align: center;\" data-vmark=\"3176\"><img src=\"https://img.ithome.com/newsuploadfiles/2026/8/fce23e85-1cac-4248-b5c5-1490587c68af.jpg?x-bce-process=image/format,f_auto\" w=\"1280\" h=\"960\" data-mpos=\"0,2\" data-weibo=\"0\" data-marks=\"1931fd9d012eb6d19de5effe4634230312386c3476087d2c1e8b1983a16a4d552eb27c0899284880ecfebcc75612c1b3\" data-vmark=\"f7dd\" class=\"no-alt-img\"></p><p data-vmark=\"57ca\">新车搭载全向立体融合感知系统，全车 38 个高精度传感器；采用 L3 级自动驾驶架构，支持全链路八大冗余。</p><p style=\"text-align: center;\" data-vmark=\"de4e\"><img src=\"https://img.ithome.com/newsuploadfiles/2026/8/85df2355-c78f-4059-bb2d-119a3619ad34.jpg?x-bce-process=image/format,f_auto\" w=\"1440\" h=\"1080\" data-mpos=\"0,2\" data-weibo=\"1\" data-marks=\"1931fd9d012eb6d1fdbaf20d244e0edffdb283f62a8dbd1c06c97e0b80366e2902c3f0e97ff8c68db9761799c62e7659\" data-vmark=\"d8a7\" class=\"no-alt-img\"></p><p style=\"text-align: center;\" data-vmark=\"501b\"><img src=\"https://img.ithome.com/newsuploadfiles/2026/8/a1f2ce62-26d4-4256-962d-175bbc42c3d7.jpg?x-bce-process=image/format,f_auto\" w=\"1280\" h=\"960\" data-mpos=\"0,0\" data-weibo=\"2\" data-marks=\"1931fd9d012eb6d10578644396fc5f785561fd010711ba4f5a96b8f4606b18bfdec7a215ca9b38091c3d2166fcbf9d12\" data-vmark=\"3573\" class=\"no-alt-img\"></p><p data-vmark=\"1193\">IT之家注意到，鸿蒙智行享界 G9 还正式获批北京市 L3 级自动驾驶道路测试牌照，成为首款获批北京市时速 120 公里 L3 级自动驾驶道路测试牌照的车型。</p><p style=\"text-align: center;\" data-vmark=\"57b3\"><img src=\"https://img.ithome.com/newsuploadfiles/2026/8/5dd52cb3-6f2a-433e-b3e9-fe6a4c901e66.jpg?x-bce-process=image/format,f_auto\" w=\"1440\" h=\"1080\" data-mpos=\"0,0\" data-weibo=\"3\" data-vmark=\"e411\" class=\"no-alt-img\"></p>",
+      "publishedAt": "2026-08-20T07:44:49.000Z",
+      "category": "科技",
+      "score": 84,
+      "importance": "值得读",
+      "summary": "享界G9宣称采用L3级自动驾驶架构和全链路冗余，并已获得北京市时速120公里L3级自动驾驶道路测试牌照；道路测试资格不等于消费者可启用L3。",
+      "whyItMatters": "牌照表明高阶自动驾驶测试向高速场景推进，但购车者仍需区分架构、道路测试和正式准入三种状态。",
+      "impactForPeople": "购车者当前可合法使用的L3功能不变。道路测试牌照只扩大测试范围；当车型取得正式准入并明确责任规则后，驾驶接管时间减少。",
+      "impactAnalysis": {
+        "impactLevel": "当前有限",
+        "direction": "当前不变",
+        "changeStatement": "享界G9购车者当前可合法使用的L3自动驾驶功能数量不变。",
+        "affectedGroups": [
+          "潜在购车者",
+          "北京道路使用者",
+          "汽车测试人员",
+          "保险从业者"
+        ],
+        "impactPath": "取得L3道路测试牌照 → 企业在规定道路积累测试数据 → 通过正式准入后才向消费者开放相应功能。",
+        "shortTerm": "北京相关道路的测试活动增加，消费者购车时仍须按已批准功能和驾驶责任使用车辆。",
+        "mediumLongTerm": "当正式准入、责任和保险规则落地后，符合条件道路上的驾驶接管频次减少，相关保险和维修规则增加。",
+        "actions": [
+          "购车时核对交付功能和正式准入状态",
+          "不要把测试牌照当作个人使用许可",
+          "保留销售承诺并阅读驾驶员责任说明"
+        ],
+        "uncertainties": "已知车型获得道路测试牌照；候选未说明量产准入、开放道路、责任主体和功能交付时间，厂商表述仍需监管文件验证。"
+      },
+      "confidence": "中",
+      "topics": [
+        "L3自动驾驶",
+        "道路测试",
+        "智能汽车",
+        "消费者权益"
+      ]
+    },
+    {
+      "id": "5dd8e6f878a79522",
+      "source": "中新网财经",
+      "sourceUrl": "https://www.chinanews.com.cn/rss/finance.xml",
+      "categoryHint": "国内财经与民生经济",
+      "region": "domestic",
+      "city": "",
+      "cityKind": "",
+      "title": "中国国家邮政局：全国多地投用超1.6万台无人快递车",
+      "url": "https://www.chinanews.com.cn/cj/2026/08-20/10681034.shtml",
+      "description": "中新社北京8月20日电 (记者 刘文文)中国国家邮政局政策法规司副司长徐华荣20日在北京透露，邮政业试点应用无人派送技术，在全国多个地区投用超1.6万台无人快递车。",
+      "publishedAt": "2026-08-20T07:29:27.000Z",
+      "category": "商业",
+      "score": 83,
+      "importance": "值得读",
+      "summary": "国家邮政局称，全国多个地区已投用超过1.6万台无人快递车，末端无人配送由小规模展示转向较大范围试用。",
+      "whyItMatters": "无人车会改变快递网点的人车配置和配送组织，但现有数字不能直接证明快递更快、更便宜或岗位已经减少。",
+      "impactForPeople": "已投用地区居民接触无人配送的频率增加，快递时效和费用当前不变。配送员的重复运输任务减少幅度仍取决于线路覆盖和人工接驳安排。",
+      "impactAnalysis": {
+        "impactLevel": "间接",
+        "direction": "分化",
+        "changeStatement": "投用地区居民的无人车配送次数增加，传统末端运输岗位的任务量在覆盖线路上减少。",
+        "affectedGroups": [
+          "快递消费者",
+          "快递员和配送员",
+          "社区物业人员",
+          "无人配送运维人员"
+        ],
+        "impactPath": "无人快递车投用增加 → 固定线路运输自动化 → 居民取件方式改变，部分人工运输任务减少并增加运维任务。",
+        "shortTerm": "部分社区和园区的无人车配送次数增加，居民需要适应通知、取件点和人车混行规则。",
+        "mediumLongTerm": "当线路覆盖扩大且运营稳定后，重复运输岗位任务减少，无人车调度、维护和安全管理岗位增加。",
+        "actions": [
+          "留意所在社区的取件和通行规则",
+          "遇到无人车阻塞或故障时联系运营方，不自行拖拽",
+          "从业者可补充调度、运维和安全管理技能"
+        ],
+        "uncertainties": "已知投用规模超过1.6万台；候选未说明城市分布、配送量、事故率、时效、成本和就业变化，个人体验不能由车辆数量直接推出。"
+      },
+      "confidence": "高",
+      "topics": [
+        "无人配送",
+        "快递物流",
+        "自动化",
+        "就业转型"
+      ]
+    },
+    {
+      "id": "d393e552d4ed795a",
+      "source": "中新网社会",
+      "sourceUrl": "https://www.chinanews.com.cn/rss/society.xml",
+      "categoryHint": "国内社会与民生",
+      "region": "domestic",
+      "city": "",
+      "cityKind": "",
+      "title": "如何科学用药、什么是中药五味？听专家详解",
+      "url": "https://www.chinanews.com.cn/sh/2026/08-20/10681031.shtml",
+      "description": "中新网上海8月20日电 (陈静 瞿乃婴)在家庭用药中，药箱打理、药品储存、服药时间、漏服药物处置、多重慢病用药等问题困扰着许多居民。复旦大学附属华东医院药剂科专家高宁舟副主任药师19日对这些问题给出了落地可行的专业指导。",
+      "publishedAt": "2026-08-20T07:26:45.000Z",
+      "category": "社会",
+      "score": 82,
+      "importance": "值得读",
+      "summary": "复旦大学附属华东医院药师集中讲解家庭药箱管理、药品储存、服药时间、漏服处理和多重慢病用药等常见问题。",
+      "whyItMatters": "这些问题直接关系误服、重复用药和药品失效风险，慢病患者及照护家庭可据此完善用药记录并咨询专业人员。",
+      "impactForPeople": "慢病患者和照护家庭的用药信息获取变好，按专业指导整理药箱和核对药物后，误服、漏服及错误储存风险下降。",
+      "impactAnalysis": {
+        "impactLevel": "直接",
+        "direction": "有利",
+        "changeStatement": "按专业指导管理药物的慢病患者误服和错误储存风险下降。",
+        "affectedGroups": [
+          "多重慢病患者",
+          "独居老人",
+          "长期服药者",
+          "家庭照护者"
+        ],
+        "impactPath": "药师提供具体用药指导 → 家庭核对储存、时间和漏服处理 → 误用及失效药品暴露风险下降。",
+        "shortTerm": "家庭药箱清理和用药记录完善后，重复药、过期药和错误储存数量减少。",
+        "mediumLongTerm": "持续使用统一药物清单并定期复核后，多医生开药造成的重复用药风险下降。",
+        "actions": [
+          "整理正在使用的药名、剂量和时间清单",
+          "检查有效期及说明书要求的储存条件",
+          "漏服、多药联用或不适时咨询医生或药师"
+        ],
+        "uncertainties": "候选未提供专家逐条建议内容，不能代替药品说明书和个体化医疗意见；具体处理取决于药物种类、疾病和医嘱。"
+      },
+      "confidence": "高",
+      "topics": [
+        "家庭用药",
+        "慢病管理",
+        "药品安全",
+        "老年照护"
+      ]
+    },
+    {
+      "id": "a7925c0f4ad04ebd",
+      "source": "伊春市人民政府政策",
+      "sourceUrl": "https://www.yc.gov.cn/ycsrmzf/c102111/xxgk_zcwj.shtml",
+      "categoryHint": "伊春市政府政策文件与民生政策",
+      "region": "domestic",
+      "city": "伊春",
+      "cityKind": "政策",
+      "title": "伊春市人民政府办公室关于印发伊春市重污染天气应急预案的通知",
+      "url": "https://www.yc.gov.cn/ycsrmzf/c102111/202608/431973.shtml",
+      "description": "",
+      "publishedAt": "2026-08-14T04:00:00.000Z",
+      "category": "政策",
+      "score": 81,
+      "importance": "值得读",
+      "summary": "伊春印发重污染天气应急预案，为出现重污染天气时的预警和应急响应提供制度依据。",
+      "whyItMatters": "预案关系学校、户外作业、工业生产和居民健康防护，但日常生活是否受限取决于空气质量和预警是否启动。",
+      "impactForPeople": "伊春居民日常出行当前不变；当重污染预警启动后，户外活动时间减少、重点排放活动限制增加，儿童和慢病人群的暴露风险下降。",
+      "impactAnalysis": {
+        "impactLevel": "直接",
+        "direction": "有利",
+        "changeStatement": "重污染预警启动后，伊春儿童和慢病人群的户外污染暴露时间减少。",
+        "affectedGroups": [
+          "儿童和学生",
+          "呼吸系统慢病患者",
+          "户外作业人员",
+          "重点排放企业员工"
+        ],
+        "impactPath": "应急预案印发 → 空气污染达到启动条件时实施预警和减排措施 → 居民户外暴露时间减少。",
+        "shortTerm": "空气质量未触发预警时生活安排不变；触发后学校、户外作业和排放活动限制增加。",
+        "mediumLongTerm": "当预案经过持续执行和复盘后，重污染事件响应速度加快，高风险人群暴露时间减少。",
+        "actions": [
+          "保存伊春空气质量和预警查询入口",
+          "预警启动后按官方建议减少高强度户外活动",
+          "慢病患者保持常规诊疗安排并备齐日常处方药"
+        ],
+        "uncertainties": "已知预案已经印发；候选未提供预警阈值、响应级别、强制措施和适用区域，实际限制以启动公告为准。"
+      },
+      "confidence": "高",
+      "topics": [
+        "伊春",
+        "空气污染",
+        "应急预案",
+        "健康防护"
+      ]
+    },
+    {
+      "id": "c1e2ecefc6daf2c0",
+      "source": "杭州网城市新闻",
+      "sourceUrl": "https://hznews.hangzhou.com.cn/chengshi/index.htm",
+      "categoryHint": "杭州本地新闻与民生变化",
+      "region": "domestic",
+      "city": "杭州",
+      "cityKind": "新闻",
+      "title": "开通!杭州出发看海新线 高铁最快1小时47分直达",
+      "url": "https://hznews.hangzhou.com.cn/chengshi/content/2026-08/20/content_9285079.htm",
+      "description": "",
+      "publishedAt": "2026-08-20T04:00:00.000Z",
+      "category": "社会",
+      "score": 80,
+      "importance": "值得读",
+      "summary": "杭州新增一条可直达海滨目的地的高铁出行线路，最快用时1小时47分，为短途旅游和探亲增加了铁路选择。",
+      "whyItMatters": "明确缩短的铁路时间可直接改变杭州居民周末出游方式，也会分流部分自驾需求。",
+      "impactForPeople": "杭州前往该海滨目的地的旅客出行时间下降，铁路选择增加。最快1小时47分的直达服务减少换乘，但具体成本取决于班次、席别和购票日期。",
+      "impactAnalysis": {
+        "impactLevel": "直接",
+        "direction": "有利",
+        "changeStatement": "杭州前往该海滨目的地的旅客最快铁路出行时间下降至1小时47分。",
+        "affectedGroups": [
+          "杭州周末游客",
+          "探亲旅客",
+          "亲子家庭",
+          "沿线旅游从业者"
+        ],
+        "impactPath": "直达高铁线路开通 → 换乘次数和铁路耗时减少 → 旅客时间成本下降。",
+        "shortTerm": "周末和节假日铁路出游需求增加，热门时段余票减少、购票时间提前。",
+        "mediumLongTerm": "当班次保持稳定后，杭州与目的地之间的短途往来频率增加，部分自驾客流转向铁路。",
+        "actions": [
+          "购票时核对具体车站、班次和总耗时",
+          "与自驾的票价、停车费和时间作比较",
+          "节假日提前查看余票和返程班次"
+        ],
+        "uncertainties": "候选未写明目的地、每日班次数量、票价和停靠站；只有最快时间可确认，实际行程以铁路售票信息为准。"
+      },
+      "confidence": "中",
+      "topics": [
+        "杭州",
+        "高铁",
+        "城际出行",
+        "短途旅游"
+      ]
+    },
+    {
+      "id": "945b5efb2ede7814",
+      "source": "衢州市人民政府",
+      "sourceUrl": "https://www.qz.gov.cn/",
+      "categoryHint": "衢州本地政策、政务与民生新闻",
+      "region": "domestic",
+      "city": "衢州",
+      "cityKind": "政策与新闻",
+      "title": "我市与京东集团签署战略合作协议",
+      "url": "https://www.qz.gov.cn/col/col1229707050/art/2026/art_056673673d644b4c8f7966c7e5ed0fe4.html",
+      "description": "",
+      "publishedAt": "2026-08-14T04:00:00.000Z",
+      "category": "商业",
+      "score": 81,
+      "importance": "可选",
+      "summary": "衢州市与京东集团签署战略合作协议，这是双方建立正式合作关系的新增事实；候选信息未披露合作领域、项目规模或投资金额。",
+      "whyItMatters": "协议可作为观察衢州电商、物流或数字产业项目的前置信号，但在具体项目公布前不应据此判断就业和投资已经增加。",
+      "impactForPeople": "衢州居民的就业岗位和服务价格当前不变；当合作协议转化为落地项目并启动招聘后，相关行业岗位数量增加。",
+      "impactAnalysis": {
+        "impactLevel": "当前有限",
+        "direction": "当前不变",
+        "changeStatement": "衢州求职者当前可申请的京东合作项目岗位数量不变。",
+        "affectedGroups": [
+          "衢州求职者",
+          "本地商户",
+          "物流从业者",
+          "数字产业服务商"
+        ],
+        "impactPath": "政府与企业签约 → 明确具体项目、投资和运营安排 → 项目开工或业务上线后增加岗位与商业服务。",
+        "shortTerm": "政企对接和项目论证增加，居民收入、就业和消费价格当前不变。",
+        "mediumLongTerm": "当投资金额、建设地点和招聘计划正式公布后，相关岗位和本地采购需求增加。",
+        "actions": [
+          "求职者只依据京东或政府正式招聘信息投递",
+          "商户等待合作范围和准入条件公布",
+          "警惕借战略合作名义收费的培训或招商"
+        ],
+        "uncertainties": "候选仅确认签约，未披露合作内容、约束性条款、投资额和进度，因此不能确认产业与就业结果。"
+      },
+      "confidence": "中",
+      "topics": [
+        "衢州",
+        "京东",
+        "战略合作",
+        "就业信号"
+      ]
+    },
+    {
+      "id": "21bfd441afff8f09",
+      "source": "Nature",
+      "sourceUrl": "https://www.nature.com/nature.rss",
+      "categoryHint": "国际科学研究",
+      "region": "international",
+      "city": "",
+      "cityKind": "",
+      "title": "These trees are making air quality in cities worse",
+      "url": "https://www.nature.com/articles/d41586-026-02586-2",
+      "description": "Nature, Published online: 20 August 2026; doi:10.1038/d41586-026-02586-2 They release compounds that contribute to ozone emissions, and rising temperatures could exacerbate the problem.",
+      "publishedAt": "2026-08-20T00:00:00.000Z",
+      "category": "科学",
+      "score": 80,
+      "importance": "可选",
+      "summary": "Nature报道，一些城市树种会释放参与臭氧生成的挥发性物质，升温会加剧这一过程，提示城市绿化并非树木越多空气质量就必然越好。",
+      "whyItMatters": "城市绿化应同时考虑树种排放、温度和臭氧生成，公众也应区分遮阴降温效益与特定条件下的空气污染代价。",
+      "impactForPeople": "高温城市居民的臭氧暴露风险上升，释放相关化合物较多的树种会强化这一风险。当前个人风险仍取决于树种分布、温度和当地臭氧水平。",
+      "impactAnalysis": {
+        "impactLevel": "间接",
+        "direction": "不利",
+        "changeStatement": "高温且相关树种集中的城市居民臭氧暴露风险上升。",
+        "affectedGroups": [
+          "城市儿童",
+          "户外运动者",
+          "呼吸系统疾病患者",
+          "城市绿化规划人员"
+        ],
+        "impactPath": "特定树种释放挥发性物质 → 高温条件促进臭氧形成 → 居民户外臭氧暴露风险上升。",
+        "shortTerm": "高温和臭氧偏高时，敏感人群的户外活动时间应减少；常温且臭氧正常时个人安排不变。",
+        "mediumLongTerm": "当城市更新采用低排放、耐热树种并保留遮阴功能后，绿化带来的臭氧增量下降。",
+        "actions": [
+          "高温天同时查看臭氧或空气质量指标",
+          "臭氧偏高时减少午后高强度户外运动",
+          "关注本地绿化部门公布的树种配置依据"
+        ],
+        "uncertainties": "候选未列出具体树种、研究城市和效应大小；结论不能外推到所有树木，树木的降温、固碳和颗粒物拦截效益仍需综合评估。"
+      },
+      "confidence": "中",
+      "topics": [
+        "城市绿化",
+        "臭氧污染",
+        "高温",
+        "公共健康"
+      ]
+    },
+    {
+      "id": "e242ae07b8120f7d",
+      "source": "arXiv AI",
+      "sourceUrl": "https://export.arxiv.org/rss/cs.AI",
+      "categoryHint": "国际人工智能研究",
+      "region": "international",
+      "city": "",
+      "cityKind": "",
+      "title": "FinSkillBench: Evaluating AI Agents and Domain Skills for Investment Management",
+      "url": "https://arxiv.org/abs/2608.18099",
+      "description": "arXiv:2608.18099v1 Announce Type: new Abstract: Investment management is a high-stakes domain in which agentic AI systems must do more than generate plausible text. They must retrieve point-in-time data, assemble correct computational inputs, invoke specialized methods, and produce auditable structured outputs. We introduce FinSkillBench, an evaluation suite designed to measure whether language model agents can effectively use financial domain skills to solve investment management tasks. The benchmark spans three domains, portfolio construction, risk management, and fundamental analysis, and includes 12 subtasks with 2,603 task episodes. Each episode provides point-in-time inputs, hidden ground truth, and a task-specific verifier.We compare three conditions: no skill, curated skill packages consisting of procedural documents and executable components, and self-generated skills in which the agent writes and reuses its own procedures within an episode. Across 9 models and a large-scale evaluation, curated skills consistently improve performance, raising mean scores from 0.366 to 0.528, with the largest gains in portfolio construction and risk management. In contrast, self-generated skills provide little benefit despite higher computational cost. An independent evaluation using a separate agent framework (Hermes Agent, 8 models, 5,280 episodes total) reproduces the directional pattern across all three domains, with the magnitude of skill effects varying by subtask and harness. These results showthat in investment management agents, access to reliable procedural skills can be as important as model choice, while naive self-generation of skills is often ineffective. We release the benchmark, evaluation tools, curated skill packages, and full trajectories to support further research.",
+      "publishedAt": "2026-08-20T04:00:00.000Z",
+      "category": "人工智能",
+      "score": 79,
+      "importance": "可选",
+      "summary": "FinSkillBench用2603个任务评估九种模型的投资管理能力；加入经过整理的专业技能包后平均得分从0.366升至0.528，自生成技能则收益有限且计算成本更高。",
+      "whyItMatters": "结果表明高风险金融任务中，可靠流程和可审计工具与模型选择同样重要，不能只凭语言流畅度判断AI投资能力。",
+      "impactForPeople": "普通投资者当前收益不变；当金融机构采用经过验证的技能包和审计流程后，AI分析错误率下降，直接采用自生成流程的服务错误成本增加。",
+      "impactAnalysis": {
+        "impactLevel": "当前有限",
+        "direction": "当前不变",
+        "changeStatement": "普通投资者当前投资收益不变；采用经验证技能包的金融AI任务得分上升。",
+        "affectedGroups": [
+          "使用AI投研工具的个人",
+          "基金与投顾人员",
+          "金融AI开发者",
+          "风险管理人员"
+        ],
+        "impactPath": "专业技能包提供固定流程和工具 → 数据检索、计算与核验更规范 → 投资管理任务错误率下降。",
+        "shortTerm": "金融AI团队对流程包、时间点数据和结构化验证器的投入增加，个人投资收益当前不变。",
+        "mediumLongTerm": "当基准结果在真实业务中复现后，可审计技能包使用增加，未经验证的自生成流程使用减少。",
+        "actions": [
+          "不依据单次AI回答直接交易",
+          "要求投研工具说明数据时点、计算过程和风险假设",
+          "优先使用能导出来源与计算记录的工具"
+        ],
+        "uncertainties": "结果来自基准任务而非真实账户收益；分数提升依赖技能包质量、模型、验证器和任务类型，不能据此证明任何投资策略有效。"
+      },
+      "confidence": "中",
+      "topics": [
+        "金融AI",
+        "智能体评测",
+        "投资管理",
+        "可审计流程"
+      ]
     }
   ]
 }
