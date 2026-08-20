@@ -7,8 +7,12 @@
   "scripts": {
     "daily": "node src/daily.mjs",
     "daily:fixture": "node src/daily.mjs --fixture test/fixtures/sample-rss.xml",
+    "static:build": "node src/publish.mjs --no-push",
+    "static:fixture": "node src/publish.mjs --no-push --fixture test/fixtures/sample-rss.xml",
+    "publish:daily": "node src/publish.mjs",
     "schedule:install": "node scripts/install-schedule.mjs",
     "schedule:preview": "node scripts/install-schedule.mjs --dry-run",
+    "schedule:uninstall": "node scripts/install-schedule.mjs --uninstall",
     "serve": "node src/serve.mjs",
     "test": "node --test"
   },

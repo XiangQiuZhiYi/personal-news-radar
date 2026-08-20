@@ -2,6 +2,12 @@ import {
   buildSingleSpeechQueue,
   SpeechController
 } from "./speech.js";
+import {
+  favoritesForDate,
+  listFavoriteDates,
+  readFavoriteItems,
+  saveFavoriteItem
+} from "./storage.js";
 
 const feed = document.querySelector("#feed");
 const filters = document.querySelector("#filters");
@@ -12,8 +18,6 @@ const errors = document.querySelector("#errors");
 const errorMessage = document.querySelector("#error-message");
 const errorClose = document.querySelector("#error-close");
 const updatedAt = document.querySelector("#updated-at");
-const refreshButton = document.querySelector("#refresh-button");
-const refreshStatus = document.querySelector("#refresh-status");
 const views = document.querySelector("#views");
 const historyBrowser = document.querySelector("#history-browser");
 const historyList = document.querySelector("#history-list");
@@ -21,12 +25,19 @@ let digest = { items: [] };
 let activeCategory = "全部";
 let activeView = "today";
 let activeDate = null;
-let previousRefreshState = null;
 let highlightedItemId = null;
 let activeSpeechItemId = null;
 const favoriteIds = new Set();
 const cardRates = new Map();
 const followedCities = ["杭州", "衢州", "伊春"];
+
+function browserStorage() {
+  try {
+    return window.localStorage;
+  } catch {
+    return null;
+  }
+}
 
 function visibleItems() {
   const items = digest.items ?? [];
@@ -296,15 +307,12 @@ async function fetchJson(url, options) {
 
 async function loadToday() {
   try {
-    const [nextDigest, saved] = await Promise.all([
-      fetchJson("./api/current"),
-      fetchJson("./api/favorites/ids")
-    ]);
+    const nextDigest = await fetchJson("./data/latest.json");
     favoriteIds.clear();
-    for (const id of saved.ids ?? []) favoriteIds.add(String(id));
+    for (const item of readFavoriteItems(browserStorage())) favoriteIds.add(itemKey(item));
     renderDigest(nextDigest);
   } catch (error) {
-    brief.textContent = "今天的简报尚未生成。请点击“获取最新消息”。";
+    brief.textContent = "晚报暂时无法读取，请稍后重新打开页面。";
     stats.innerHTML = "";
     filters.innerHTML = "";
     feed.innerHTML = `<div class="empty">读取失败：${escapeHtml(error.message)}</div>`;
@@ -338,11 +346,12 @@ function renderHistoryButtons(entries) {
   `).join("");
 }
 
-async function loadFavorites(selectedDate = activeDate) {
+function loadFavorites(selectedDate = activeDate) {
   try {
-    const listing = await fetchJson("./api/favorites");
-    if (listing.errors?.length) showError(`${listing.errors.length} 个收藏文件无法读取。`);
-    const entries = listing.dates ?? [];
+    const favorites = readFavoriteItems(browserStorage());
+    favoriteIds.clear();
+    for (const item of favorites) favoriteIds.add(itemKey(item));
+    const entries = listFavoriteDates(favorites);
     activeDate = entries.some((entry) => entry.date === selectedDate) ? selectedDate : entries[0]?.date ?? null;
     renderHistoryButtons(entries);
     updateLocation();
@@ -350,14 +359,14 @@ async function loadFavorites(selectedDate = activeDate) {
       renderDigest({ version: 1, date: "", brief: "还没有收藏记录。", stats: {}, items: [] }, { favoriteCollection: true });
       return;
     }
-    const collection = await fetchJson(`./api/favorites/${encodeURIComponent(activeDate)}`);
+    const items = favoritesForDate(favorites, activeDate);
     const favoriteDigest = {
       version: 1,
-      date: collection.date,
-      generatedAt: collection.updatedAt,
-      brief: `这一天收藏了 ${collection.items?.length ?? 0} 条信息。`,
-      stats: { selected: collection.items?.length ?? 0 },
-      items: collection.items ?? []
+      date: activeDate,
+      generatedAt: items[0]?.favoritedAt,
+      brief: `这一天收藏了 ${items.length} 条信息。`,
+      stats: { selected: items.length },
+      items
     };
     for (const item of favoriteDigest.items) favoriteIds.add(itemKey(item));
     renderDigest(favoriteDigest, { favoriteCollection: true });
@@ -376,64 +385,9 @@ async function setView(view, selectedDate = null) {
   }
   historyBrowser.hidden = activeView !== "favorites";
   updateLocation();
-  if (activeView === "favorites") await loadFavorites(activeDate);
+  if (activeView === "favorites") loadFavorites(activeDate);
   else await loadToday();
 }
-
-function renderRefreshStatus(status) {
-  const remainingMinutes = Math.max(1, Math.ceil((status.cooldownRemainingMs ?? 0) / 60000));
-  if (status.status === "running") {
-    const phases = { collecting: "正在获取信息", analyzing: "Codex 正在整理" };
-    refreshButton.disabled = true;
-    refreshButton.textContent = "整理中…";
-    refreshStatus.textContent = `${phases[status.phase] ?? "正在整理"}，可能需要几分钟。`;
-    return;
-  }
-  if ((status.cooldownRemainingMs ?? 0) > 0) {
-    refreshButton.disabled = true;
-    refreshButton.textContent = `${remainingMinutes} 分钟后可刷新`;
-  } else {
-    refreshButton.disabled = false;
-    refreshButton.textContent = "获取最新消息";
-  }
-  refreshStatus.textContent = status.status === "error" && status.error
-    ? `最近一次整理失败：${status.error}，可以立即重试。`
-    : "每次成功整理后需等待 30 分钟。";
-}
-
-async function checkRefreshStatus() {
-  try {
-    const status = await fetchJson("./api/refresh/status");
-    const completed = previousRefreshState === "running" && status.status === "success";
-    previousRefreshState = status.status;
-    renderRefreshStatus(status);
-    if (completed) {
-      clearError();
-      if (activeView === "favorites") await loadFavorites(activeDate);
-      else await loadToday();
-    } else if (status.status === "error" && status.error) {
-      showError(`整理失败：${status.error}`);
-    }
-  } catch (error) {
-    refreshButton.disabled = true;
-    refreshStatus.textContent = "无法连接本机 Node 服务。";
-  }
-}
-
-refreshButton.addEventListener("click", async () => {
-  clearError();
-  refreshButton.disabled = true;
-  refreshButton.textContent = "正在启动…";
-  try {
-    const status = await fetchJson("./api/refresh", { method: "POST" });
-    previousRefreshState = status.status;
-    renderRefreshStatus(status);
-  } catch (error) {
-    if (error.body?.status) renderRefreshStatus(error.body);
-    else showError(`无法启动整理：${error.message}`);
-    await checkRefreshStatus();
-  }
-});
 
 filters.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-category]");
@@ -476,11 +430,9 @@ feed.addEventListener("click", async (event) => {
   favoriteButton.disabled = true;
   favoriteButton.textContent = "收藏中…";
   try {
-    await fetchJson("./api/favorites", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ itemId })
-    });
+    const item = (digest.items ?? []).find((entry) => itemKey(entry) === itemId);
+    if (!item) throw new Error("没有找到这条信息");
+    saveFavoriteItem(browserStorage(), item);
     favoriteIds.add(itemId);
     favoriteButton.classList.add("saved");
     favoriteButton.textContent = "已收藏";
@@ -512,8 +464,6 @@ window.addEventListener("popstate", () => {
 
 const params = new URLSearchParams(location.search);
 await setView(params.get("view"), params.get("date"));
-await checkRefreshStatus();
-setInterval(checkRefreshStatus, 2000);
 renderSpeechState(speechController.snapshot());
 window.addEventListener("pagehide", () => speechController.stop({ silent: true }));
 

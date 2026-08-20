@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,6 +9,7 @@ const label = "com.personal-news-radar.daily";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
 const dryRun = args.includes("--dry-run");
+const uninstall = args.includes("--uninstall");
 
 function optionNumber(name, fallback, min, max) {
   const index = args.indexOf(name);
@@ -30,7 +31,7 @@ function xml(value) {
   })[character]);
 }
 
-const hour = optionNumber("--hour", 22, 0, 23);
+const hour = optionNumber("--hour", 17, 0, 23);
 const minute = optionNumber("--minute", 0, 0, 59);
 const home = os.homedir();
 const plistPath = path.join(home, "Library/LaunchAgents", `${label}.plist`);
@@ -56,7 +57,12 @@ const plist = `<?xml version="1.0" encoding="UTF-8"?>
     <key>ProgramArguments</key>
     <array>
       <string>${xml(process.execPath)}</string>
-      <string>${xml(path.join(root, "src/daily.mjs"))}</string>
+      <string>${xml(path.join(root, "src/publish.mjs"))}</string>
+      <string>--scheduled</string>
+      <string>--hour</string>
+      <string>${hour}</string>
+      <string>--minute</string>
+      <string>${minute}</string>
     </array>
     <key>WorkingDirectory</key>
     <string>${xml(root)}</string>
@@ -71,6 +77,8 @@ ${environmentXml}
       <key>Minute</key>
       <integer>${minute}</integer>
     </dict>
+    <key>RunAtLoad</key>
+    <true/>
     <key>StandardOutPath</key>
     <string>${xml(path.join(logDirectory, "daily.log"))}</string>
     <key>StandardErrorPath</key>
@@ -83,6 +91,15 @@ ${environmentXml}
 
 if (dryRun) {
   process.stdout.write(plist);
+} else if (uninstall) {
+  const target = `gui/${process.getuid()}`;
+  try {
+    execFileSync("launchctl", ["bootout", target, plistPath], { stdio: "ignore" });
+  } catch {
+    // It may already be unloaded.
+  }
+  await rm(plistPath, { force: true });
+  console.log(`已卸载每日任务：${plistPath}`);
 } else {
   await mkdir(path.dirname(plistPath), { recursive: true });
   await mkdir(logDirectory, { recursive: true });

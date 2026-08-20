@@ -1,136 +1,195 @@
 # 个人信息晚报
 
-这个工具由用户在网页上手动触发：从配置的 RSS/Atom 或公开网页信息源拉取新内容，把候选信息通过标准输入交给 Codex，并在手机 PWA 中临时展示结构化分类、摘要和价值评分。拉取和整理本身不保存新闻内容；用户点击卡片上的“收藏”后，该条信息才写入电脑本地。默认信息结构以国内政策、财经、社会、商业和科技为主，国际重大事件与前沿研究为辅，并设有杭州、衢州、伊春三个关注城市板块。
+这个项目在 Mac 本地拉取公开信息，由本机已登录的 Codex CLI 进行去重、分类、筛选和影响分析，再把最终精选生成成静态网站。Mac 每天 17:00 自动运行，成功后只提交静态晚报数据并推送到 GitHub；GitHub Pages 随后完成发布，手机始终通过同一个网址阅读。
 
-## 工作方式
+不需要让 Mac 长期运行 Web 服务，也不需要 OpenAI API。Codex 只在本机执行，GitHub Actions 只部署已经生成好的静态文件。
+
+## 工作流程
 
 ```text
+每天 17:00，Mac 的 launchd 启动任务
+        ↓
 RSS / Atom / 城市公开网页
         ↓
-精确去重与时间过滤
+时间过滤、精确去重
         ↓
-codex exec + JSON Schema
+本机 codex exec + JSON Schema
         ↓
-语义去重、分类、价值筛选
+语义去重、分类、价值筛选、普通人影响分析
         ↓
-Node 服务内存中的本次结果
-        ↓ 用户点击收藏
-data/favorites/YYYY-MM-DD.json
+原子更新 public/data/latest.json
+        ↓
+只提交这一个数据文件并推送 main
+        ↓
+GitHub Actions 部署 public/ 到 GitHub Pages
+        ↓
+手机打开固定网址阅读
 ```
 
-Codex 只返回候选条目的 ID 和分析字段；标题、来源和原始链接始终从采集结果中回填，避免模型生成不存在的链接。
+如果抓取、Codex 分析或静态结果校验失败，`public/data/latest.json` 不会被覆盖，线上继续显示上一份成功晚报。如果 Git 推送或 Pages 部署失败，线上版本同样保持不变。
 
 ## 环境要求
 
+- macOS
 - Node.js 20 或更高版本
-- 已安装 Codex CLI
-- 已执行 `codex login`，可以使用 ChatGPT 订阅登录或 API Key 登录
+- 已安装并登录 Codex CLI
+- 当前仓库位于 `main` 分支
+- 已配置可免交互推送的 GitHub SSH Key
 
-检查登录状态：
+检查 Codex：
 
 ```bash
 codex login status
 ```
 
-Windows 下程序会优先使用 `PATH` 中的 Codex CLI；如果通过 Codex Desktop 安装，也会自动查找 `%LOCALAPPDATA%\OpenAI\Codex\bin` 中随应用提供的 `codex.exe`。仍无法自动找到时，可以在启动服务前显式指定完整路径：
-
-```powershell
-$env:CODEX_BIN = "C:\完整路径\codex.exe"
-npm run serve
-```
-
-macOS 下程序会先查找 `PATH`，随后自动检查 `/Applications/Codex.app`、`/Applications/ChatGPT.app` 以及用户 `Applications` 目录中的内置 Codex CLI。从 Windows 切回 Mac 时，不要沿用指向 `codex.exe` 的 `CODEX_BIN`；可在启动服务前执行 `unset CODEX_BIN`，再重新运行 `npm run serve`。
-
-## 运行与手动刷新
-
-启动本机 Node 服务：
+检查 GitHub 推送权限：
 
 ```bash
-npm run serve
+ssh -T git@github.com
 ```
 
-启动后终端会直接打印可用的局域网地址，例如 `http://192.168.1.20:4173`。手机与电脑在同一个 Wi-Fi 时打开该地址，点击页面上的“获取最新消息”即可启动采集与 Codex 整理。
-
-网页刷新采用异步任务，同一时间只允许一个任务运行。完整整理成功后开始 30 分钟进程内冷却；刷新失败不会触发冷却，可以立即重试。整理结果只保存在当前 Node 服务的内存中，重启服务后未收藏内容会消失。
-
-刷新接口不设置访问口令；同一局域网中的其他设备也可能触发任务，30 分钟冷却只限制频率，不提供身份认证。
-
-仍可通过命令行验证采集与 Codex 流程，但命令结束后结果不会写入文件：
-
-采集真实信息源并在终端输出统计：
+程序会优先查找 `PATH` 中的 Codex，随后检查 `/Applications/Codex.app`、`/Applications/ChatGPT.app` 及用户 `Applications` 目录中的内置 CLI。如果从 Windows 迁移过来，不要保留指向 `codex.exe` 的 `CODEX_BIN`：
 
 ```bash
-npm run daily
+unset CODEX_BIN
 ```
 
-用内置测试信息源验证完整 Codex 流程：
+## 首次启用 GitHub Pages
+
+仓库远端应为：
+
+```text
+git@github.com:XiangQiuZhiYi/personal-news-radar.git
+```
+
+先把本次代码改造正常提交并推送到 `main`。然后进入 GitHub 仓库：
+
+1. 打开 `Settings → Pages`。
+2. 在 `Build and deployment` 中选择 `GitHub Actions`。
+3. 推送 `main` 后等待 `Deploy static news radar` 工作流完成。
+
+页面地址预计为：
+
+```text
+https://xiangqiuzhiyi.github.io/personal-news-radar/
+```
+
+部署工作流位于 `.github/workflows/pages.yml`，它只读取 `public/` 并发布，不包含 Codex 登录信息、SSH Key 或 OpenAI API Key。
+
+GitHub Pages 通常是公开网页。当前部署内容仅包含公开新闻及其 AI 摘要；手机收藏不会上传。
+
+## 手动生成和发布
+
+只生成静态晚报、不提交 Git：
 
 ```bash
-npm run daily:fixture
+npm run static:build
 ```
 
-命令行触发不受网页 30 分钟冷却限制，但会与网页任务共享跨进程锁。由于命令行结果不会进入网页内存，也无法在页面收藏，日常使用应从网页点击“获取最新消息”。页面可添加到手机主屏幕。
+执行完整流程，包括抓取、Codex 分析、生成、提交和推送：
 
-## 收藏与本地记录
-
-每张卡片都有“收藏”按钮。只有点击收藏时，该卡片的标题、链接、摘要、影响分析、发布日期和收藏时间才写入文件；重复收藏不会产生重复记录。“我的收藏”视图按收藏日期读取本地文件。
-
-收藏永久保存在 `data/favorites/YYYY-MM-DD.json`，不会使用浏览器 Local Storage 或数据库。未收藏的整理结果不会写入 `data/raw`、`data/history` 或 `public/data/latest.json`。
-
-## 关注城市
-
-页面中的“关注城市”视图固定追踪杭州、衢州、伊春，并可按城市切换。城市候选会标记城市和“政策 / 新闻”类型，卡片仍可独立朗读、调整语速和收藏。
-
-- 杭州：杭州网城市新闻、杭州网政策库。
-- 衢州：衢州市人民政府公开的市委、市政府动态及本地政务新闻。
-- 伊春：伊春市人民政府要闻、伊春市政府政策文件。
-
-城市新闻读取最近 7 天，更新频率较低的政策栏目读取最近 30 天。Codex 会优先保留公共服务、就业、住房、教育、医疗、交通、安全和产业变化，例行会议、庆典、普通表态与人事消息不会仅因属于关注城市而提高优先级。存在合格候选时，每个城市至少入选 2 条、最多入选 5 条。
-
-## 语音播报
-
-每张新闻卡片独立提供“朗读”“停止”和语速选择。朗读内容仅包含该卡片的标题、摘要和“对普通人的影响”；影响分析会先标明“有利 / 不利 / 分化 / 当前不变”，再给出一句明确的变化结论，以及受影响人群、影响路径、短期与中长期变化、可采取行动和不确定性。评分、来源、标签和“为什么值得看”不会进入语音队列。
-
-每张卡片可选择 `0.8×`、`1.0×`、`1.15×` 或 `1.25×` 语速。同一时间只朗读一张卡片，开始另一张会停止上一张。语音由当前设备浏览器提供，不生成音频文件，也不保存播放进度。
-
-每张卡片都会显示发布日期；来源缺少发布日期时，回退显示本次整理日期。新生成的简报会为每条新闻增加结构化的“对普通人的影响”。
-
-## 配置
-
-- `config/sources.json`：信息源、采集时间范围、请求超时和候选数量。
-- `config/preferences.json`：关注主题、排除内容、探索比例和每日精选上限。
-- `schema/codex-digest.schema.json`：Codex 必须遵守的输出结构。
-
-新增信息源时，在 `config/sources.json` 的 `sources` 数组中加入：
-
-```json
-{
-  "name": "信息源名称",
-  "url": "https://example.com/feed.xml",
-  "categoryHint": "主题提示",
-  "region": "domestic",
-  "enabled": true
-}
+```bash
+npm run publish:daily
 ```
 
-单个信息源失败不会阻止其他来源生成简报，失败信息会写入 `sourceErrors`。
-默认还会限制单一来源和单一分类的入选数量，避免某个高频信息源垄断整份晚报。
-`region` 可填写 `domestic` 或 `international`。默认最多保留 4 条国际信息，其余名额优先用于国内内容。
-城市网页来源使用 `"format": "html"`，并通过 `city`、`cityKind` 和可选的 `sinceHours` 标明城市、内容类型与独立时间范围。
+`publish:daily` 只提交 `public/data/latest.json`。即使工作区中存在其他未提交或已暂存文件，也不会把它们加入每日晚报提交。当前分支不是 `main` 时，脚本会在分析前停止，避免推错分支。
 
-## 关于定时运行
+使用测试 RSS 验证静态生成但不推送：
 
-当前版本的整理结果仅存在于正在运行的网页服务内存中，因此独立执行 `npm run daily` 的旧式定时任务不会产生可供收藏的页面结果。日常使用请保持 `npm run serve` 运行，并从页面手动获取后选择收藏。
+```bash
+npm run static:fixture
+```
 
-如果以后部署到云端，建议将采集与 Codex 调用作为受信任的私有任务运行，不要把 Codex CLI 或认证信息暴露给网页用户。
+这个命令会更新本地 `public/data/latest.json`，不应作为正式晚报发布。
+
+## 安装每天 17:00 的 Mac 任务
+
+先预览将要安装的 launchd 配置：
+
+```bash
+npm run schedule:preview
+```
+
+确认后安装：
+
+```bash
+npm run schedule:install
+```
+
+配置文件会写入：
+
+```text
+~/Library/LaunchAgents/com.personal-news-radar.daily.plist
+```
+
+日志位置：
+
+```text
+logs/daily.log
+logs/daily-error.log
+```
+
+任务使用安装时的当前 macOS 用户、Node 路径和 Codex 路径。`RunAtLoad` 只负责补跑检查：17:00 前登录会直接跳过；17:00 后如果当天尚未成功发布，则执行一次；当天已经成功发布时不会重复运行。Mac 睡眠期间错过时间后会在任务恢复运行时检查补跑，完全关机时无法在 17:00 执行。
+
+卸载定时任务：
+
+```bash
+npm run schedule:uninstall
+```
+
+如需临时改为其他时间，可以直接运行安装脚本，例如 18:30：
+
+```bash
+node scripts/install-schedule.mjs --hour 18 --minute 30
+```
+
+## 手机页面
+
+手机页面是纯静态 PWA：
+
+- “本次结果”展示国内优先、国际补充的综合精选。
+- “关注城市”追踪杭州、衢州、伊春。
+- 每张卡片显示发布日期，并提供独立朗读、停止和语速。
+- 页面没有“获取最新消息”按钮；更新固定由 Mac 的计划任务完成。
+- Service Worker 对晚报 JSON 使用网络优先策略，离线时回退到最近一次成功缓存。
+
+## 收藏
+
+点击卡片“收藏”后，完整卡片写入当前手机浏览器的 Local Storage；没有点击收藏的内容不会写入收藏存储。“我的收藏”可以按收藏日期查看。
+
+收藏不会进入 Git 仓库或 GitHub Pages，也不会在手机和电脑之间同步。清理浏览器网站数据、更换浏览器或更换手机会丢失本机收藏。原来保存在 `data/favorites/` 中的旧版收藏文件仍保留，但静态页面不会读取它们。
 
 ## 数据位置
 
-- `data/favorites/YYYY-MM-DD.json`：用户主动收藏的卡片，按收藏当天保存。
-- `data/runtime/refresh.lock`：整理任务运行时的临时跨进程锁，任务完成后删除。
-- 当前整理结果：只存在于 Node 服务内存，不写文件。
+- `public/data/latest.json`：唯一发布到 Pages 的最终精选晚报。
+- `data/runtime/refresh.lock`：本地任务运行时的跨进程锁，完成后删除。
+- `data/runtime/last-publish.json`：本机最近一次成功推送标记，用于避免当天重复补跑。
+- 浏览器 Local Storage：当前设备的用户收藏。
+- `logs/`：launchd 标准输出和错误日志。
 
-旧版 `data/history`、`public/data/archive` 和 `public/data/latest.json` 不会自动删除，也不会再由新整理流程更新。
+不会发布原始候选数据、Codex 认证、GitHub 凭据或本地运行日志。
+
+## 本地预览
+
+需要在 Mac 上预览当前静态页面时运行：
+
+```bash
+npm run serve
+```
+
+然后打开终端显示的 `http://localhost:4173` 或局域网地址。页面读取的仍然是 `public/data/latest.json`；本地 Node API 不再是手机 Pages 页面的依赖。
+
+## 信息与分析规则
+
+默认信息结构以国内政策、财经、社会、商业和科技为主，国际重大事件与前沿研究为辅。杭州、衢州、伊春优先保留公共服务、就业、住房、教育、医疗、交通、安全和产业变化；存在合格候选时每个城市至少入选 2 条、最多 5 条。
+
+每条信息的“对普通人的影响”必须给出明确方向、受影响人群、变化结论、影响路径、短期和中长期变化、可执行行动及证据边界。Codex 只能分析采集程序提供的候选内容，不会在整理过程中自行搜索网络或生成不存在的链接。
+
+主要配置：
+
+- `config/sources.json`：信息源、城市、时间范围和请求限制。
+- `config/preferences.json`：关注主题、排除内容和精选数量。
+- `schema/codex-digest.schema.json`：Codex 必须遵守的输出结构。
 
 ## 测试
 
@@ -138,4 +197,4 @@ npm run daily:fixture
 npm test
 ```
 
-测试不调用网络或 Codex，覆盖 RSS/城市网页解析、去重、城市筛选、收藏持久化、未收藏不落盘、文件锁、进程内冷却和本地 API。
+测试不调用真实网络或 Codex，覆盖信息解析、筛选结构、静态原子写入、失败保留上一版、17:00 补跑判断、只提交静态数据文件、浏览器收藏、语音和本地预览 API。

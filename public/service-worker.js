@@ -1,5 +1,5 @@
-const CACHE = "news-radar-v9";
-const SHELL = ["./", "./index.html", "./styles.css", "./app.js", "./speech.js", "./manifest.webmanifest", "./icon.svg"];
+const CACHE = "news-radar-v10";
+const SHELL = ["./", "./index.html", "./styles.css", "./app.js", "./speech.js", "./storage.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));
@@ -36,13 +36,10 @@ async function networkFirst(request) {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   const url = new URL(event.request.url);
-  const isContent = url.pathname === "/api/current"
-    || url.pathname === "/api/favorites"
-    || url.pathname.startsWith("/api/favorites/");
+  const isContent = url.pathname.endsWith("/data/latest.json");
   if (isContent) {
     event.respondWith(networkFirst(event.request));
     return;
   }
-  if (url.pathname.startsWith("/api/")) return;
   event.respondWith(caches.match(event.request).then((cached) => cached || fetch(event.request)));
 });
