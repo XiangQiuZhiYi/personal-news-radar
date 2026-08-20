@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { runCodexFilter } from "./codex.mjs";
 import { mergeCodexResult } from "./digest.mjs";
 import { dedupeItems, fetchFeeds, parseFeed } from "./feed.mjs";
-import { atomicWriteJson, migrateLegacyHistory, runIdFor, saveDailyDigest } from "./history.mjs";
+import { runIdFor } from "./history.mjs";
 
 export const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -50,13 +50,8 @@ export async function generateDigest({
   ]);
   const date = dateInTimezone(startedAt, sourceConfig.timezone ?? "Asia/Shanghai");
 
-  await migrateLegacyHistory(root);
   await onProgress("collecting");
   const collected = await collect(root, sourceConfig, fixturePath);
-  await atomicWriteJson(path.join(root, `data/raw/${date}/${runId}.json`), {
-    generatedAt: startedAt.toISOString(),
-    ...collected
-  });
 
   let codexResult;
   if (collected.items.length === 0) {
@@ -82,6 +77,7 @@ export async function generateDigest({
     errors: collected.errors,
     maxSelectedPerSource: preferences.maxSelectedPerSource,
     maxSelectedPerCategory: preferences.maxSelectedPerCategory,
+    maxSelectedPerCity: preferences.maxSelectedPerCity,
     maxInternationalItems: preferences.maxInternationalItems
   });
   const run = {
@@ -95,7 +91,5 @@ export async function generateDigest({
     failedSources: collected.errors.length
   };
 
-  await onProgress("saving");
-  const daily = await saveDailyDigest(root, digest, run);
-  return { daily, digest, run, collected };
+  return { digest, run, collected };
 }

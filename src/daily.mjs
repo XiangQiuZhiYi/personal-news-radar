@@ -10,10 +10,10 @@ async function main() {
   const lock = await acquireRefreshLock(projectRoot);
   try {
     const result = await generateDigest({ root: projectRoot, fixturePath });
-    console.log(`完成：${result.collected.items.length} 条候选，本次选出 ${result.digest.items.length} 条，今日累计 ${result.daily.items.length} 条。`);
-    console.log(`结果：${projectRoot}\\public\\data\\latest.json`);
+    console.log(`完成：${result.collected.items.length} 条候选，本次选出 ${result.digest.items.length} 条。`);
+    console.log("本次结果未写入文件；只有在网页中点击收藏的信息才会保存。");
     if (result.collected.errors.length > 0) {
-      console.warn(`${result.collected.errors.length} 个信息源采集失败，详情已写入结果。`);
+      console.warn(`${result.collected.errors.length} 个信息源采集失败。`);
     }
   } finally {
     await lock.release();

@@ -119,3 +119,31 @@ test("国际信息数量受硬上限约束", () => {
   assert.equal(result.stats.domesticSelected, 1);
   assert.equal(result.stats.internationalSelected, 1);
 });
+
+test("关注城市条目保留城市标记并受单城市上限约束", () => {
+  const candidates = [
+    { id: "h1", source: "杭州一", city: "杭州", url: "https://example.com/h1" },
+    { id: "h2", source: "杭州二", city: "杭州", url: "https://example.com/h2" },
+    { id: "q1", source: "衢州一", city: "衢州", url: "https://example.com/q1" }
+  ];
+  const item = (candidateId) => ({
+    candidateId,
+    category: "政策",
+    score: 80,
+    importance: "值得读",
+    summary: "摘要",
+    whyItMatters: "原因",
+    impactForPeople: "普通人影响",
+    confidence: "高",
+    topics: []
+  });
+  const result = mergeCodexResult(candidates, {
+    brief: "重点",
+    discardedReasons: [],
+    items: [item("h1"), item("h2"), item("q1")]
+  }, { maxSelectedPerCity: 1 });
+
+  assert.deepEqual(result.items.map((entry) => entry.id), ["h1", "q1"]);
+  assert.equal(result.stats.citySelected, 2);
+  assert.deepEqual(result.stats.cities, { "杭州": 1, "衢州": 1 });
+});

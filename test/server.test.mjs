@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { atomicWriteJson } from "../src/lib/history.mjs";
@@ -25,7 +25,7 @@ test("启动地址只包含可用的局域网 IPv4", () => {
   }), ["http://192.168.1.20:4173"]);
 });
 
-test("刷新 API 异步运行、阻止并发并执行持久冷却", async () => {
+test("刷新 API 异步运行、结果留在内存并执行进程内冷却", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "news-radar-api-"));
   await mkdir(path.join(root, "public/data"), { recursive: true });
   let finish;
@@ -38,7 +38,16 @@ test("刷新 API 异步运行、阻止并发并执行持久冷却", async () => 
     generate: async ({ onProgress }) => {
       onProgress("analyzing");
       await waiting;
-      onProgress("saving");
+      return {
+        digest: {
+          version: 1,
+          date: "2026-08-03",
+          generatedAt: "2026-08-03T10:05:00.000Z",
+          brief: "临时结果",
+          stats: { selected: 1 },
+          items: [{ id: "item-1", title: "临时消息", url: "https://example.com/1" }]
+        }
+      };
     }
   });
   await app.initialize();
@@ -67,6 +76,11 @@ test("刷新 API 异步运行、阻止并发并执行持久冷却", async () => 
     assert.equal(status.status, "success");
     assert.equal(status.canRefresh, false);
     assert.equal(status.cooldownUntil, "2026-08-03T10:35:00.000Z");
+    const current = await (await fetch(`${base}/api/current`)).json();
+    assert.equal(current.items[0].id, "item-1");
+    await assert.rejects(readFile(path.join(root, "public/data/latest.json")), { code: "ENOENT" });
+    await assert.rejects(readFile(path.join(root, "data/history/2026-08-03.json")), { code: "ENOENT" });
+    await assert.rejects(readFile(path.join(root, "data/raw/2026-08-03.json")), { code: "ENOENT" });
 
     const cooled = await fetch(`${base}/api/refresh`, { method: "POST" });
     assert.equal(cooled.status, 429);
@@ -122,7 +136,7 @@ test("刷新失败不触发冷却并可立即重试", async () => {
   }
 });
 
-test("启动时清除旧版本遗留的失败冷却", async () => {
+test("服务启动后不沿用旧版本持久化的冷却状态", async () => {
   const root = await mkdtemp(path.join(os.tmpdir(), "news-radar-old-failure-"));
   await mkdir(path.join(root, "public/data"), { recursive: true });
   await atomicWriteJson(path.join(root, "data/runtime/refresh-state.json"), {
@@ -139,6 +153,71 @@ test("启动时清除旧版本遗留的失败冷却", async () => {
     assert.equal(status.cooldownUntil, null);
     assert.equal(status.cooldownRemainingMs, 0);
     assert.equal(status.canRefresh, true);
+  } finally {
+    await close(app.server);
+  }
+});
+
+test("只有点击收藏才把当前卡片写入收藏文件", async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), "news-radar-favorite-api-"));
+  await mkdir(path.join(root, "public/data"), { recursive: true });
+  const digest = {
+    version: 1,
+    date: "2026-08-20",
+    generatedAt: "2026-08-20T10:00:00.000Z",
+    brief: "本次概览",
+    stats: { selected: 1 },
+    items: [{
+      id: "favorite-1",
+      title: "值得收藏",
+      url: "https://example.com/favorite",
+      publishedAt: "2026-08-20T08:00:00.000Z",
+      summary: "摘要"
+    }]
+  };
+  const app = createNewsServer({
+    root,
+    now: () => new Date("2026-08-20T10:00:00.000Z"),
+    generate: async () => ({ digest })
+  });
+  await app.initialize();
+  const base = await listen(app);
+
+  try {
+    assert.equal((await fetch(`${base}/api/refresh`, { method: "POST" })).status, 202);
+    for (let attempt = 0; attempt < 20; attempt += 1) {
+      const status = await (await fetch(`${base}/api/refresh/status`)).json();
+      if (status.status === "success") break;
+      await new Promise((resolve) => setTimeout(resolve, 5));
+    }
+    const filePath = path.join(root, "data/favorites/2026-08-20.json");
+    await assert.rejects(readFile(filePath), { code: "ENOENT" });
+
+    const saved = await fetch(`${base}/api/favorites`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ itemId: "favorite-1" })
+    });
+    assert.equal(saved.status, 201);
+    const file = JSON.parse(await readFile(filePath, "utf8"));
+    assert.equal(file.items.length, 1);
+    assert.equal(file.items[0].id, "favorite-1");
+    assert.equal(file.items[0].favoritedAt, "2026-08-20T10:00:00.000Z");
+
+    const duplicate = await fetch(`${base}/api/favorites`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ itemId: "favorite-1" })
+    });
+    assert.equal(duplicate.status, 200);
+    assert.equal(JSON.parse(await readFile(filePath, "utf8")).items.length, 1);
+
+    const ids = await (await fetch(`${base}/api/favorites/ids`)).json();
+    assert.deepEqual(ids.ids, ["favorite-1"]);
+    const listing = await (await fetch(`${base}/api/favorites`)).json();
+    assert.equal(listing.dates[0].date, "2026-08-20");
+    const detail = await (await fetch(`${base}/api/favorites/2026-08-20`)).json();
+    assert.equal(detail.items[0].title, "值得收藏");
   } finally {
     await close(app.server);
   }

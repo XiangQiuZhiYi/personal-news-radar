@@ -1,12 +1,16 @@
 {
   "language": "zh-CN",
-  "maxSelectedItems": 20,
+  "maxSelectedItems": 24,
   "maxSelectedPerSource": 4,
   "maxSelectedPerCategory": 6,
+  "minSelectedPerCity": 2,
+  "maxSelectedPerCity": 5,
   "maxInternationalItems": 4,
   "domesticTargetRatio": 0.8,
+  "followedCities": ["杭州", "衢州", "伊春"],
   "priorityTopics": [
     "国内政策变化及其实际影响",
+    "杭州、衢州、伊春的本地政策与民生新闻",
     "国内宏观经济、就业、消费与房地产",
     "中国公司、行业和商业机会",
     "国内人工智能、互联网与先进制造",
@@ -31,6 +35,7 @@
     "同一事件只保留信息最完整或最接近一手来源的一条",
     "不允许单一信息源或单一分类占据整份简报",
     "国际信息只保留重大事件、前沿突破或会影响中国的变化",
+    "关注城市存在合格候选时，每个城市至少保留两条；优先政策、公共服务、就业、住房、教育、医疗、交通、安全和产业变化，降低例行会议、表态、庆典和人事消息的优先级",
     "不因立场或情绪强烈而提高评分"
   ],
   "explorationRatio": 0.15

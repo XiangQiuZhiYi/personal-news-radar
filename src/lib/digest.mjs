@@ -11,9 +11,11 @@ export function mergeCodexResult(candidates, codexResult, metadata = {}) {
   const used = new Set();
   const sourceCounts = new Map();
   const categoryCounts = new Map();
+  const cityCounts = new Map();
   const maxPerSource = metadata.maxSelectedPerSource ?? Number.POSITIVE_INFINITY;
   const maxPerCategory = metadata.maxSelectedPerCategory ?? Number.POSITIVE_INFINITY;
   const maxInternationalItems = metadata.maxInternationalItems ?? Number.POSITIVE_INFINITY;
+  const maxPerCity = metadata.maxSelectedPerCity ?? Number.POSITIVE_INFINITY;
   let internationalCount = 0;
   const items = [];
 
@@ -22,11 +24,13 @@ export function mergeCodexResult(candidates, codexResult, metadata = {}) {
     if (!original || used.has(original.id)) continue;
     if ((sourceCounts.get(original.source) ?? 0) >= maxPerSource) continue;
     if ((categoryCounts.get(selected.category) ?? 0) >= maxPerCategory) continue;
+    if (original.city && (cityCounts.get(original.city) ?? 0) >= maxPerCity) continue;
     if (original.region === "international" && internationalCount >= maxInternationalItems) continue;
     used.add(original.id);
     if (original.region === "international") internationalCount += 1;
     sourceCounts.set(original.source, (sourceCounts.get(original.source) ?? 0) + 1);
     categoryCounts.set(selected.category, (categoryCounts.get(selected.category) ?? 0) + 1);
+    if (original.city) cityCounts.set(original.city, (cityCounts.get(original.city) ?? 0) + 1);
     items.push({
       ...original,
       category: selected.category,
@@ -57,6 +61,8 @@ export function mergeCodexResult(candidates, codexResult, metadata = {}) {
       selected: items.length,
       domesticSelected: items.filter((item) => item.region !== "international").length,
       internationalSelected: items.filter((item) => item.region === "international").length,
+      citySelected: items.filter((item) => item.city).length,
+      cities: Object.fromEntries([...cityCounts.entries()]),
       failedSources: metadata.errors?.length ?? 0
     },
     sourceErrors: metadata.errors ?? [],

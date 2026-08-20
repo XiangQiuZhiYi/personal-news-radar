@@ -5,8 +5,9 @@ import { networkInterfaces } from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { generateDigest, projectRoot } from "./lib/generate.mjs";
-import { listHistory, migrateLegacyHistory, readHistory, runIdFor } from "./lib/history.mjs";
-import { acquireRefreshLock, readRefreshState, writeRefreshState } from "./lib/runtime.mjs";
+import { listFavorites, listFavoriteIds, readFavorites, saveFavorite } from "./lib/favorites.mjs";
+import { listHistory, readHistory, runIdFor } from "./lib/history.mjs";
+import { acquireRefreshLock } from "./lib/runtime.mjs";
 
 const DEFAULT_COOLDOWN_MS = 30 * 60 * 1000;
 const types = {
@@ -51,6 +52,25 @@ function originIsAllowed(request) {
   }
 }
 
+async function readJsonBody(request, maxBytes = 16 * 1024) {
+  let body = "";
+  for await (const chunk of request) {
+    body += chunk;
+    if (Buffer.byteLength(body) > maxBytes) {
+      const error = new Error("请求内容过大");
+      error.code = "BODY_TOO_LARGE";
+      throw error;
+    }
+  }
+  try {
+    return body ? JSON.parse(body) : {};
+  } catch {
+    const error = new Error("请求内容不是有效 JSON");
+    error.code = "INVALID_JSON";
+    throw error;
+  }
+}
+
 function publicStatus(state, now) {
   const cooldownUntil = state.cooldownUntil ?? null;
   const remaining = Math.max(0, Date.parse(cooldownUntil ?? "") - now.getTime()) || 0;
@@ -75,25 +95,12 @@ export function createNewsServer({
 } = {}) {
   const publicRoot = path.join(root, "public");
   let currentJob = null;
+  let currentDigest = null;
 
   async function initialize() {
     let lock;
     try {
       lock = await acquireRefreshLock(root, now());
-      await migrateLegacyHistory(root);
-      const persisted = await readRefreshState(root);
-      if (persisted.status === "running") {
-        await writeRefreshState(root, {
-          ...persisted,
-          status: "error",
-          phase: null,
-          finishedAt: now().toISOString(),
-          cooldownUntil: null,
-          error: "上次任务因服务中断而未完成"
-        });
-      } else if (persisted.status === "error" && persisted.cooldownUntil) {
-        await writeRefreshState(root, { ...persisted, cooldownUntil: null });
-      }
     } catch (error) {
       if (error.code !== "REFRESH_LOCKED") throw error;
     } finally {
@@ -112,10 +119,9 @@ export function createNewsServer({
     }
 
     const acceptedAt = now();
-    const persisted = await readRefreshState(root);
-    const remainingMs = Date.parse(persisted.cooldownUntil ?? "") - acceptedAt.getTime();
+    const remainingMs = Date.parse(currentJob?.cooldownUntil ?? "") - acceptedAt.getTime();
     if (Number.isFinite(remainingMs) && remainingMs > 0) {
-      sendJson(response, 429, publicStatus(persisted, acceptedAt), {
+      sendJson(response, 429, publicStatus(currentJob, acceptedAt), {
         "retry-after": String(Math.ceil(remainingMs / 1000))
       });
       return;
@@ -142,20 +148,12 @@ export function createNewsServer({
       cooldownUntil: null,
       error: null
     };
-    try {
-      await writeRefreshState(root, currentJob);
-    } catch (error) {
-      await lock.release();
-      currentJob = null;
-      throw error;
-    }
-
     sendJson(response, 202, publicStatus(currentJob, acceptedAt));
 
     Promise.resolve().then(async () => {
       let finalState;
       try {
-        await generate({
+        const result = await generate({
           root,
           now,
           startedAt: acceptedAt,
@@ -164,6 +162,7 @@ export function createNewsServer({
             currentJob = { ...currentJob, phase };
           }
         });
+        currentDigest = result?.digest ?? null;
         const finishedAt = now();
         finalState = {
           ...currentJob,
@@ -183,11 +182,6 @@ export function createNewsServer({
           error: compactError(error)
         };
       } finally {
-        try {
-          await writeRefreshState(root, finalState);
-        } catch (error) {
-          console.error(error.stack || error.message);
-        }
         await lock.release().catch((error) => console.error(error.stack || error.message));
         currentJob = finalState;
       }
@@ -213,8 +207,101 @@ export function createNewsServer({
           sendJson(response, 405, { error: "Method not allowed" }, { allow: "GET" });
           return;
         }
-        const state = currentJob ?? await readRefreshState(root);
+        const state = currentJob ?? { status: "idle", cooldownUntil: null };
         sendJson(response, 200, publicStatus(state, now()));
+        return;
+      }
+
+      if (requestPath === "/api/current") {
+        if (request.method !== "GET") {
+          sendJson(response, 405, { error: "Method not allowed" }, { allow: "GET" });
+          return;
+        }
+        sendJson(response, 200, currentDigest ?? {
+          version: 1,
+          date: null,
+          generatedAt: null,
+          brief: "当前没有临时整理结果，请点击“获取最新消息”。",
+          stats: { sources: 0, candidates: 0, selected: 0, domesticSelected: 0, internationalSelected: 0 },
+          sourceErrors: [],
+          discardedReasons: [],
+          items: []
+        });
+        return;
+      }
+
+      if (requestPath === "/api/favorites/ids") {
+        if (request.method !== "GET") {
+          sendJson(response, 405, { error: "Method not allowed" }, { allow: "GET" });
+          return;
+        }
+        sendJson(response, 200, { ids: await listFavoriteIds(root) });
+        return;
+      }
+
+      if (requestPath === "/api/favorites") {
+        if (request.method === "GET") {
+          sendJson(response, 200, await listFavorites(root));
+          return;
+        }
+        if (request.method === "POST") {
+          if (!originIsAllowed(request)) {
+            sendJson(response, 403, { error: "请求来源不允许" });
+            return;
+          }
+          if (!currentDigest) {
+            sendJson(response, 409, { error: "当前没有可收藏的临时整理结果" });
+            return;
+          }
+          let body;
+          try {
+            body = await readJsonBody(request);
+          } catch (error) {
+            sendJson(response, error.code === "BODY_TOO_LARGE" ? 413 : 400, { error: error.message });
+            return;
+          }
+          try {
+            const saved = await saveFavorite(root, currentDigest, body.itemId, now());
+            sendJson(response, saved.alreadySaved ? 200 : 201, {
+              saved: true,
+              alreadySaved: saved.alreadySaved,
+              itemId: String(saved.item.id ?? saved.item.url),
+              date: saved.collection.date
+            });
+          } catch (error) {
+            if (error.code === "FAVORITE_NOT_FOUND") {
+              sendJson(response, 404, { error: error.message });
+              return;
+            }
+            throw error;
+          }
+          return;
+        }
+        sendJson(response, 405, { error: "Method not allowed" }, { allow: "GET, POST" });
+        return;
+      }
+
+      if (requestPath.startsWith("/api/favorites/")) {
+        if (request.method !== "GET") {
+          sendJson(response, 405, { error: "Method not allowed" }, { allow: "GET" });
+          return;
+        }
+        const date = requestPath.slice("/api/favorites/".length);
+        let collection;
+        try {
+          collection = await readFavorites(root, date);
+        } catch (error) {
+          if (error.code === "INVALID_DATE") {
+            sendJson(response, 400, { error: error.message });
+            return;
+          }
+          throw error;
+        }
+        if (!collection) {
+          sendJson(response, 404, { error: "没有找到该日期的收藏记录" });
+          return;
+        }
+        sendJson(response, 200, collection);
         return;
       }
 

@@ -38,23 +38,6 @@ function itemSegments(item, index, total, mode) {
   ].filter(Boolean);
 }
 
-export function buildContinuousSpeechQueue({ brief = "", items = [] } = {}) {
-  const queue = [];
-  const cleanBrief = cleanSpeechText(brief);
-  if (cleanBrief) {
-    queue.push({
-      kind: "brief",
-      text: `今日概览。${cleanBrief}`,
-      itemId: null,
-      itemIndex: -1,
-      itemTotal: items.length,
-      mode: "continuous"
-    });
-  }
-  items.forEach((item, index) => queue.push(...itemSegments(item, index, items.length, "continuous")));
-  return queue;
-}
-
 export function buildSingleSpeechQueue(item) {
   return item ? itemSegments(item, 0, 1, "single") : [];
 }

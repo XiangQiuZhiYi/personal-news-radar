@@ -62,6 +62,16 @@ function stableId(sourceName, url, title) {
     .slice(0, 16);
 }
 
+function sourceMetadata(source = {}) {
+  return {
+    sourceUrl: source.url ?? "",
+    categoryHint: source.categoryHint ?? "",
+    region: source.region ?? "domestic",
+    city: source.city ?? "",
+    cityKind: source.cityKind ?? ""
+  };
+}
+
 function extractFeedTitle(xml) {
   const channel = xml.match(/<channel\b[^>]*>([\s\S]*?)<\/channel>/i)?.[1];
   const scope = channel ?? xml;
@@ -97,9 +107,7 @@ export function parseFeed(xml, source = {}) {
       return {
         id: stableId(feedTitle, link, title),
         source: feedTitle,
-        sourceUrl: source.url ?? "",
-        categoryHint: source.categoryHint ?? "",
-        region: source.region ?? "domestic",
+        ...sourceMetadata(source),
         title,
         url: decodeEntities(link),
         description,
@@ -107,6 +115,58 @@ export function parseFeed(xml, source = {}) {
       };
     })
     .filter(Boolean);
+}
+
+function absoluteUrl(value, baseUrl) {
+  try {
+    return new URL(decodeEntities(value), baseUrl).toString();
+  } catch {
+    return "";
+  }
+}
+
+function dateFromHtml(value = "", url = "") {
+  const visible = cleanText(value, 4000);
+  const match = visible.match(/(20\d{2})\s*[年./-]\s*(\d{1,2})\s*[月./-]\s*(\d{1,2})\s*日?/u);
+  const urlMatch = url.match(/(?:\/|t)(20\d{2})(\d{2})(\d{2})(?:[_/]|\b)/u);
+  const parts = match?.slice(1, 4) ?? urlMatch?.slice(1, 4);
+  if (!parts) return null;
+  const [year, month, day] = parts.map(Number);
+  const timestamp = Date.parse(`${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}T12:00:00+08:00`);
+  return Number.isFinite(timestamp) ? new Date(timestamp).toISOString() : null;
+}
+
+function attribute(tag, name) {
+  return tag.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']+)["']`, "iu"))?.[1] ?? "";
+}
+
+export function parseHtmlList(html, source = {}) {
+  const sourceName = source.name || "未知来源";
+  const blocks = [
+    ...html.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/giu),
+    ...html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/giu)
+  ].map((match) => match[1]);
+  const ignoredTitles = new Set(["首页", "更多", "更多>>", "上一页", "下一页", "加载更多"]);
+
+  return blocks.flatMap((block) => {
+    const anchor = block.match(/<a\b([^>]*)>([\s\S]*?)<\/a>/iu);
+    if (!anchor) return [];
+    const href = attribute(anchor[1], "href");
+    const url = absoluteUrl(href, source.url);
+    const title = cleanText(attribute(anchor[1], "title") || anchor[2], 500).replace(/^[·•]\s*/u, "");
+    const publishedAt = dateFromHtml(block, url);
+    if (!url || url === source.url || !publishedAt || title.length < 6 || ignoredTitles.has(title)) return [];
+    if (source.linkPattern && !new RegExp(source.linkPattern, "u").test(url)) return [];
+    return [{
+      id: stableId(sourceName, url, title),
+      source: sourceName,
+      ...sourceMetadata(source),
+      title,
+      url,
+      description: "",
+      publishedAt
+    }];
+  });
 }
 
 export function canonicalUrl(value) {
@@ -160,13 +220,14 @@ export async function fetchFeeds(config, now = new Date()) {
       const response = await fetch(source.url, {
         headers: {
           accept: "application/atom+xml, application/rss+xml, application/xml, text/xml, */*",
-          "user-agent": "PersonalNewsRadar/0.1 (+local personal reader)"
+          "user-agent": source.userAgent ?? "Mozilla/5.0 (compatible; PersonalNewsRadar/0.1; +local personal reader)"
         },
         signal: AbortSignal.timeout(config.requestTimeoutMs ?? 15000)
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const xml = await response.text();
-      return parseFeed(xml, source).slice(0, config.maxItemsPerSource ?? 30);
+      const body = await response.text();
+      const items = source.format === "html" ? parseHtmlList(body, source) : parseFeed(body, source);
+      return items.slice(0, source.maxItems ?? config.maxItemsPerSource ?? 30);
     })
   );
 
@@ -174,7 +235,12 @@ export async function fetchFeeds(config, now = new Date()) {
   const itemBatches = [];
   results.forEach((result, index) => {
     if (result.status === "fulfilled") {
-      itemBatches.push(result.value);
+      const source = sources[index];
+      const cutoff = now.getTime() - (source.sinceHours ?? config.sinceHours ?? 36) * 60 * 60 * 1000;
+      itemBatches.push(result.value.filter((item) => {
+        if (!item.publishedAt) return true;
+        return Date.parse(item.publishedAt) >= cutoff;
+      }));
     } else {
       errors.push({
         source: sources[index].name,
@@ -184,14 +250,8 @@ export async function fetchFeeds(config, now = new Date()) {
     }
   });
 
-  const cutoff = now.getTime() - (config.sinceHours ?? 36) * 60 * 60 * 1000;
-  const recentBatches = itemBatches.map((batch) => batch.filter((item) => {
-      if (!item.publishedAt) return true;
-      return Date.parse(item.publishedAt) >= cutoff;
-    }));
-
   return {
-    items: dedupeItems(interleaveBatches(recentBatches)).slice(0, config.maxCandidates ?? 100),
+    items: dedupeItems(interleaveBatches(itemBatches)).slice(0, config.maxCandidates ?? 100),
     errors,
     sourceCount: sources.length
   };

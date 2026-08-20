@@ -3,7 +3,7 @@
   "sinceHours": 36,
   "requestTimeoutMs": 15000,
   "maxItemsPerSource": 20,
-  "maxCandidates": 120,
+  "maxCandidates": 160,
   "sources": [
     {
       "name": "中新网时政",
@@ -66,6 +66,67 @@
       "url": "https://sspai.com/feed",
       "categoryHint": "国内数字生活与效率工具",
       "region": "domestic",
+      "enabled": true
+    },
+    {
+      "name": "杭州网城市新闻",
+      "url": "https://hznews.hangzhou.com.cn/chengshi/index.htm",
+      "format": "html",
+      "categoryHint": "杭州本地新闻与民生变化",
+      "region": "domestic",
+      "city": "杭州",
+      "cityKind": "新闻",
+      "sinceHours": 168,
+      "maxItems": 20,
+      "enabled": true
+    },
+    {
+      "name": "杭州网政策库",
+      "url": "https://hwyst.hangzhou.com.cn/zck/index.htm",
+      "format": "html",
+      "categoryHint": "杭州本地政策与政策解读",
+      "region": "domestic",
+      "city": "杭州",
+      "cityKind": "政策",
+      "sinceHours": 720,
+      "maxItems": 12,
+      "enabled": true
+    },
+    {
+      "name": "衢州市人民政府",
+      "url": "https://www.qz.gov.cn/",
+      "format": "html",
+      "linkPattern": "qz\\.gov\\.cn/col/[^/]+/art/",
+      "categoryHint": "衢州本地政策、政务与民生新闻",
+      "region": "domestic",
+      "city": "衢州",
+      "cityKind": "政策与新闻",
+      "sinceHours": 168,
+      "maxItems": 20,
+      "enabled": true
+    },
+    {
+      "name": "伊春市人民政府要闻",
+      "url": "https://www.yc.gov.cn/ycsrmzf/c101986/list.shtml",
+      "format": "html",
+      "categoryHint": "伊春本地政务与民生新闻",
+      "region": "domestic",
+      "city": "伊春",
+      "cityKind": "新闻",
+      "sinceHours": 168,
+      "maxItems": 20,
+      "enabled": true
+    },
+    {
+      "name": "伊春市人民政府政策",
+      "url": "https://www.yc.gov.cn/ycsrmzf/c102111/xxgk_zcwj.shtml",
+      "format": "html",
+      "categoryHint": "伊春市政府政策文件与民生政策",
+      "region": "domestic",
+      "city": "伊春",
+      "cityKind": "政策",
+      "sinceHours": 720,
+      "maxItems": 12,
       "enabled": true
     },
     {

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { dedupeItems, interleaveBatches, parseFeed } from "../src/lib/feed.mjs";
+import { dedupeItems, interleaveBatches, parseFeed, parseHtmlList } from "../src/lib/feed.mjs";
 
 test("解析 RSS 条目并清理 HTML", async () => {
   const xml = await readFile(new URL("./fixtures/sample-rss.xml", import.meta.url), "utf8");
@@ -31,4 +31,25 @@ test("按来源轮询候选，避免高频来源挤掉其他来源", () => {
   assert.deepEqual(interleaveBatches(batches).map((item) => item.id), [
     "a1", "b1", "c1", "a2", "c2", "a3"
   ]);
+});
+
+test("解析城市网页列表并保留城市、类型和日期", () => {
+  const html = `<ul>
+    <li><a href="/news/202608/t20260820_1.shtml" title="杭州公共交通服务调整">杭州公共交通服务调整</a><span>2026-08-20</span></li>
+    <li><a href="/next">下一页</a></li>
+  </ul>`;
+  const items = parseHtmlList(html, {
+    name: "杭州本地来源",
+    url: "https://example.com/list.html",
+    city: "杭州",
+    cityKind: "政策与新闻",
+    categoryHint: "杭州本地",
+    region: "domestic"
+  });
+
+  assert.equal(items.length, 1);
+  assert.equal(items[0].city, "杭州");
+  assert.equal(items[0].cityKind, "政策与新闻");
+  assert.equal(items[0].url, "https://example.com/news/202608/t20260820_1.shtml");
+  assert.match(items[0].publishedAt, /^2026-08-20T04:00:00/);
 });

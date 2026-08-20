@@ -2,7 +2,6 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import {
-  buildContinuousSpeechQueue,
   buildSingleSpeechQueue,
   chooseSpeechVoice,
   SpeechController
@@ -31,10 +30,10 @@ const article = {
   topics: ["不应朗读的话题"]
 };
 
-test("连续朗读只包含概览、标题、摘要和普通人影响", () => {
-  const queue = buildContinuousSpeechQueue({ brief: "今日有用概览", items: [article] });
+test("卡片朗读只包含本条标题、摘要和普通人影响", () => {
+  const queue = buildSingleSpeechQueue(article);
   const spoken = queue.map((entry) => entry.text).join(" ");
-  assert.match(spoken, /今日有用概览/);
+  assert.doesNotMatch(spoken, /今日概览|第1条/);
   assert.match(spoken, /有用标题/);
   assert.match(spoken, /有用摘要/);
   assert.match(spoken, /普通人可能减少通勤时间/);
@@ -45,14 +44,6 @@ test("连续朗读只包含概览、标题、摘要和普通人影响", () => {
   assert.match(spoken, /具体效果取决于线路和实施时间/);
   assert.doesNotMatch(spoken, /为什么值得看不应被朗读/);
   assert.doesNotMatch(spoken, /不应朗读的来源|不应朗读的分类|不应朗读的话题|99/);
-});
-
-test("单条朗读不包含概览、序号或其他文章", () => {
-  const queue = buildSingleSpeechQueue(article);
-  const spoken = queue.map((entry) => entry.text).join(" ");
-  assert.doesNotMatch(spoken, /今日概览|第1条/);
-  assert.match(spoken, /有用标题/);
-  assert.match(spoken, /有用摘要/);
 });
 
 test("旧历史缺少普通人影响时不生成占位语音", () => {

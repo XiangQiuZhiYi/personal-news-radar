@@ -47,7 +47,10 @@ test("影响分析要求明确方向而不是模糊措辞", () => {
     maxSelectedItems: 10,
     maxSelectedPerSource: 3,
     maxSelectedPerCategory: 4,
+    minSelectedPerCity: 2,
+    maxSelectedPerCity: 5,
     maxInternationalItems: 2,
+    followedCities: ["杭州", "衢州", "伊春"],
     explorationRatio: 0.1,
     language: "简体中文"
   });
@@ -57,6 +60,9 @@ test("影响分析要求明确方向而不是模糊措辞", () => {
   assert.match(prompt, /不得以“可能、或将、有望、预计、存在变化/);
   assert.match(prompt, /除 uncertainties 专门说明证据边界外/);
   assert.match(prompt, /条件 → 对象 → 上升\/下降等明确方向/);
+  assert.match(prompt, /杭州.*衢州.*伊春/s);
+  assert.match(prompt, /至少保留 2 条、最多保留 5 条/);
+  assert.match(prompt, /先满足每个关注城市的最低数量/);
 });
 
 test("Codex CLI 不存在时返回可操作的错误", async () => {

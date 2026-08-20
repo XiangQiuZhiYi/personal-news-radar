@@ -106,6 +106,7 @@ export function buildPrompt(preferences) {
 2. 相同事件只保留最接近一手来源、信息量最大的一条。
 3. 单一信息源最多保留 ${preferences.maxSelectedPerSource} 条，单一分类最多保留 ${preferences.maxSelectedPerCategory} 条。
 4. 国际来源最多保留 ${preferences.maxInternationalItems} 条，其余名额优先给国内来源；输入中的 region 标明 domestic 或 international。
+4.1 输入中的 city 标明关注城市。对 ${JSON.stringify(preferences.followedCities ?? [])}，只要该城市存在具备实际信息增量的近期候选，就至少保留 ${preferences.minSelectedPerCity ?? 1} 条、最多保留 ${preferences.maxSelectedPerCity ?? 4} 条。先满足每个关注城市的最低数量，再分配其余名额。优先选择政策、公共服务、就业、住房、教育、医疗、交通、安全和产业变化；例行会议、领导表态、庆典、人事任免和普通宣传不得仅因属于关注城市而入选。
 5. 评分综合考虑影响范围、新颖性、可信度、行动价值和长期意义。
 6. 摘要使用 ${preferences.language}，说明具体新增事实，不复述空洞标题。
 7. whyItMatters 必须解释这条信息可能改变什么判断或行动；无法说明价值的内容应丢弃。

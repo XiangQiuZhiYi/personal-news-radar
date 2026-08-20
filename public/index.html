@@ -20,36 +20,20 @@
       <p id="brief-label" class="brief-label">最近一次整理概览</p>
       <p id="brief" class="brief">正在读取今天的精选信息……</p>
       <div id="stats" class="stats"></div>
-      <section id="speech-controls" class="speech-controls" aria-label="语音播报控制">
-        <div class="speech-actions">
-          <button id="speech-play" class="speech-button primary" type="button">播放当前内容</button>
-          <button id="speech-pause" class="speech-button" type="button" disabled>暂停</button>
-          <button id="speech-stop" class="speech-button" type="button" disabled>停止</button>
-          <label class="speech-rate">
-            <span>语速</span>
-            <select id="speech-rate" aria-label="语音播报速度">
-              <option value="0.8">0.8×</option>
-              <option value="1" selected>1.0×</option>
-              <option value="1.15">1.15×</option>
-              <option value="1.25">1.25×</option>
-            </select>
-          </label>
-        </div>
-        <span id="speech-status" class="speech-status" aria-live="polite">准备播放</span>
-      </section>
     </header>
 
     <main>
       <nav id="views" class="view-tabs" aria-label="内容视图">
-        <button class="view-tab active" type="button" data-view="today">今日累计</button>
-        <button class="view-tab" type="button" data-view="history">历史记录</button>
+        <button class="view-tab active" type="button" data-view="today">本次结果</button>
+        <button class="view-tab" type="button" data-view="cities">关注城市</button>
+        <button class="view-tab" type="button" data-view="favorites">我的收藏</button>
       </nav>
       <section id="errors" class="errors" hidden>
         <span id="error-message"></span>
         <button id="error-close" type="button" aria-label="关闭错误提示">关闭</button>
       </section>
       <section id="history-browser" class="history-browser" hidden>
-        <h2>按日期查看</h2>
+        <h2>按收藏日期查看</h2>
         <div id="history-list" class="history-list"></div>
       </section>
       <section id="digest-panel">

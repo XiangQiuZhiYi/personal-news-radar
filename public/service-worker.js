@@ -1,4 +1,4 @@
-const CACHE = "news-radar-v7";
+const CACHE = "news-radar-v9";
 const SHELL = ["./", "./index.html", "./styles.css", "./app.js", "./speech.js", "./manifest.webmanifest", "./icon.svg"];
 
 self.addEventListener("install", (event) => {
@@ -36,9 +36,10 @@ async function networkFirst(request) {
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
   const url = new URL(event.request.url);
-  const isLatest = url.pathname.endsWith("/data/latest.json");
-  const isHistory = url.pathname === "/api/history" || url.pathname.startsWith("/api/history/");
-  if (isLatest || isHistory) {
+  const isContent = url.pathname === "/api/current"
+    || url.pathname === "/api/favorites"
+    || url.pathname.startsWith("/api/favorites/");
+  if (isContent) {
     event.respondWith(networkFirst(event.request));
     return;
   }

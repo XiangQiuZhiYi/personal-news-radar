@@ -1,5 +1,4 @@
 import {
-  buildContinuousSpeechQueue,
   buildSingleSpeechQueue,
   SpeechController
 } from "./speech.js";
@@ -18,22 +17,25 @@ const refreshStatus = document.querySelector("#refresh-status");
 const views = document.querySelector("#views");
 const historyBrowser = document.querySelector("#history-browser");
 const historyList = document.querySelector("#history-list");
-const speechPlay = document.querySelector("#speech-play");
-const speechPause = document.querySelector("#speech-pause");
-const speechStop = document.querySelector("#speech-stop");
-const speechRate = document.querySelector("#speech-rate");
-const speechStatus = document.querySelector("#speech-status");
-
 let digest = { items: [] };
 let activeCategory = "全部";
 let activeView = "today";
 let activeDate = null;
 let previousRefreshState = null;
 let highlightedItemId = null;
+let activeSpeechItemId = null;
+const favoriteIds = new Set();
+const cardRates = new Map();
+const followedCities = ["杭州", "衢州", "伊春"];
 
 function visibleItems() {
   const items = digest.items ?? [];
-  return activeCategory === "全部" ? items : items.filter((item) => item.category === activeCategory);
+  if (activeView === "cities") {
+    const cityItems = items.filter((item) => item.city);
+    return activeCategory === "全部" ? cityItems : cityItems.filter((item) => item.city === activeCategory);
+  }
+  const viewItems = activeView === "today" ? items.filter((item) => !item.city) : items;
+  return activeCategory === "全部" ? viewItems : viewItems.filter((item) => item.category === activeCategory);
 }
 
 function highlightSpeakingItem(itemId) {
@@ -50,30 +52,27 @@ function highlightSpeakingItem(itemId) {
 
 function renderSpeechState(state) {
   const active = ["preparing", "playing", "paused"].includes(state.status);
-  speechPlay.disabled = !state.supported || visibleItems().length === 0;
-  speechPause.disabled = !["playing", "paused"].includes(state.status);
-  speechPause.textContent = state.status === "paused" ? "继续" : "暂停";
-  speechStop.disabled = !active;
-  speechRate.disabled = !state.supported;
-
-  if (!state.supported) {
-    speechStatus.textContent = "当前浏览器不支持语音朗读。";
-    highlightSpeakingItem(null);
-    return;
+  if (!active && !["error"].includes(state.status)) activeSpeechItemId = null;
+  const currentId = String(state.entry?.itemId ?? activeSpeechItemId ?? "");
+  for (const card of feed.querySelectorAll(".card[data-item-id]")) {
+    const itemId = card.dataset.itemId;
+    const isCurrent = active && itemId === currentId;
+    const play = card.querySelector("[data-speak-item]");
+    const stop = card.querySelector("[data-stop-item]");
+    const rate = card.querySelector("[data-rate-item]");
+    const status = card.querySelector("[data-card-speech-status]");
+    if (play) play.disabled = !state.supported || isCurrent;
+    if (stop) stop.disabled = !isCurrent;
+    if (rate) rate.disabled = !state.supported;
+    if (!status) continue;
+    if (!state.supported) status.textContent = "当前浏览器不支持朗读";
+    else if (isCurrent && state.status === "preparing") status.textContent = "正在准备…";
+    else if (isCurrent && state.status === "playing") status.textContent = "正在朗读";
+    else if (isCurrent && state.status === "paused") status.textContent = "已暂停";
+    else if (itemId === currentId && state.status === "error") status.textContent = state.error ?? "朗读失败";
+    else status.textContent = "";
   }
-  if (state.status === "preparing") speechStatus.textContent = "正在准备播放……";
-  else if (state.status === "playing" && state.entry?.kind === "brief") speechStatus.textContent = "正在播报今日概览。";
-  else if (state.status === "playing" && state.entry?.mode === "single") speechStatus.textContent = "正在朗读本条信息。";
-  else if (state.status === "playing") speechStatus.textContent = `正在播报第 ${state.entry.itemIndex + 1}/${state.entry.itemTotal} 条。`;
-  else if (state.status === "paused") speechStatus.textContent = "播报已暂停。";
-  else if (state.status === "completed") speechStatus.textContent = state.warning ? `播放完成，${state.warning}。` : "播放完成。";
-  else if (state.status === "error") speechStatus.textContent = state.error ?? "播放失败。";
-  else if (state.status === "stopped") speechStatus.textContent = "播报已停止。";
-  else speechStatus.textContent = "准备播放。";
-
-  if (state.status === "preparing") highlightSpeakingItem(null);
-  else if (["playing", "paused"].includes(state.status)) highlightSpeakingItem(state.entry?.itemId);
-  else if (!active) highlightSpeakingItem(null);
+  highlightSpeakingItem(active ? currentId : null);
 }
 
 const speechController = new SpeechController({ onStateChange: renderSpeechState });
@@ -97,6 +96,26 @@ function safeUrl(value) {
   }
 }
 
+function itemKey(item) {
+  return String(item?.id ?? item?.url ?? "");
+}
+
+function cardDate(item) {
+  const raw = item?.publishedAt ?? item?.collectedDate ?? digest.date ?? item?.favoritedAt ?? digest.generatedAt;
+  const date = raw ? new Date(raw) : null;
+  if (!date || Number.isNaN(date.getTime())) return { value: "", label: "日期未知" };
+  return {
+    value: date.toISOString(),
+    label: new Intl.DateTimeFormat("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" }).format(date)
+  };
+}
+
+function rateOptions(selected) {
+  return [["0.8", "0.8×"], ["1", "1.0×"], ["1.15", "1.15×"], ["1.25", "1.25×"]]
+    .map(([value, label]) => `<option value="${value}" ${value === selected ? "selected" : ""}>${label}</option>`)
+    .join("");
+}
+
 function showError(message) {
   errorMessage.textContent = message;
   errors.hidden = false;
@@ -108,7 +127,12 @@ function clearError() {
 }
 
 function renderFilters() {
-  const categories = ["全部", ...new Set((digest.items ?? []).map((item) => item.category))];
+  const categoryItems = activeView === "today"
+    ? (digest.items ?? []).filter((item) => !item.city)
+    : digest.items ?? [];
+  const categories = activeView === "cities"
+    ? ["全部", ...followedCities]
+    : ["全部", ...new Set(categoryItems.map((item) => item.category))];
   filters.innerHTML = categories.map((category) => `
     <button class="filter ${category === activeCategory ? "active" : ""}" data-category="${escapeHtml(category)}">
       ${escapeHtml(category)}
@@ -162,13 +186,19 @@ function renderImpact(item) {
 function renderFeed() {
   const items = visibleItems();
   if (items.length === 0) {
-    feed.innerHTML = '<div class="empty">这个分类没有收录内容。</div>';
+    feed.innerHTML = `<div class="empty">${activeView === "cities" ? "本次整理没有收录该城市的高价值政策或新闻。" : "这个分类没有收录内容。"}</div>`;
     return;
   }
-  feed.innerHTML = items.map((item) => `
-    <article class="card" data-item-id="${escapeHtml(item.id ?? item.url)}">
+  feed.innerHTML = items.map((item) => {
+    const key = itemKey(item);
+    const date = cardDate(item);
+    const saved = favoriteIds.has(key) || activeView === "favorites";
+    const rate = cardRates.get(key) ?? "1";
+    return `
+    <article class="card" data-item-id="${escapeHtml(key)}">
       <div class="card-top">
         <span class="badge ${item.importance === "必读" ? "must" : ""}">${escapeHtml(item.importance)}</span>
+        ${item.city ? `<span class="badge city-badge">${escapeHtml(item.city)} · ${escapeHtml(item.cityKind || "本地")}</span>` : ""}
         <span>${escapeHtml(item.category)}</span>
         <span>·</span>
         <span>${item.region === "international" ? "国际" : "国内"}</span>
@@ -176,18 +206,40 @@ function renderFeed() {
         <span>${Number(item.score) || 0} 分</span>
         <span>·</span>
         <span>${escapeHtml(item.source)}</span>
-        <button class="speak-item" type="button" data-speak-item="${escapeHtml(item.id ?? item.url)}" ${speechController.supported ? "" : "disabled"}>朗读本条</button>
+        <span>·</span>
+        <time class="card-date" datetime="${escapeHtml(date.value)}">${escapeHtml(date.label)}</time>
       </div>
       <h2><a href="${safeUrl(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a></h2>
       <p class="summary">${escapeHtml(item.summary)}</p>
       <div class="why"><strong>为什么值得看</strong>${escapeHtml(item.whyItMatters)}</div>
       ${renderImpact(item)}
       <div class="topics">${(item.topics ?? []).map((topic) => `<span class="topic">#${escapeHtml(topic)}</span>`).join("")}</div>
+      <div class="card-controls">
+        <button class="card-control speak-item" type="button" data-speak-item="${escapeHtml(key)}" ${speechController.supported ? "" : "disabled"}>朗读</button>
+        <button class="card-control stop-item" type="button" data-stop-item="${escapeHtml(key)}" disabled>停止</button>
+        <label class="card-rate"><span>语速</span><select data-rate-item="${escapeHtml(key)}" aria-label="本条朗读语速">${rateOptions(rate)}</select></label>
+        <button class="card-control favorite-item ${saved ? "saved" : ""}" type="button" data-favorite-item="${escapeHtml(key)}" ${saved ? "disabled" : ""}>${saved ? "已收藏" : "收藏"}</button>
+        <span class="card-speech-status" data-card-speech-status aria-live="polite"></span>
+      </div>
     </article>
-  `).join("");
+  `; }).join("");
+  renderSpeechState(speechController.snapshot());
 }
 
 function renderStats() {
+  if (activeView === "favorites") {
+    stats.innerHTML = [`收藏 ${digest.items?.length ?? 0} 条`]
+      .map((value) => `<span>${escapeHtml(value)}</span>`).join("");
+    return;
+  }
+  if (activeView === "cities") {
+    const cityItems = (digest.items ?? []).filter((item) => item.city);
+    stats.innerHTML = [
+      `城市精选 ${cityItems.length} 条`,
+      ...followedCities.map((city) => `${city} ${cityItems.filter((item) => item.city === city).length} 条`)
+    ].map((value) => `<span>${escapeHtml(value)}</span>`).join("");
+    return;
+  }
   if (digest.version === 2) {
     stats.innerHTML = [
       `${digest.stats?.totalItems ?? digest.items?.length ?? 0} 条累计`,
@@ -200,24 +252,27 @@ function renderStats() {
   stats.innerHTML = [
     `${digest.stats?.sources ?? 0} 个信息源`,
     `${digest.stats?.candidates ?? 0} 条候选`,
-    `精选 ${digest.stats?.selected ?? digest.items?.length ?? 0} 条`,
+    `综合精选 ${(digest.items ?? []).filter((item) => !item.city).length} 条`,
+    `关注城市 ${digest.stats?.citySelected ?? (digest.items ?? []).filter((item) => item.city).length} 条`,
     `国内 ${digest.stats?.domesticSelected ?? 0} 条`
   ].map((value) => `<span>${escapeHtml(value)}</span>`).join("");
 }
 
-function renderDigest(nextDigest, { historical = false } = {}) {
+function renderDigest(nextDigest, { favoriteCollection = false } = {}) {
   speechController.stop({ silent: true });
   highlightSpeakingItem(null);
   digest = nextDigest;
   activeCategory = "全部";
-  briefLabel.textContent = historical
-    ? `${digest.date} 历史记录 · 最近一次整理概览`
-    : "最近一次整理概览";
-  brief.textContent = digest.brief || "这次整理没有生成概览。";
+  briefLabel.textContent = favoriteCollection
+    ? `${digest.date} 收藏记录`
+    : activeView === "cities" ? "关注城市：政策与新闻" : "本次整理概览";
+  brief.textContent = activeView === "cities" && !favoriteCollection
+    ? "固定追踪杭州、衢州、伊春，优先展示会改变公共服务、就业、住房、教育、医疗、交通、安全或产业环境的信息。"
+    : digest.brief || "这次整理没有生成概览。";
   renderStats();
   const timestamp = digest.updatedAt ?? digest.generatedAt;
   updatedAt.textContent = timestamp
-    ? `${historical ? "记录更新于" : "生成于"} ${new Date(timestamp).toLocaleString("zh-CN")}`
+    ? `${favoriteCollection ? "收藏更新于" : "生成于"} ${new Date(timestamp).toLocaleString("zh-CN")}`
     : "";
   if (digest.sourceErrors?.length) {
     showError(`${digest.sourceErrors.length} 个信息源最近一次采集失败，不影响其他来源的简报。`);
@@ -241,7 +296,12 @@ async function fetchJson(url, options) {
 
 async function loadToday() {
   try {
-    const nextDigest = await fetchJson("./data/latest.json");
+    const [nextDigest, saved] = await Promise.all([
+      fetchJson("./api/current"),
+      fetchJson("./api/favorites/ids")
+    ]);
+    favoriteIds.clear();
+    for (const id of saved.ids ?? []) favoriteIds.add(String(id));
     renderDigest(nextDigest);
   } catch (error) {
     brief.textContent = "今天的简报尚未生成。请点击“获取最新消息”。";
@@ -253,12 +313,13 @@ async function loadToday() {
 
 function updateLocation() {
   const url = new URL(location.href);
-  if (activeView === "history") {
-    url.searchParams.set("view", "history");
+  if (activeView === "favorites") {
+    url.searchParams.set("view", "favorites");
     if (activeDate) url.searchParams.set("date", activeDate);
     else url.searchParams.delete("date");
   } else {
-    url.searchParams.delete("view");
+    if (activeView === "cities") url.searchParams.set("view", "cities");
+    else url.searchParams.delete("view");
     url.searchParams.delete("date");
   }
   history.replaceState(null, "", url);
@@ -266,54 +327,63 @@ function updateLocation() {
 
 function renderHistoryButtons(entries) {
   if (entries.length === 0) {
-    historyList.innerHTML = '<div class="empty">还没有可查看的历史记录。</div>';
+    historyList.innerHTML = '<div class="empty">还没有收藏记录。</div>';
     return;
   }
   historyList.innerHTML = entries.map((entry) => `
     <button type="button" class="history-date ${entry.date === activeDate ? "active" : ""}" data-date="${entry.date}">
       <strong>${entry.date}</strong>
-      <span>${entry.totalItems} 条 · ${entry.refreshCount} 次整理</span>
+      <span>${entry.totalItems} 条收藏</span>
     </button>
   `).join("");
 }
 
-async function loadHistory(selectedDate = activeDate) {
+async function loadFavorites(selectedDate = activeDate) {
   try {
-    const history = await fetchJson("./api/history");
-    if (history.errors?.length) showError(`${history.errors.length} 个历史文件无法读取。`);
-    const entries = history.dates ?? [];
+    const listing = await fetchJson("./api/favorites");
+    if (listing.errors?.length) showError(`${listing.errors.length} 个收藏文件无法读取。`);
+    const entries = listing.dates ?? [];
     activeDate = entries.some((entry) => entry.date === selectedDate) ? selectedDate : entries[0]?.date ?? null;
     renderHistoryButtons(entries);
     updateLocation();
     if (!activeDate) {
-      renderDigest({ version: 2, date: "", brief: "还没有历史记录。", stats: {}, items: [] }, { historical: true });
+      renderDigest({ version: 1, date: "", brief: "还没有收藏记录。", stats: {}, items: [] }, { favoriteCollection: true });
       return;
     }
-    const historicalDigest = await fetchJson(`./api/history/${encodeURIComponent(activeDate)}`);
-    renderDigest(historicalDigest, { historical: true });
+    const collection = await fetchJson(`./api/favorites/${encodeURIComponent(activeDate)}`);
+    const favoriteDigest = {
+      version: 1,
+      date: collection.date,
+      generatedAt: collection.updatedAt,
+      brief: `这一天收藏了 ${collection.items?.length ?? 0} 条信息。`,
+      stats: { selected: collection.items?.length ?? 0 },
+      items: collection.items ?? []
+    };
+    for (const item of favoriteDigest.items) favoriteIds.add(itemKey(item));
+    renderDigest(favoriteDigest, { favoriteCollection: true });
     renderHistoryButtons(entries);
   } catch (error) {
-    showError(`历史记录读取失败：${error.message}`);
+    showError(`收藏记录读取失败：${error.message}`);
   }
 }
 
 async function setView(view, selectedDate = null) {
   speechController.stop();
-  activeView = view === "history" ? "history" : "today";
-  activeDate = activeView === "history" ? selectedDate : null;
+  activeView = ["favorites", "history"].includes(view) ? "favorites" : view === "cities" ? "cities" : "today";
+  activeDate = activeView === "favorites" ? selectedDate : null;
   for (const button of views.querySelectorAll("[data-view]")) {
     button.classList.toggle("active", button.dataset.view === activeView);
   }
-  historyBrowser.hidden = activeView !== "history";
+  historyBrowser.hidden = activeView !== "favorites";
   updateLocation();
-  if (activeView === "history") await loadHistory(activeDate);
+  if (activeView === "favorites") await loadFavorites(activeDate);
   else await loadToday();
 }
 
 function renderRefreshStatus(status) {
   const remainingMinutes = Math.max(1, Math.ceil((status.cooldownRemainingMs ?? 0) / 60000));
   if (status.status === "running") {
-    const phases = { collecting: "正在获取信息", analyzing: "Codex 正在整理", saving: "正在保存结果" };
+    const phases = { collecting: "正在获取信息", analyzing: "Codex 正在整理" };
     refreshButton.disabled = true;
     refreshButton.textContent = "整理中…";
     refreshStatus.textContent = `${phases[status.phase] ?? "正在整理"}，可能需要几分钟。`;
@@ -339,8 +409,8 @@ async function checkRefreshStatus() {
     renderRefreshStatus(status);
     if (completed) {
       clearError();
-      if (activeView === "today") await loadToday();
-      else await loadHistory(activeDate);
+      if (activeView === "favorites") await loadFavorites(activeDate);
+      else await loadToday();
     } else if (status.status === "error" && status.error) {
       showError(`整理失败：${status.error}`);
     }
@@ -365,19 +435,6 @@ refreshButton.addEventListener("click", async () => {
   }
 });
 
-speechPlay.addEventListener("click", () => {
-  speechController.setRate(speechRate.value);
-  speechController.play(buildContinuousSpeechQueue({ brief: digest.brief, items: visibleItems() }));
-});
-
-speechPause.addEventListener("click", () => {
-  if (speechController.status === "paused") speechController.resume();
-  else speechController.pause();
-});
-
-speechStop.addEventListener("click", () => speechController.stop());
-speechRate.addEventListener("change", () => speechController.setRate(speechRate.value));
-
 filters.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-category]");
   if (!button) return;
@@ -388,13 +445,50 @@ filters.addEventListener("click", (event) => {
   renderSpeechState(speechController.snapshot());
 });
 
-feed.addEventListener("click", (event) => {
-  const button = event.target.closest("button[data-speak-item]");
-  if (!button) return;
-  const item = (digest.items ?? []).find((entry) => String(entry.id ?? entry.url) === button.dataset.speakItem);
-  if (!item) return;
-  speechController.setRate(speechRate.value);
-  speechController.play(buildSingleSpeechQueue(item));
+feed.addEventListener("change", (event) => {
+  const select = event.target.closest("select[data-rate-item]");
+  if (!select) return;
+  cardRates.set(select.dataset.rateItem, select.value);
+  if (select.dataset.rateItem === activeSpeechItemId) speechController.setRate(select.value);
+});
+
+feed.addEventListener("click", async (event) => {
+  const speakButton = event.target.closest("button[data-speak-item]");
+  if (speakButton) {
+    const item = (digest.items ?? []).find((entry) => itemKey(entry) === speakButton.dataset.speakItem);
+    if (!item) return;
+    const rate = cardRates.get(speakButton.dataset.speakItem) ?? "1";
+    activeSpeechItemId = speakButton.dataset.speakItem;
+    speechController.setRate(rate);
+    speechController.play(buildSingleSpeechQueue(item));
+    return;
+  }
+
+  const stopButton = event.target.closest("button[data-stop-item]");
+  if (stopButton) {
+    if (stopButton.dataset.stopItem === activeSpeechItemId) speechController.stop();
+    return;
+  }
+
+  const favoriteButton = event.target.closest("button[data-favorite-item]");
+  if (!favoriteButton || favoriteButton.disabled) return;
+  const itemId = favoriteButton.dataset.favoriteItem;
+  favoriteButton.disabled = true;
+  favoriteButton.textContent = "收藏中…";
+  try {
+    await fetchJson("./api/favorites", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ itemId })
+    });
+    favoriteIds.add(itemId);
+    favoriteButton.classList.add("saved");
+    favoriteButton.textContent = "已收藏";
+  } catch (error) {
+    favoriteButton.disabled = false;
+    favoriteButton.textContent = "收藏";
+    showError(`收藏失败：${error.message}`);
+  }
 });
 
 views.addEventListener("click", (event) => {
@@ -406,7 +500,7 @@ historyList.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-date]");
   if (button) {
     speechController.stop();
-    loadHistory(button.dataset.date);
+    loadFavorites(button.dataset.date);
   }
 });
 
