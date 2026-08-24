@@ -1,18 +1,70 @@
 {
   "language": "zh-CN",
-  "maxSelectedItems": 24,
+  "maxSelectedItems": 22,
   "maxSelectedPerSource": 4,
+  "maxSelectedBySource": {
+    "爱范儿": 2,
+    "开源中国": 2,
+    "人人都是产品经理": 1,
+    "教育部新闻发布": 1,
+    "应急管理部通知公告": 1
+  },
   "maxSelectedPerCategory": 6,
-  "minSelectedPerCity": 2,
-  "maxSelectedPerCity": 5,
-  "maxInternationalItems": 4,
+  "minSelectedPerCity": 1,
+  "maxSelectedPerCity": 3,
+  "maxInternationalItems": 2,
   "domesticTargetRatio": 0.8,
   "followedCities": ["杭州", "衢州", "伊春"],
+  "careerOpportunity": {
+    "currentFields": ["前端开发", "UI设计"],
+    "minAdjacentItems": 1,
+    "maxAdjacentItems": 2,
+    "minUnfamiliarItems": 2,
+    "maxUnfamiliarItems": 3
+  },
+  "sectionTargets": [
+    {
+      "section": "关注城市",
+      "minItems": 4,
+      "maxItems": 6,
+      "selectionStandard": "杭州、衢州、伊春的政策、公共服务、机会和风险"
+    },
+    {
+      "section": "职业/收入/技术",
+      "minItems": 3,
+      "maxItems": 5,
+      "selectionStandard": "能改变工作方法、收入路径或职业判断，并包含真实需求或可验证入口"
+    },
+    {
+      "section": "国家级",
+      "minItems": 2,
+      "maxItems": 4,
+      "selectionStandard": "国家层面的变化能通过规则、就业、价格或公共服务明确传导到个人"
+    },
+    {
+      "section": "实用提醒",
+      "minItems": 1,
+      "maxItems": 3,
+      "selectionStandard": "包含截止时间、安全风险、价格调整或办事规则变化，个人能够采取行动"
+    },
+    {
+      "section": "国际",
+      "minItems": 0,
+      "maxItems": 2,
+      "selectionStandard": "对国内生活、工作、价格、产业或安全存在明确传导"
+    },
+    {
+      "section": "热点",
+      "minItems": 0,
+      "maxItems": 2,
+      "selectionStandard": "包含新增事实或具有长期意义，不收录纯情绪争议和围观内容"
+    }
+  ],
   "priorityTopics": [
     "国内政策变化及其实际影响",
     "杭州、衢州、伊春的本地政策与民生新闻",
     "国内宏观经济、就业、消费与房地产",
-    "中国公司、行业和商业机会",
+    "中国公司、行业、职业迁移和商业机会",
     "国内人工智能、互联网与先进制造",
     "社会与民生趋势",
     "教育、医疗和人口变化",
@@ -35,7 +87,8 @@
     "同一事件只保留信息最完整或最接近一手来源的一条",
     "不允许单一信息源或单一分类占据整份简报",
     "国际信息只保留重大事件、前沿突破或会影响中国的变化",
-    "关注城市存在合格候选时，每个城市至少保留两条；优先政策、公共服务、就业、住房、教育、医疗、交通、安全和产业变化，降低例行会议、表态、庆典和人事消息的优先级",
+    "前端开发和 UI 设计只作为能力迁移的起点，不把职业机会限制在当前岗位；每天优先选择一至两条相邻领域机会和两至三条陌生领域机会",
+    "关注城市总计保留四至六条；杭州、衢州、伊春存在合格候选时各至少一条，优先政策、公共服务、就业、住房、教育、医疗、交通、安全和产业变化，降低例行会议、表态、庆典和人事消息的优先级",
     "不因立场或情绪强烈而提高评分"
   ],
   "explorationRatio": 0.15

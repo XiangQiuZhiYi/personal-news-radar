@@ -46,7 +46,9 @@ function visibleItems() {
     return activeCategory === "全部" ? cityItems : cityItems.filter((item) => item.city === activeCategory);
   }
   const viewItems = activeView === "today" ? items.filter((item) => !item.city) : items;
-  return activeCategory === "全部" ? viewItems : viewItems.filter((item) => item.category === activeCategory);
+  return activeCategory === "全部"
+    ? viewItems
+    : viewItems.filter((item) => (item.contentSection ?? item.category) === activeCategory);
 }
 
 function highlightSpeakingItem(itemId) {
@@ -143,7 +145,7 @@ function renderFilters() {
     : digest.items ?? [];
   const categories = activeView === "cities"
     ? ["全部", ...followedCities]
-    : ["全部", ...new Set(categoryItems.map((item) => item.category))];
+    : ["全部", ...new Set(categoryItems.map((item) => item.contentSection ?? item.category))];
   filters.innerHTML = categories.map((category) => `
     <button class="filter ${category === activeCategory ? "active" : ""}" data-category="${escapeHtml(category)}">
       ${escapeHtml(category)}
@@ -209,6 +211,7 @@ function renderFeed() {
     <article class="card" data-item-id="${escapeHtml(key)}">
       <div class="card-top">
         <span class="badge ${item.importance === "必读" ? "must" : ""}">${escapeHtml(item.importance)}</span>
+        ${item.contentSection ? `<span class="badge section-badge">${escapeHtml(item.contentSection)}</span>` : ""}
         ${item.city ? `<span class="badge city-badge">${escapeHtml(item.city)} · ${escapeHtml(item.cityKind || "本地")}</span>` : ""}
         <span>${escapeHtml(item.category)}</span>
         <span>·</span>
@@ -252,10 +255,12 @@ function renderStats() {
     return;
   }
   if (digest.version === 2) {
+    const sectionOrder = ["职业/收入/技术", "国家级", "实用提醒", "国际", "热点"];
+    const visibleSections = sectionOrder
+      .map((section) => `${section} ${(digest.items ?? []).filter((item) => item.contentSection === section).length} 条`);
     stats.innerHTML = [
       `${digest.stats?.totalItems ?? digest.items?.length ?? 0} 条累计`,
-      `国内 ${digest.stats?.domesticItems ?? 0} 条`,
-      `国际 ${digest.stats?.internationalItems ?? 0} 条`,
+      ...visibleSections,
       `当日整理 ${digest.stats?.refreshCount ?? 0} 次`
     ].map((value) => `<span>${escapeHtml(value)}</span>`).join("");
     return;
@@ -263,9 +268,7 @@ function renderStats() {
   stats.innerHTML = [
     `${digest.stats?.sources ?? 0} 个信息源`,
     `${digest.stats?.candidates ?? 0} 条候选`,
-    `综合精选 ${(digest.items ?? []).filter((item) => !item.city).length} 条`,
-    `关注城市 ${digest.stats?.citySelected ?? (digest.items ?? []).filter((item) => item.city).length} 条`,
-    `国内 ${digest.stats?.domesticSelected ?? 0} 条`
+    ...Object.entries(digest.stats?.sections ?? {}).map(([section, count]) => `${section} ${count} 条`)
   ].map((value) => `<span>${escapeHtml(value)}</span>`).join("");
 }
 

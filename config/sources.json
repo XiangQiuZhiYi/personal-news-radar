@@ -48,10 +48,27 @@
       "enabled": true
     },
     {
-      "name": "36氪",
-      "url": "https://36kr.com/feed",
-      "categoryHint": "国内商业、公司与创业",
+      "name": "爱范儿",
+      "url": "https://www.ifanr.com/feed",
+      "categoryHint": "国内科技、商业、产品与消费趋势",
       "region": "domestic",
+      "maxItems": 12,
+      "enabled": true
+    },
+    {
+      "name": "开源中国",
+      "url": "https://www.oschina.net/news/rss",
+      "categoryHint": "国内开源生态、开发者需求与技术产业",
+      "region": "domestic",
+      "maxItems": 10,
+      "enabled": true
+    },
+    {
+      "name": "人人都是产品经理",
+      "url": "https://www.woshipm.com/feed",
+      "categoryHint": "国内产品、设计、数字服务与商业方法",
+      "region": "domestic",
+      "maxItems": 6,
       "enabled": true
     },
     {
@@ -66,6 +83,26 @@
       "url": "https://sspai.com/feed",
       "categoryHint": "国内数字生活与效率工具",
       "region": "domestic",
+      "enabled": true
+    },
+    {
+      "name": "教育部新闻发布",
+      "url": "https://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/index.html",
+      "format": "html",
+      "categoryHint": "全国教育、就业活动、考试与办事提醒",
+      "region": "domestic",
+      "sinceHours": 720,
+      "maxItems": 12,
+      "enabled": true
+    },
+    {
+      "name": "应急管理部通知公告",
+      "url": "https://www.mem.gov.cn/gk/tzgg/",
+      "format": "html",
+      "categoryHint": "全国安全生产、灾害风险与应急提醒",
+      "region": "domestic",
+      "sinceHours": 720,
+      "maxItems": 12,
       "enabled": true
     },
     {

@@ -18,6 +18,8 @@ test("静态页面提供城市、日期、单条朗读和浏览器收藏", async
   assert.match(app, /data-rate-item/);
   assert.match(app, /data-favorite-item/);
   assert.match(app, /<time class="card-date"/);
+  assert.match(app, /badge section-badge/);
+  assert.match(app, /item\.contentSection \?\? item\.category/);
   assert.match(app, /\.\/data\/latest\.json/);
   assert.doesNotMatch(app, /\.\/api\//);
   assert.match(app, /saveFavoriteItem\(browserStorage\(\)/);

@@ -213,6 +213,7 @@ h1 {
 }
 
 .badge.must { color: var(--must); background: #f4ded9; }
+.badge.section-badge { color: #3e4f78; background: #e7ebf5; }
 .badge.city-badge { color: #76510e; background: #f4e9c9; }
 
 .card h2 {

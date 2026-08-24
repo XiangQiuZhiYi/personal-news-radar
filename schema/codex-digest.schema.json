@@ -11,6 +11,11 @@
         "type": "object",
         "properties": {
           "candidateId": { "type": "string" },
+          "contentSection": {
+            "type": "string",
+            "enum": ["关注城市", "职业/收入/技术", "国家级", "实用提醒", "国际", "热点"],
+            "description": "互斥的每日内容板块，每条信息只能归入一个板块"
+          },
           "category": {
             "type": "string",
             "enum": ["人工智能", "科技", "商业", "经济", "政策", "科学", "国际", "社会", "其他"]
@@ -82,6 +87,7 @@
         },
         "required": [
           "candidateId",
+          "contentSection",
           "category",
           "score",
           "importance",

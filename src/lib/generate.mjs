@@ -70,15 +70,22 @@ export async function generateDigest({
   }
 
   const completedAt = now();
+  const sectionLimits = Object.fromEntries(
+    (preferences.sectionTargets ?? []).map((target) => [target.section, target.maxItems])
+  );
   const digest = mergeCodexResult(collected.items, codexResult, {
     generatedAt: completedAt.toISOString(),
     date,
     sourceCount: collected.sourceCount,
     errors: collected.errors,
     maxSelectedPerSource: preferences.maxSelectedPerSource,
+    maxSelectedBySource: preferences.maxSelectedBySource,
     maxSelectedPerCategory: preferences.maxSelectedPerCategory,
     maxSelectedPerCity: preferences.maxSelectedPerCity,
-    maxInternationalItems: preferences.maxInternationalItems
+    maxInternationalItems: preferences.maxInternationalItems,
+    maxAdjacentOpportunityItems: preferences.careerOpportunity?.maxAdjacentItems,
+    maxUnfamiliarOpportunityItems: preferences.careerOpportunity?.maxUnfamiliarItems,
+    sectionLimits
   });
   const run = {
     id: runId,

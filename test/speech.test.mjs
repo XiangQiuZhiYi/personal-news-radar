@@ -136,6 +136,15 @@ test("停止或开始新播放后旧发话事件不会继续队列", () => {
 test("Codex Schema 要求结构化的普通人影响分析", async () => {
   const schema = JSON.parse(await readFile(new URL("../schema/codex-digest.schema.json", import.meta.url), "utf8"));
   const itemSchema = schema.properties.items.items;
+  assert.ok(itemSchema.required.includes("contentSection"));
+  assert.deepEqual(itemSchema.properties.contentSection.enum, [
+    "关注城市",
+    "职业/收入/技术",
+    "国家级",
+    "实用提醒",
+    "国际",
+    "热点"
+  ]);
   assert.ok(itemSchema.required.includes("impactForPeople"));
   assert.ok(itemSchema.required.includes("impactAnalysis"));
   assert.equal(itemSchema.properties.impactForPeople.type, "string");
